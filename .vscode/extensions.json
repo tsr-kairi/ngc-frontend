@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "wesbos.theme-cobalt2",
+    "mikestead.dotenv",
+    "github.remotehub",
+    "vscode-icons-team.vscode-icons",
+    "aaron-bond.better-comments"
+  ]
+}
