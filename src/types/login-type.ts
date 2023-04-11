@@ -31,5 +31,6 @@ interface User {
   email: string;
 }
 
-export { zLoginValidation, zForgotValidation, zResetPassword };
+export { zForgotValidation, zLoginValidation, zResetPassword };
 export type { User };
+

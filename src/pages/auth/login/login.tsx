@@ -1,24 +1,24 @@
 import { useState } from 'react';
 
 import {
-  Paper,
-  createStyles,
-  TextInput,
-  PasswordInput,
-  Checkbox,
-  Button,
-  Title,
-  MantineProvider,
-  Group,
-  Text,
-  Loader,
   Anchor,
+  Button,
+  Checkbox,
+  Group,
+  Loader,
+  MantineProvider,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+  createStyles,
 } from '@mantine/core';
 
 import Logo from '@/components/logo';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm, zodResolver } from '@mantine/form';
 import { zLoginValidation } from '@/types/login-type';
+import { useForm, zodResolver } from '@mantine/form';
+import { Link, useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
