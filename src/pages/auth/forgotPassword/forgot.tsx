@@ -8,12 +8,12 @@ import {
   Group,
   MantineProvider,
   Loader,
-} from '@mantine/core'
+} from '@mantine/core';
 
-import Logo from '@/components/logo'
-import { Link, useNavigate } from 'react-router-dom'
-import { useForm } from '@mantine/form'
-import { useState } from 'react'
+import Logo from '@/components/logo';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from '@mantine/form';
+import { useState } from 'react';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -97,14 +97,14 @@ const useStyles = createStyles((theme) => ({
       color: 'blue',
     },
   },
-}))
+}));
 type IForgotRequest = {
-  email: string
-}
+  email: string;
+};
 export function ForgotPassword() {
-  const navigate = useNavigate()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const { classes } = useStyles()
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { classes } = useStyles();
 
   const form = useForm<IForgotRequest>({
     initialValues: {
@@ -112,12 +112,12 @@ export function ForgotPassword() {
     },
     validateInputOnChange: true,
     clearInputErrorOnChange: true,
-  })
+  });
 
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.formMain} radius={0} p={30} px={80}>
-        <Link to={'/dashboard'}>
+        <Link to="/dashboard">
           <Logo />
         </Link>
         <form>
@@ -131,7 +131,7 @@ export function ForgotPassword() {
             >
               Forgot your <span className={classes.password}>Password</span>
             </Title>
-            <Text align="left" mb={40} color={'grey'}>
+            <Text align="left" mb={40} color="grey">
               Please enter your email to get a reset link.
             </Text>
 
@@ -145,7 +145,7 @@ export function ForgotPassword() {
               {...form.getInputProps('email')}
             />
             <Group grow mt={20} position="apart">
-              <Link className={classes.backPage} to={'/login'}>
+              <Link className={classes.backPage} to="/login">
                 Back to login page
               </Link>
               <MantineProvider
@@ -161,8 +161,8 @@ export function ForgotPassword() {
                   {!isSubmitting && 'Reset Password'}
                   {isSubmitting && (
                     <Text>
-                      Resetting{''}
-                      <Loader variant="dots" color={'white'} size="sm" />
+                      Resetting
+                      <Loader variant="dots" color="white" size="sm" />
                     </Text>
                   )}
                 </Button>
@@ -172,7 +172,7 @@ export function ForgotPassword() {
         </form>
       </Paper>
     </div>
-  )
+  );
 }
 
-export default ForgotPassword
+export default ForgotPassword;

@@ -8,13 +8,13 @@ import {
   MantineProvider,
   Text,
   Loader,
-} from '@mantine/core'
+} from '@mantine/core';
 
-import Logo from '@/components/logo'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useForm, zodResolver } from '@mantine/form'
-import { useMemo, useState } from 'react'
-import { zResetPassword } from '@/types/login-type'
+import Logo from '@/components/logo';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useForm, zodResolver } from '@mantine/form';
+import { useMemo, useState } from 'react';
+import { zResetPassword } from '@/types/login-type';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -101,24 +101,24 @@ const useStyles = createStyles((theme) => ({
     textDecoration: 'none',
     color: '#04334c',
   },
-}))
+}));
 type IResetRequest = {
-  password: string
-  confirm_password: string
-}
+  password: string;
+  confirm_password: string;
+};
 
 function useQuery() {
-  const { search } = useLocation()
+  const { search } = useLocation();
 
-  return useMemo(() => new URLSearchParams(search), [search])
+  return useMemo(() => new URLSearchParams(search), [search]);
 }
 
 export function ConfirmPassword() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const query = useQuery()
-  const navigate = useNavigate()
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const query = useQuery();
+  const navigate = useNavigate();
 
-  const { classes } = useStyles()
+  const { classes } = useStyles();
   const form = useForm<IResetRequest>({
     validate: zodResolver(zResetPassword),
     initialValues: {
@@ -127,12 +127,12 @@ export function ConfirmPassword() {
     },
     validateInputOnChange: true,
     clearInputErrorOnChange: true,
-  })
+  });
 
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.formMain} radius={0} p={30} px={80}>
-        <Link to={'/dashboard'}>
+        <Link to="/dashboard">
           <Logo />
         </Link>
         <form>
@@ -162,7 +162,7 @@ export function ConfirmPassword() {
               {...form.getInputProps('confirm_password')}
             />
             <Group grow mt={20} position="apart">
-              <Link className={classes.backPage} to={'/login'}>
+              <Link className={classes.backPage} to="/login">
                 Back to login page
               </Link>
               <MantineProvider
@@ -178,8 +178,8 @@ export function ConfirmPassword() {
                   {!isSubmitting && 'Submit'}
                   {isSubmitting && (
                     <Text>
-                      Submitting{''}
-                      <Loader variant="dots" color={'white'} size="sm" />
+                      Submitting
+                      <Loader variant="dots" color="white" size="sm" />
                     </Text>
                   )}
                 </Button>
@@ -189,9 +189,9 @@ export function ConfirmPassword() {
         </form>
       </Paper>
     </div>
-  )
+  );
 }
 
-export default ConfirmPassword
+export default ConfirmPassword;
 
 //  old confirm img link : https://img.freepik.com/free-vector/login-concept-illustration_114360-757.jpg?w=826&t=st=1660660487~exp=1660661087~hmac=25452a9c404715893a9a1fcb9a5cfc8056a60a06dae96319cdd8cca781672bbb

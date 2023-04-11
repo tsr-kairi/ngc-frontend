@@ -1,13 +1,13 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 const zLoginValidation = z.object({
-  email: z.string(), 
+  email: z.string(),
   password: z.string(),
-})
+});
 
 const zForgotValidation = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
-})
+});
 
 // reset password
 const zResetPassword = z
@@ -20,15 +20,16 @@ const zResetPassword = z
       ctx.addIssue({
         code: 'custom',
         message: 'The passwords did not match',
-      })
+      });
     }
-  })
+  });
 
-interface user {
-  id: number
-  first_name: string
-  last_name: string
-  email: string
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
 }
 
-export { zLoginValidation, zForgotValidation, zResetPassword, user }
+export { zLoginValidation, zForgotValidation, zResetPassword };
+export type { User };

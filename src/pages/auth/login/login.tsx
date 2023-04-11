@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react';
 
 import {
   Paper,
@@ -8,18 +8,17 @@ import {
   Checkbox,
   Button,
   Title,
-  Image,
   MantineProvider,
   Group,
   Text,
   Loader,
   Anchor,
-} from '@mantine/core'
+} from '@mantine/core';
 
-import Logo from '@/components/logo'
-import { Link, useNavigate } from 'react-router-dom'
-import { useForm, zodResolver } from '@mantine/form'
-import { zLoginValidation } from '@/types/login-type'
+import Logo from '@/components/logo';
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm, zodResolver } from '@mantine/form';
+import { zLoginValidation } from '@/types/login-type';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -114,25 +113,23 @@ const useStyles = createStyles((theme) => ({
       color: theme.colors.blue[8],
     },
   },
-}))
-
+}));
 
 // types
 type ILoginRequest = {
-  user_id: string
-  password: string
-}
+  user_id: string;
+  password: string;
+};
 
 export function Login() {
-  const { classes } = useStyles()
-  const navigate = useNavigate()
-
+  const { classes } = useStyles();
+  const navigate = useNavigate();
 
   // keep me login states
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('isLoggedIn') === 'false'
-  )
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false)
+  );
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
   const form = useForm<ILoginRequest>({
     validate: zodResolver(zLoginValidation),
@@ -142,7 +139,7 @@ export function Login() {
     },
     validateInputOnChange: true,
     clearInputErrorOnChange: true,
-  })
+  });
 
   // const handleSubmit = (
   //   values: ILoginRequest,
@@ -186,9 +183,9 @@ export function Login() {
     <div className={classes.wrapper}>
       <Paper className={classes.formMain} radius={0} p={30} px={80}>
         <form>
-          <Link to={'/dashboard'}>
+          <Link to="/dashboard">
             {/* <div className={classes.logoImg}> */}
-              <Logo />
+            <Logo />
             {/* </div> */}
           </Link>
           <Paper className={classes.formInner} radius={10}>
@@ -222,7 +219,7 @@ export function Login() {
               {...form.getInputProps('password')}
             />
 
-            <Group align={'center'} mt={20} position="apart">
+            <Group align="center" mt={20} position="apart">
               <Checkbox
                 checked={keepLoggedIn}
                 onChange={(event) => setKeepLoggedIn(event.target.checked)}
@@ -235,7 +232,7 @@ export function Login() {
 
               <Anchor
                 className={classes.forgotPage}
-                href={'/forgot-password'}
+                href="/forgot-password"
                 target="_blank"
                 weight={700}
                 color="#04334c"
@@ -261,7 +258,7 @@ export function Login() {
                   fullWidth
                   mt="xl"
                   color="indigo"
-                  rightIcon={<Loader variant="dots" size={'sm'} color="#fff" />}
+                  rightIcon={<Loader variant="dots" size="sm" color="#fff" />}
                 >
                   Log in
                 </Button>
@@ -282,8 +279,7 @@ export function Login() {
         </form>
       </Paper>
     </div>
-  )
+  );
 }
 
-export default Login
-
+export default Login;
