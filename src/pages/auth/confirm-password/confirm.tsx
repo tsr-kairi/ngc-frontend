@@ -1,20 +1,20 @@
 import {
-  Paper,
-  createStyles,
-  PasswordInput,
   Button,
-  Title,
   Group,
-  MantineProvider,
-  Text,
   Loader,
+  MantineProvider,
+  Paper,
+  PasswordInput,
+  Text,
+  Title,
+  createStyles,
 } from '@mantine/core';
 
 import Logo from '@/components/logo';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { zResetPassword } from '@/types/login-type';
 import { useForm, zodResolver } from '@mantine/form';
 import { useMemo, useState } from 'react';
-import { zResetPassword } from '@/types/login-type';
+import { Link, useLocation } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -36,10 +36,18 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     height: '100vh',
     width: `100%`,
-    backgroundColor: '#32415A',
+    backgroundColor: theme.colors.brand[9],
 
     [theme.fn.smallerThan('xl')]: {
-      width: '40%',
+      width: '100%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('lg')]: {
+      width: '100%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('sm')]: {
+      width: '100%',
       padding: '40px',
     },
     [theme.fn.smallerThan('xs')]: {
@@ -52,47 +60,39 @@ const useStyles = createStyles((theme) => ({
     width: '40%',
     margin: '0 auto',
     padding: 80,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.gray[0],
     marginTop: '140px',
 
     [theme.fn.smallerThan('xl')]: {
-      width: '100%',
+      width: '50%',
       padding: 30,
       marginTop: '70px',
+    },
+    [theme.fn.smallerThan('lg')]: {
+      width: '50%',
+      padding: 30,
+      marginTop: '70px',
+    },
+    [theme.fn.smallerThan('sm')]: {
+      width: '90%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('xs')]: {
+      width: '100%',
+      padding: '20px',
     },
   },
 
   title: {
-    color: theme.black,
+    color: theme.colors.gray[9],
     fontFamily: theme.fontFamily,
     fontSize: '1.4rem',
   },
   password: {
-    color: '#06E4D0',
+    color: theme.colors.accent[6],
     fontWeight: 700,
   },
-  confirmImg: {
-    width: '100%',
-    maxWidth: '50%',
-    height: '100vh',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-
-    [theme.fn.smallerThan('xs')]: {
-      display: 'none',
-    },
-  },
-  btn: {
-    backgroundColor: theme.colors.accent[9],
-    ':hover': {
-      backgroundColor: theme.colors.accent[8],
-      transition: 'all 0.6s ease-in-out',
-    },
-  },
   emailInput: {
-    // backgroundColor: theme.colors.blue[9],
     '::-ms-input-placeholder': {
       backgroundColor: theme.colors.blue[9],
     },
@@ -116,7 +116,6 @@ function useQuery() {
 export function ConfirmPassword() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const query = useQuery();
-  const navigate = useNavigate();
 
   const { classes } = useStyles();
   const form = useForm<IResetRequest>({
@@ -132,7 +131,7 @@ export function ConfirmPassword() {
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.formMain} radius={0} p={30} px={80}>
-        <Link to="/dashboard">
+        <Link to="/">
           <Logo />
         </Link>
         <form>
@@ -147,10 +146,11 @@ export function ConfirmPassword() {
               Confirm your <span className={classes.password}>Password</span>
             </Title>
             <PasswordInput
-              label="Password"
+              label="New Password"
               placeholder="★★★★★★★★"
               mt="md"
               size="md"
+              /* eslint-disable react/jsx-props-no-spreading */
               {...form.getInputProps('password')}
             />
             <PasswordInput
@@ -168,8 +168,8 @@ export function ConfirmPassword() {
               <MantineProvider
                 theme={{
                   defaultGradient: {
-                    from: '#06E4D0',
-                    to: '#06E4D0',
+                    from: '#F7CD5C',
+                    to: '#F6C745',
                     deg: 45,
                   },
                 }}
@@ -193,5 +193,3 @@ export function ConfirmPassword() {
 }
 
 export default ConfirmPassword;
-
-//  old confirm img link : https://img.freepik.com/free-vector/login-concept-illustration_114360-757.jpg?w=826&t=st=1660660487~exp=1660661087~hmac=25452a9c404715893a9a1fcb9a5cfc8056a60a06dae96319cdd8cca781672bbb

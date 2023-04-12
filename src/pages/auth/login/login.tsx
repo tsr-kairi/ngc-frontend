@@ -18,7 +18,7 @@ import {
 import Logo from '@/components/logo';
 import { zLoginValidation } from '@/types/login-type';
 import { useForm, zodResolver } from '@mantine/form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -40,10 +40,18 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     height: '100vh',
     width: `100%`,
-    backgroundColor: '#32415A',
+    backgroundColor: theme.colors.brand[9],
 
     [theme.fn.smallerThan('xl')]: {
-      width: '40%',
+      width: '100%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('lg')]: {
+      width: '100%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('sm')]: {
+      width: '100%',
       padding: '40px',
     },
     [theme.fn.smallerThan('xs')]: {
@@ -56,46 +64,37 @@ const useStyles = createStyles((theme) => ({
     width: '40%',
     margin: '0 auto',
     padding: 80,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.gray[0],
     marginTop: '140px',
 
     [theme.fn.smallerThan('xl')]: {
-      width: '100%',
+      width: '50%',
       padding: 30,
       marginTop: '70px',
+    },
+    [theme.fn.smallerThan('lg')]: {
+      width: '50%',
+      padding: 30,
+      marginTop: '70px',
+    },
+    [theme.fn.smallerThan('sm')]: {
+      width: '90%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('xs')]: {
+      width: '100%',
+      padding: '20px',
     },
   },
 
   title: {
-    color: theme.black,
+    color: theme.colors.gray[9],
     fontFamily: theme.fontFamily,
     fontSize: '1.4rem',
   },
   password: {
-    color: '#06E4D0',
+    color: theme.colors.accent[6],
     fontWeight: 700,
-  },
-
-  // login IMG
-  loginImg: {
-    width: '100%',
-    maxWidth: '50%',
-    height: '100vh',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-
-    [theme.fn.smallerThan('xs')]: {
-      display: 'none',
-    },
-  },
-  btn: {
-    backgroundColor: theme.colors.accent[9],
-    ':hover': {
-      backgroundColor: theme.colors.accent[8],
-      transition: 'all 0.6s ease-in-out',
-    },
   },
   userIdInput: {
     '::-ms-input-placeholder': {
@@ -117,15 +116,14 @@ const useStyles = createStyles((theme) => ({
 
 // types
 type ILoginRequest = {
-  user_id: string;
+  email: string;
   password: string;
 };
 
 export function Login() {
   const { classes } = useStyles();
-  const navigate = useNavigate();
 
-  // keep me login states
+  // TODO keep me login states
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('isLoggedIn') === 'false'
   );
@@ -134,59 +132,19 @@ export function Login() {
   const form = useForm<ILoginRequest>({
     validate: zodResolver(zLoginValidation),
     initialValues: {
-      user_id: '',
+      email: '',
       password: '',
     },
     validateInputOnChange: true,
     clearInputErrorOnChange: true,
   });
 
-  // const handleSubmit = (
-  //   values: ILoginRequest,
-  //   event: React.FormEvent<HTMLFormElement>
-  // ) => {
-  //   // keep me login
-  //   event.preventDefault()
-  //   login(values)
-  //     .then(() => {
-  //       navigate('/login')
-  //       // Success to Login toast
-  //       setTimeout(() => {
-  //         showNotification({
-  //           title: 'Log In Success!!',
-  //           message: 'You are successfully Logged In.',
-  //           color: 'green',
-  //         })
-  //       }, 1000)
-  //     })
-  //     .catch((error: AxiosError) => {
-  //       console.log(error)
-  //       navigate('/login')
-  //       // Failed to Login toast
-  //       setTimeout(() => {
-  //         showNotification({
-  //           title: 'Log In Failed!!',
-  //           message: 'There was some error.',
-  //           color: 'red',
-  //         })
-  //       }, 1000)
-  //     })
-
-  //   // keep me login
-  //   setIsLoggedIn(true)
-  //   if (keepLoggedIn) {
-  //     localStorage.setItem('isLoggedIn', 'true')
-  //   }
-  // }
-
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.formMain} radius={0} p={30} px={80}>
         <form>
-          <Link to="/dashboard">
-            {/* <div className={classes.logoImg}> */}
+          <Link to="/">
             <Logo />
-            {/* </div> */}
           </Link>
           <Paper className={classes.formInner} radius={10}>
             <Title
@@ -207,6 +165,7 @@ export function Login() {
               size="md"
               type="text"
               autoComplete="on"
+              /* eslint-disable react/jsx-props-no-spreading */
               {...form.getInputProps('email')}
             />
             <PasswordInput
@@ -215,7 +174,6 @@ export function Login() {
               autoComplete="on"
               mt="md"
               size="md"
-              // type="password"
               {...form.getInputProps('password')}
             />
 
@@ -244,8 +202,8 @@ export function Login() {
               inherit
               theme={{
                 defaultGradient: {
-                  from: '#06E4D0',
-                  to: '#06E4D0',
+                  from: '#F7CD5C',
+                  to: '#F6C745',
                   deg: 45,
                 },
               }}

@@ -1,19 +1,19 @@
 import {
-  Paper,
-  createStyles,
-  TextInput,
   Button,
-  Title,
-  Text,
   Group,
-  MantineProvider,
   Loader,
+  MantineProvider,
+  Paper,
+  Text,
+  TextInput,
+  Title,
+  createStyles,
 } from '@mantine/core';
 
 import Logo from '@/components/logo';
-import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -35,10 +35,18 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     height: '100vh',
     width: `100%`,
-    backgroundColor: '#32415A',
+    backgroundColor: theme.colors.brand[9],
 
     [theme.fn.smallerThan('xl')]: {
-      width: '40%',
+      width: '100%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('lg')]: {
+      width: '100%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('sm')]: {
+      width: '100%',
       padding: '40px',
     },
     [theme.fn.smallerThan('xs')]: {
@@ -51,44 +59,37 @@ const useStyles = createStyles((theme) => ({
     width: '40%',
     margin: '0 auto',
     padding: 80,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.gray[0],
     marginTop: '140px',
 
     [theme.fn.smallerThan('xl')]: {
-      width: '100%',
+      width: '50%',
       padding: 30,
       marginTop: '70px',
+    },
+    [theme.fn.smallerThan('lg')]: {
+      width: '50%',
+      padding: 30,
+      marginTop: '70px',
+    },
+    [theme.fn.smallerThan('sm')]: {
+      width: '90%',
+      padding: '40px',
+    },
+    [theme.fn.smallerThan('xs')]: {
+      width: '100%',
+      padding: '20px',
     },
   },
 
   title: {
-    color: theme.black,
+    color: theme.colors.gray[9],
     fontFamily: theme.fontFamily,
     fontSize: '1.4rem',
   },
   password: {
-    color: '#06E4D0',
+    color: theme.colors.accent[6],
     fontWeight: 700,
-  },
-  forgotImg: {
-    width: '100%',
-    maxWidth: '50%',
-    height: '100vh',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-
-    [theme.fn.smallerThan('xs')]: {
-      display: 'none',
-    },
-  },
-  btn: {
-    backgroundColor: theme.colors.accent[9],
-    ':hover': {
-      backgroundColor: theme.colors.accent[8],
-      transition: 'all 0.6s ease-in-out',
-    },
   },
   backPage: {
     textDecoration: 'none',
@@ -102,7 +103,6 @@ type IForgotRequest = {
   email: string;
 };
 export function ForgotPassword() {
-  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { classes } = useStyles();
 
@@ -117,7 +117,7 @@ export function ForgotPassword() {
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.formMain} radius={0} p={30} px={80}>
-        <Link to="/dashboard">
+        <Link to="/">
           <Logo />
         </Link>
         <form>
@@ -142,6 +142,7 @@ export function ForgotPassword() {
               mb={10}
               required
               type="email"
+              /* eslint-disable react/jsx-props-no-spreading */
               {...form.getInputProps('email')}
             />
             <Group grow mt={20} position="apart">
@@ -151,8 +152,8 @@ export function ForgotPassword() {
               <MantineProvider
                 theme={{
                   defaultGradient: {
-                    from: '#06E4D0',
-                    to: '#06E4D0',
+                    from: '#F7CD5C',
+                    to: '#F6C745',
                     deg: 45,
                   },
                 }}
