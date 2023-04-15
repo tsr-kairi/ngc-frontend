@@ -26,5 +26,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/extensions': 'off',
     'import/order': 'off',
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
 };

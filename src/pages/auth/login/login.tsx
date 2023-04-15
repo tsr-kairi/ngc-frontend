@@ -1,11 +1,8 @@
-import { useState } from 'react';
-
 import {
   Anchor,
   Button,
   Checkbox,
   Group,
-  Loader,
   MantineProvider,
   Paper,
   PasswordInput,
@@ -15,7 +12,7 @@ import {
   createStyles,
 } from '@mantine/core';
 
-import Logo from '@/components/logo';
+import Logo from '@/components/common/logo/LogoDark';
 import { zLoginValidation } from '@/types/login-type';
 import { useForm, zodResolver } from '@mantine/form';
 import { Link } from 'react-router-dom';
@@ -123,12 +120,6 @@ type ILoginRequest = {
 export function Login() {
   const { classes } = useStyles();
 
-  // TODO keep me login states
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem('isLoggedIn') === 'false'
-  );
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
-
   const form = useForm<ILoginRequest>({
     validate: zodResolver(zLoginValidation),
     initialValues: {
@@ -179,8 +170,6 @@ export function Login() {
 
             <Group align="center" mt={20} position="apart">
               <Checkbox
-                checked={keepLoggedIn}
-                onChange={(event) => setKeepLoggedIn(event.target.checked)}
                 label={
                   <Text className={classes.pointer}>Keep me logged in</Text>
                 }
@@ -208,30 +197,16 @@ export function Login() {
                 },
               }}
             >
-              {isLoggedIn ? (
-                <Button
-                  type="submit"
-                  variant="gradient"
-                  size="md"
-                  fullWidth
-                  mt="xl"
-                  color="indigo"
-                  rightIcon={<Loader variant="dots" size="sm" color="#fff" />}
-                >
-                  Log in
-                </Button>
-              ) : (
-                <Button
-                  type="submit"
-                  variant="gradient"
-                  size="md"
-                  fullWidth
-                  mt="xl"
-                  color="indigo"
-                >
-                  Log in
-                </Button>
-              )}
+              <Button
+                type="submit"
+                variant="gradient"
+                size="md"
+                fullWidth
+                mt="xl"
+                color="indigo"
+              >
+                Log in
+              </Button>
             </MantineProvider>
           </Paper>
         </form>

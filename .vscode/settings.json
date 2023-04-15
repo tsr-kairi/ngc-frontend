@@ -1,5 +1,14 @@
 {
-  "cSpell.words": ["brotli", "commitlint", "mantine", "stylelint", "tanstack"],
+  "cSpell.words": [
+    "brotli",
+    "commitlint",
+    "mantine",
+    "stylelint",
+    "tabler",
+    "tanstack",
+    "Timesheet",
+    "Trep"
+  ],
 
   // "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,

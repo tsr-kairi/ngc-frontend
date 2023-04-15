@@ -1,20 +1,17 @@
 import {
   Button,
   Group,
-  Loader,
   MantineProvider,
   Paper,
   PasswordInput,
-  Text,
   Title,
   createStyles,
 } from '@mantine/core';
 
-import Logo from '@/components/logo';
+import Logo from '@/components/common/logo/LogoDark';
 import { zResetPassword } from '@/types/login-type';
 import { useForm, zodResolver } from '@mantine/form';
-import { useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -107,16 +104,7 @@ type IResetRequest = {
   confirm_password: string;
 };
 
-function useQuery() {
-  const { search } = useLocation();
-
-  return useMemo(() => new URLSearchParams(search), [search]);
-}
-
 export function ConfirmPassword() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const query = useQuery();
-
   const { classes } = useStyles();
   const form = useForm<IResetRequest>({
     validate: zodResolver(zResetPassword),
@@ -175,13 +163,7 @@ export function ConfirmPassword() {
                 }}
               >
                 <Button variant="gradient" type="submit" size="md">
-                  {!isSubmitting && 'Submit'}
-                  {isSubmitting && (
-                    <Text>
-                      Submitting
-                      <Loader variant="dots" color="white" size="sm" />
-                    </Text>
-                  )}
+                  Submit
                 </Button>
               </MantineProvider>
             </Group>

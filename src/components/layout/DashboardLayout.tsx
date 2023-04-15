@@ -1,10 +1,13 @@
-import { AppShell, Navbar, Text } from '@mantine/core';
+import { AppShell } from '@mantine/core';
+import { useNetwork } from '@mantine/hooks';
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import DashboardHeader from '../ui/DashboardLayout/Header';
+import Navbar from '../ui/DashboardLayout/Navbar';
 
-function DashbordLayout() {
+function DashboardLayout() {
   const [opened, setOpened] = useState(false);
-  const [navbarOpen, setNavbarOpen] = useState(false);
+  const { online } = useNetwork();
   return (
     <AppShell
       styles={(theme) => ({
@@ -17,26 +20,30 @@ function DashbordLayout() {
       })}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      // navbar={
-      //   <DashboardNavbar
-      //     navbarOpen={navbarOpen}
-      //     setNavbarOpen={setNavbarOpen}
-      //   />
-      // }
       navbar={
-        <Navbar
-          p="md"
-          hiddenBreakpoint="sm"
-          hidden={!opened}
-          width={{ sm: 200, lg: 300 }}
-        >
-          <Text>Application navbar</Text>
-        </Navbar>
+        <div hidden={opened}>
+          <Navbar />
+        </div>
       }
       header={<DashboardHeader opened={opened} setOpened={setOpened} />}
     >
-      <Text>Protected pages gose here...</Text>
+      {online ? (
+        <div>
+          <Outlet />
+        </div>
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}
+        >
+          <p style={{ fontSize: '40px', opacity: 0.5 }}>You are offline</p>
+        </div>
+      )}
     </AppShell>
   );
 }
-export default DashbordLayout;
+export default DashboardLayout;
