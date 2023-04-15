@@ -1,9 +1,18 @@
-import Logo from '@/components/logo';
-import { Box, Burger, Header, MediaQuery, createStyles } from '@mantine/core';
+import NexGLogoDarkCRM from '@/components/common/logo/LogoDark';
+import NexGLogoLightCRM from '@/components/common/logo/LogoLight';
+import {
+  Box,
+  Burger,
+  Header,
+  MediaQuery,
+  createStyles,
+  useMantineColorScheme,
+} from '@mantine/core';
 import { Link } from 'react-router-dom';
 import ToggleThemeBtn from '../Buttons/ToggleThemeBtn';
+import UserProfileBtn from '../Buttons/UserProfileBtn';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   header: {
     display: 'flex',
     alignItems: 'center',
@@ -18,6 +27,8 @@ interface HeaderProps {
 
 function DashboardHeader({ opened, setOpened }: HeaderProps) {
   const { classes } = useStyles();
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
 
   return (
     <Header height={60} p="xl" className={classes.header}>
@@ -34,6 +45,7 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
             display: 'flex',
             alignItems: 'center',
             height: '100%',
+            gap: '40px',
           }}
         >
           <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
@@ -45,8 +57,9 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
             />
           </MediaQuery>
           <Link to="/">
-            <Logo />
+            {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
           </Link>
+          <ToggleThemeBtn />
         </Box>
       </Box>
       <Box
@@ -56,7 +69,11 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
           gap: '0.5rem',
         }}
       >
-        <ToggleThemeBtn />
+        <UserProfileBtn
+          name="Rabin Trep"
+          varient={dark ? 'desktop' : 'mobile'}
+        />
+        {/* <ToggleThemeBtn /> */}
       </Box>
     </Header>
   );

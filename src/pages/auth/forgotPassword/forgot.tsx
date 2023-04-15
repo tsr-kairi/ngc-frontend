@@ -1,7 +1,6 @@
 import {
   Button,
   Group,
-  Loader,
   MantineProvider,
   Paper,
   Text,
@@ -10,9 +9,8 @@ import {
   createStyles,
 } from '@mantine/core';
 
-import Logo from '@/components/logo';
+import Logo from '@/components/common/logo/LogoDark';
 import { useForm } from '@mantine/form';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
@@ -103,7 +101,6 @@ type IForgotRequest = {
   email: string;
 };
 export function ForgotPassword() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { classes } = useStyles();
 
   const form = useForm<IForgotRequest>({
@@ -159,13 +156,7 @@ export function ForgotPassword() {
                 }}
               >
                 <Button variant="gradient" type="submit" size="md">
-                  {!isSubmitting && 'Reset Password'}
-                  {isSubmitting && (
-                    <Text>
-                      Resetting
-                      <Loader variant="dots" color="white" size="sm" />
-                    </Text>
-                  )}
+                  Reset Password
                 </Button>
               </MantineProvider>
             </Group>

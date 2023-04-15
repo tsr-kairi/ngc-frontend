@@ -4,9 +4,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
-import DashBoard from './pages/client/dashboard';
+import DashBoard from './pages/dashboard';
+import EmployeeUserProfile from './pages/employee/employeeProfile';
 
-const DashbordLayout = React.lazy(
+const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
 );
 
@@ -20,8 +21,9 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/confirm-password" element={<ConfirmPassword />} />
           {/* Protected Routes */}
-          <Route element={<DashbordLayout />}>
+          <Route element={<DashboardLayout />}>
             <Route path="/" element={<DashBoard />} />
+            <Route path="/employee-profile" element={<EmployeeUserProfile />} />
           </Route>
         </Routes>
       </React.Suspense>
