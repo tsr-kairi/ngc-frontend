@@ -5,6 +5,7 @@ import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import DashBoard from './pages/dashboard';
+import Employee from './pages/employee';
 import EmployeeUserProfile from './pages/employee/employeeProfile';
 
 const DashboardLayout = React.lazy(
@@ -23,6 +24,7 @@ function App() {
           {/* Protected Routes */}
           <Route element={<DashboardLayout />}>
             <Route path="/" element={<DashBoard />} />
+            <Route path="/employee" element={<Employee />} />
             <Route path="/employee-profile" element={<EmployeeUserProfile />} />
           </Route>
         </Routes>

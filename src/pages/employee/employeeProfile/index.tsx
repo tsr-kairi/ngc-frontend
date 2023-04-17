@@ -18,6 +18,7 @@ import {
   IconDotsVertical,
 } from '@tabler/icons-react';
 
+import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import { useNavigate } from 'react-router-dom';
 import EmployeeUserProfileList from './employeeUserProfileList';
 
@@ -36,6 +37,16 @@ const useStyles = createStyles((theme) => ({
         ? theme.colors.dark[8]
         : theme.colors.dark[0],
   },
+  profileContent: {
+    display: 'flex',
+    flexDirection: `${!IsMobileScreen() ? 'inherit' : 'column'}`,
+    gap: '20px',
+  },
+  profileContentInner: {
+    display: 'flex',
+    textAlign: 'left',
+    gap: `${IsMobileScreen() ? '10px' : '20px'}`,
+  },
 }));
 export default function EmployeeUserProfile() {
   const { classes } = useStyles();
@@ -50,68 +61,65 @@ export default function EmployeeUserProfile() {
             justifyContent: 'space-between',
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              gap: '20px',
-            }}
-          >
+          <Box className={classes.profileContent}>
             <Avatar
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&usqp=CAU"
               size={100}
               radius={100}
               mx="auto"
             />
-            <Box
-              sx={{
-                textAlign: 'left',
-              }}
-            >
+            <Box className={classes.profileContentInner}>
               <Box
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
+                  textAlign: 'left',
                 }}
               >
-                <Text ta="left" fz="xl" weight={500}>
-                  Rabin Trep
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                  }}
+                >
+                  <Text ta="left" fz="xl" weight={500}>
+                    Rabin Trep
+                  </Text>
+                  <Badge radius="xs" color="green">
+                    Active
+                  </Badge>
+                </Box>
+                <Text ta="left" c="dimmed" fz="sm">
+                  Design Team | UI Designer
                 </Text>
-                <Badge radius="xs" color="green">
-                  Active
-                </Badge>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    marginLeft: '0',
+                  }}
+                >
+                  <ActionIcon variant="transparent">
+                    <IconBrandLinkedin size="1rem" />
+                  </ActionIcon>
+                  <ActionIcon variant="transparent">
+                    <IconBrandTwitter size="1rem" />
+                  </ActionIcon>
+                  <ActionIcon variant="transparent">
+                    <IconBrandInstagram size="1rem" />
+                  </ActionIcon>
+                </Box>
               </Box>
-              <Text ta="left" c="dimmed" fz="sm">
-                Design Team | UI Designer
-              </Text>
+              <Divider orientation="vertical" />
               <Box
-                sx={{
-                  display: 'flex',
-                  marginLeft: '0',
-                }}
+                sx={{ display: 'flex', flexDirection: 'column', gapX: '10px' }}
               >
-                <ActionIcon variant="transparent">
-                  <IconBrandLinkedin size="1rem" />
-                </ActionIcon>
-                <ActionIcon variant="transparent">
-                  <IconBrandTwitter size="1rem" />
-                </ActionIcon>
-                <ActionIcon variant="transparent">
-                  <IconBrandInstagram size="1rem" />
-                </ActionIcon>
-              </Box>
-            </Box>
-            <Divider orientation="vertical" />
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column', gapX: '10px' }}
-            >
-              <Box sx={{ display: 'flex', gap: '10px' }}>
-                <Text c="dimmed">Date of joining :</Text>
-                <Text fw={500}>02/12/2020</Text>
-              </Box>
-              <Box sx={{ display: 'flex', gap: '10px' }}>
-                <Text c="dimmed">Reported To :</Text>
-                <Text fw={500}>Ravish Jain</Text>
+                <Box sx={{ display: 'flex', gap: '10px' }}>
+                  <Text c="dimmed">Date of joining :</Text>
+                  <Text fw={500}>02/12/2020</Text>
+                </Box>
+                <Box sx={{ display: 'flex', gap: '10px' }}>
+                  <Text c="dimmed">Reported To :</Text>
+                  <Text fw={500}>Ravish Jain</Text>
+                </Box>
               </Box>
             </Box>
           </Box>

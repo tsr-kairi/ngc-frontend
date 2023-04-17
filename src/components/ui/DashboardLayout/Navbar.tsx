@@ -74,12 +74,16 @@ const data = [
   {
     icon: IconUser,
     label: 'Employee',
-    rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
+    href: '/employee',
+  },
+  {
+    icon: IconActivity,
+    label: 'Activity',
     links: [
       {
         icon: IconUserPlus,
-        label: 'Employee Profile',
-        href: '/employee-profile',
+        label: 'Personal',
+        href: '/',
       },
       {
         icon: IconBrandBlogger,
@@ -87,8 +91,8 @@ const data = [
         href: '/',
       },
     ],
+    rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
   },
-  { icon: IconActivity, label: 'Activity', href: '/' },
   { icon: IconCalendarTime, label: 'Timesheet', href: '/' },
 ];
 
