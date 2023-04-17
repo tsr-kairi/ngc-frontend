@@ -48,9 +48,6 @@ const useStyles = createStyles((theme) => ({
 
 function Employee() {
   const [opened, setOpened] = useState(false);
-  const [userType, setUserType] = useState('internal');
-  const [activePage, setPage] = useState(1);
-  const [skip, setSkip] = useState(0);
   const [search, setSearch] = useState<string>('');
   const { classes } = useStyles();
 
@@ -228,9 +225,9 @@ function Employee() {
       <EmployeeTable />
       <Pagination
         // page={activePage}
-        onChange={(page) => {
-          setPage(page);
-          setSkip((page - 1) * 25);
+        onChange={() => {
+          // setPage(page);
+          // setSkip((page - 1) * 25);
         }}
         // total={usersData ? usersData.data.pages : 1}
         size="xs"

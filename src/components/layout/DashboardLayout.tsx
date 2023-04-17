@@ -8,8 +8,6 @@ import Navbar from '../ui/DashboardLayout/Navbar';
 function DashboardLayout() {
   const [opened, setOpened] = useState(false);
   const { online } = useNetwork();
-  const { colorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
   return (
     <AppShell
       styles={(theme) => ({
