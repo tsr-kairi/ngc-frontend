@@ -1,4 +1,4 @@
-import { AppShell, useMantineColorScheme } from '@mantine/core';
+import { AppShell } from '@mantine/core';
 import { useNetwork } from '@mantine/hooks';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
