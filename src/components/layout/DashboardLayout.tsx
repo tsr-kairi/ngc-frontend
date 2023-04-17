@@ -1,4 +1,4 @@
-import { AppShell } from '@mantine/core';
+import { AppShell, useMantineColorScheme } from '@mantine/core';
 import { useNetwork } from '@mantine/hooks';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -8,6 +8,8 @@ import Navbar from '../ui/DashboardLayout/Navbar';
 function DashboardLayout() {
   const [opened, setOpened] = useState(false);
   const { online } = useNetwork();
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
   return (
     <AppShell
       styles={(theme) => ({

@@ -1,5 +1,6 @@
 import NexGLogoDarkCRM from '@/components/common/logo/LogoDark';
 import NexGLogoLightCRM from '@/components/common/logo/LogoLight';
+import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import {
   Box,
   Burger,
@@ -45,7 +46,7 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
             display: 'flex',
             alignItems: 'center',
             height: '100%',
-            gap: '40px',
+            gap: `${!IsMobileScreen() ? '40px' : '0px'}`,
           }}
         >
           <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
@@ -59,7 +60,7 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
           <Link to="/">
             {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
           </Link>
-          <ToggleThemeBtn />
+          {!IsMobileScreen() && <ToggleThemeBtn />}
         </Box>
       </Box>
       <Box
@@ -69,11 +70,8 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
           gap: '0.5rem',
         }}
       >
-        <UserProfileBtn
-          name="Rabin Trep"
-          varient={dark ? 'desktop' : 'mobile'}
-        />
-        {/* <ToggleThemeBtn /> */}
+        <UserProfileBtn />
+        {IsMobileScreen() && <ToggleThemeBtn />}
       </Box>
     </Header>
   );
