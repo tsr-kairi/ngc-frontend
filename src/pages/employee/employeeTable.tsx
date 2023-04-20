@@ -1,8 +1,11 @@
 /* eslint-disable no-nested-ternary */
+import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import {
   ActionIcon,
   Avatar,
+  Checkbox,
   createStyles,
+  Drawer,
   Group,
   ScrollArea,
   Table,
@@ -10,15 +13,35 @@ import {
   Tooltip,
 } from '@mantine/core';
 import {
+  IconAddressBookOff,
   IconChecks,
   IconCircleDotted,
   IconEdit,
   IconEditOff,
   IconPlayerPause,
 } from '@tabler/icons-react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import OffBoardNewEmployee from '../../components/form/employee/offboardEmployee';
 
 const useStyles = createStyles((theme) => ({
+  table: {
+    backgroundColor:
+      theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+    borderRadius: 5,
+    '@media (max-width: 755px)': {
+      minWidth: 1200,
+    },
+    border: `1px solid ${
+      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.dark[2]
+    }`,
+  },
+  drawer: {
+    overflowY: 'scroll',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
   rowSelected: {
     backgroundColor:
       theme.colorScheme === 'dark'
@@ -56,8 +79,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function EmployeeTable() {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
   const navigate = useNavigate();
+  const [opened, setOpened] = useState(false);
 
   const avatarColors = [
     'red',
@@ -72,7 +96,7 @@ function EmployeeTable() {
   ];
   const elements = [
     {
-      uuid: 'ggfg7f7fgfgf8g--gfgf77',
+      uuid: 'ggfg7f7fgfgf8g--ytyty',
       lastUpdate: 'Jun 07 2022, 18:27',
       firstName: 'Ravin',
       lastName: 'Trep',
@@ -94,7 +118,7 @@ function EmployeeTable() {
       },
     },
     {
-      uuid: 'ggfg7f7fgfgf8g--gfgf77',
+      uuid: 'ggfg7f7fgfgf8g--fgfgf',
       lastUpdate: 'Jun 07 2022, 18:27',
       firstName: 'Ravin',
       lastName: 'Trep',
@@ -105,7 +129,7 @@ function EmployeeTable() {
       },
     },
     {
-      uuid: 'ggfg7f7fgfgf8g--gfgf77',
+      uuid: 'ggfg7f7fgfgf8g--sds',
       lastUpdate: 'Jun 07 2022, 18:27',
       firstName: 'Ravin',
       lastName: 'Trep',
@@ -116,7 +140,7 @@ function EmployeeTable() {
       },
     },
     {
-      uuid: 'ggfg7f7fgfgf8g--gfgf77',
+      uuid: 'ggfg7f7fgfgf8g--dsds',
       lastUpdate: 'Jun 07 2022, 18:27',
       firstName: 'Ravin',
       lastName: 'Trep',
@@ -133,9 +157,25 @@ function EmployeeTable() {
     return `${firstName[0]}${lastName[0]}`;
   };
 
+  // selected Checkbox
+  const [selection, setSelection] = useState(['1']);
+  const toggleRow = (uuid: string) =>
+    setSelection((current) =>
+      current.includes(uuid)
+        ? current.filter((item) => item !== uuid)
+        : [...current, uuid]
+    );
+  const toggleAll = () =>
+    setSelection((current) =>
+      current.length === elements.length
+        ? []
+        : elements.map((item) => item.uuid)
+    );
+
   const rows = elements.map((item) => {
+    const selected = selection.includes(item.uuid);
     return (
-      <tr key={item.uuid}>
+      <tr key={item.uuid} className={cx({ [classes.rowSelected]: selected })}>
         <td className={classes.tableRow}>{item.lastUpdate}</td>
         <td className={classes.tableRow}>
           <Group spacing="sm">
@@ -163,6 +203,13 @@ function EmployeeTable() {
           className={classes.tableRow}
         >
           {item.roles.name}
+        </td>
+        <td className={classes.tableRow}>
+          <Checkbox
+            checked={selection.includes(item.uuid)}
+            onChange={() => toggleRow(item.uuid)}
+            transitionDuration={0}
+          />
         </td>
         <td className={classes.tableRow}>
           {item.roles.name === 'SUPER-ADMIN' ? (
@@ -203,6 +250,16 @@ function EmployeeTable() {
                 </ActionIcon>
               </Tooltip>
             )}
+            <Tooltip
+              label="OffBoard Employee"
+              withArrow
+              color="gray"
+              onClick={() => setOpened(true)}
+            >
+              <ActionIcon color="blue">
+                <IconAddressBookOff size={18} />
+              </ActionIcon>
+            </Tooltip>
           </Group>
         </td>
       </tr>
@@ -216,21 +273,9 @@ function EmployeeTable() {
       <Table
         horizontalSpacing="xs"
         verticalSpacing={5}
-        sx={(theme) => ({
-          backgroundColor:
-            theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
-          borderRadius: 5,
-          '@media (max-width: 755px)': {
-            minWidth: 1200,
-          },
-          border: `1px solid ${
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[5]
-              : theme.colors.dark[2]
-          }`,
-        })}
         highlightOnHover
         fontSize="xs"
+        className={classes.table}
       >
         <thead className={classes.header}>
           <tr>
@@ -239,12 +284,35 @@ function EmployeeTable() {
             <th>Email</th>
             <th>Phone</th>
             <th>Roles</th>
+            <th style={{ display: 'flex', gap: '10px' }}>
+              Is Active
+              <Checkbox
+                onChange={toggleAll}
+                checked={selection.length === elements.length}
+                indeterminate={
+                  selection.length > 0 && selection.length !== elements.length
+                }
+                transitionDuration={0}
+              />
+            </th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
       </Table>
+      {/* offBoard employee drawer */}
+      <Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="OffBoard Employee"
+        padding="md"
+        size={IsMobileScreen() ? 'xl' : 'md'}
+        position="right"
+        className={classes.drawer}
+      >
+        <OffBoardNewEmployee setOpened={setOpened} />
+      </Drawer>
     </ScrollArea>
   );
 }
