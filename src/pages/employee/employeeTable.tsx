@@ -3,11 +3,11 @@ import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import {
   ActionIcon,
   Avatar,
-  Checkbox,
   createStyles,
   Drawer,
   Group,
   ScrollArea,
+  Switch,
   Table,
   Text,
   Tooltip,
@@ -82,6 +82,7 @@ function EmployeeTable() {
   const { classes, cx } = useStyles();
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
+  // const [resetChecked, setResetChecked] = useState(true);
 
   const avatarColors = [
     'red',
@@ -205,10 +206,10 @@ function EmployeeTable() {
           {item.roles.name}
         </td>
         <td className={classes.tableRow}>
-          <Checkbox
-            checked={selection.includes(item.uuid)}
-            onChange={() => toggleRow(item.uuid)}
-            transitionDuration={0}
+          <Switch
+            size="xs"
+            // checked={resetChecked}
+            // onChange={(event) => setResetChecked(event.currentTarget.checked)}
           />
         </td>
         <td className={classes.tableRow}>
@@ -284,17 +285,7 @@ function EmployeeTable() {
             <th>Email</th>
             <th>Phone</th>
             <th>Roles</th>
-            <th style={{ display: 'flex', gap: '10px' }}>
-              Is Active
-              <Checkbox
-                onChange={toggleAll}
-                checked={selection.length === elements.length}
-                indeterminate={
-                  selection.length > 0 && selection.length !== elements.length
-                }
-                transitionDuration={0}
-              />
-            </th>
+            <th style={{ display: 'flex', gap: '10px' }}>Is Active</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
