@@ -7,6 +7,7 @@ import { Login } from './pages/auth/login/login';
 import DashBoard from './pages/dashboard';
 import Employee from './pages/employee';
 import EmployeeUserProfile from './pages/employee/employeeProfile';
+import EmployeeOnboard from './pages/onboard/employeeOnboard';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<DashBoard />} />
             <Route path="/employee" element={<Employee />} />
             <Route path="/employee-profile" element={<EmployeeUserProfile />} />
+            <Route path="/emponboard" element={<EmployeeOnboard />} />
           </Route>
         </Routes>
       </React.Suspense>

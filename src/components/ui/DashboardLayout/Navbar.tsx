@@ -83,7 +83,7 @@ const data = [
       {
         icon: IconUserPlus,
         label: 'Personal',
-        href: '/',
+        href: '/emponboard',
       },
       {
         icon: IconBrandBlogger,

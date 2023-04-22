@@ -1,10 +1,12 @@
 import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import {
+  Badge,
   Box,
   Button,
   createStyles,
   Drawer,
   Pagination,
+  SegmentedControl,
   Text,
   TextInput,
 } from '@mantine/core';
@@ -12,7 +14,7 @@ import { getHotkeyHandler, useFocusWithin } from '@mantine/hooks';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import EmployeeTable from './employeeTable';
-import OnboardNewEmployee from './onboardNewEmployee';
+import OnboardNewEmployee from '@/components/form/employee/onboardNewEmployee';
 
 const useStyles = createStyles((theme) => ({
   drawer: {
@@ -49,6 +51,7 @@ const useStyles = createStyles((theme) => ({
 function Employee() {
   const [opened, setOpened] = useState(false);
   const [search, setSearch] = useState<string>('');
+  const [employeeType, setEmployeeType] = useState('internal');
   const { classes } = useStyles();
 
   const { ref, focused } = useFocusWithin();
@@ -97,21 +100,21 @@ function Employee() {
           <Text size={20} weight={500}>
             Employees
           </Text>
-          {/* {!IsMobileScreen() && (
+          {!IsMobileScreen() && (
             <SegmentedControl
               size="xs"
               color="blue"
               radius="xl"
               classNames={classes}
-              value={userType}
-              onChange={setUserType}
+              value={employeeType}
+              onChange={setEmployeeType}
               data={[
                 { label: 'Internal', value: 'internal' },
                 { label: 'External', value: 'external' },
                 { label: 'All', value: 'all' },
               ]}
             />
-          )} */}
+          )}
         </Box>
         <Box
           sx={{
@@ -168,7 +171,7 @@ function Employee() {
           onChange={handleChange}
         />
       )}
-      {/* {IsMobileScreen() && (
+      {IsMobileScreen() && (
         <Box
           sx={{
             display: 'flex',
@@ -178,7 +181,7 @@ function Employee() {
           }}
         >
           <Badge
-            variant={userType === 'all' ? 'filled' : 'outline'}
+            variant={employeeType === 'all' ? 'filled' : 'outline'}
             size="lg"
             sx={(theme) => ({
               cursor: 'pointer',
@@ -187,12 +190,12 @@ function Employee() {
                 color: 'white',
               },
             })}
-            onClick={() => setUserType('all')}
+            onClick={() => setEmployeeType('all')}
           >
             All
           </Badge>
           <Badge
-            variant={userType === 'internal' ? 'filled' : 'outline'}
+            variant={employeeType === 'internal' ? 'filled' : 'outline'}
             size="lg"
             sx={(theme) => ({
               cursor: 'pointer',
@@ -201,12 +204,12 @@ function Employee() {
                 color: 'white',
               },
             })}
-            onClick={() => setUserType('internal')}
+            onClick={() => setEmployeeType('internal')}
           >
             Internal
           </Badge>
           <Badge
-            variant={userType === 'external' ? 'filled' : 'outline'}
+            variant={employeeType === 'external' ? 'filled' : 'outline'}
             size="lg"
             sx={(theme) => ({
               cursor: 'pointer',
@@ -215,12 +218,12 @@ function Employee() {
                 color: 'white',
               },
             })}
-            onClick={() => setUserType('external')}
+            onClick={() => setEmployeeType('external')}
           >
             External
           </Badge>
         </Box>
-      )} */}
+      )}
 
       <EmployeeTable />
       <Pagination

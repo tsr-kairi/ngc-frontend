@@ -3,6 +3,7 @@
     "brotli",
     "commitlint",
     "mantine",
+    "offboard",
     "stylelint",
     "tabler",
     "tanstack",
