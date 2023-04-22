@@ -160,7 +160,6 @@ function EmployeeTable() {
 
   // selected Checkbox
   const rows = elements.map((item) => {
-    const selected = selection.includes(item.uuid);
     return (
       <tr key={item.uuid} className={cx({ [classes.rowSelected]: selected })}>
         <td className={classes.tableRow}>{item.lastUpdate}</td>
