@@ -159,20 +159,6 @@ function EmployeeTable() {
   };
 
   // selected Checkbox
-  const [selection, setSelection] = useState(['1']);
-  const toggleRow = (uuid: string) =>
-    setSelection((current) =>
-      current.includes(uuid)
-        ? current.filter((item) => item !== uuid)
-        : [...current, uuid]
-    );
-  const toggleAll = () =>
-    setSelection((current) =>
-      current.length === elements.length
-        ? []
-        : elements.map((item) => item.uuid)
-    );
-
   const rows = elements.map((item) => {
     const selected = selection.includes(item.uuid);
     return (
