@@ -79,7 +79,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function EmployeeTable() {
-  const { classes, cx } = useStyles();
+  const { classes } = useStyles();
   const navigate = useNavigate();
   const [opened, setOpened] = useState(false);
   // const [resetChecked, setResetChecked] = useState(true);
@@ -161,7 +161,7 @@ function EmployeeTable() {
   // selected Checkbox
   const rows = elements.map((item) => {
     return (
-      <tr key={item.uuid} className={cx({ [classes.rowSelected]: selected })}>
+      <tr key={item.uuid}>
         <td className={classes.tableRow}>{item.lastUpdate}</td>
         <td className={classes.tableRow}>
           <Group spacing="sm">
