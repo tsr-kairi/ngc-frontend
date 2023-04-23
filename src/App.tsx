@@ -5,9 +5,12 @@ import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import DashBoard from './pages/dashboard';
-import Employee from './pages/employee';
+// import Employee from './pages/employee';
 import EmployeeUserProfile from './pages/employee/employeeProfile';
 import EmployeeOnboard from './pages/onboard/employeeOnboard';
+import Employees from './pages/random/TS';
+import Employee from './pages/employee';
+import Timesheet from './pages/timesheet';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -25,7 +28,9 @@ function App() {
           {/* Protected Routes */}
           <Route element={<DashboardLayout />}>
             <Route path="/" element={<DashBoard />} />
+            <Route path="/employees" element={<Employees />} />
             <Route path="/employee" element={<Employee />} />
+            <Route path="/timesheet" element={<Timesheet />} />
             <Route path="/employee-profile" element={<EmployeeUserProfile />} />
             <Route path="/emponboard" element={<EmployeeOnboard />} />
           </Route>

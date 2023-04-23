@@ -985,7 +985,7 @@
   resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-2.15.0.tgz#2b39eba98fdf70fda62333b3847c0124361ea66d"
   integrity sha512-6fwWrsLOqmeoDPii4O1/tG1lsaNoPigUEx8UrOgTLJ81HazbAy5rfypp7FN9/PGsal4VDU+hevOkaGkE6algTQ==
 
-"@tanstack/match-sorter-utils@^8.7.0":
+"@tanstack/match-sorter-utils@8.8.4", "@tanstack/match-sorter-utils@^8.7.0":
   version "8.8.4"
   resolved "https://registry.yarnpkg.com/@tanstack/match-sorter-utils/-/match-sorter-utils-8.8.4.tgz#0b2864d8b7bac06a9f84cb903d405852cc40a457"
   integrity sha512-rKH8LjZiszWEvmi01NR72QWZ8m4xmXre0OOwlRGnjU01Eqz/QnN+cqpty2PJ0efHblq09+KilvyR7lsbzmXVEw==
@@ -1013,6 +1013,30 @@
   dependencies:
     "@tanstack/query-core" "4.29.1"
     use-sync-external-store "^1.2.0"
+
+"@tanstack/react-table@8.8.5":
+  version "8.8.5"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-table/-/react-table-8.8.5.tgz#d345fd855bb8067cd32b7a9b5231bdefd9cbde55"
+  integrity sha512-g/t21E/ICHvaCOJOhsDNr5QaB/6aDQEHFbx/YliwwU/CJThMqG+dS28vnToIBV/5MBgpeXoGRi2waDJVJlZrtg==
+  dependencies:
+    "@tanstack/table-core" "8.8.5"
+
+"@tanstack/react-virtual@3.0.0-beta.54":
+  version "3.0.0-beta.54"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.0.0-beta.54.tgz#755979455adf13f2584937204a3f38703e446037"
+  integrity sha512-D1mDMf4UPbrtHRZZriCly5bXTBMhylslm4dhcHqTtDJ6brQcgGmk8YD9JdWBGWfGSWPKoh2x1H3e7eh+hgPXtQ==
+  dependencies:
+    "@tanstack/virtual-core" "3.0.0-beta.54"
+
+"@tanstack/table-core@8.8.5":
+  version "8.8.5"
+  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.8.5.tgz#4d75b452a9989a273174df1b9249157292a15bd5"
+  integrity sha512-Xnwa1qxpgvSW7ozLiexmKp2PIYcLBiY/IizbdGriYCL6OOHuZ9baRhrrH51zjyz+61ly6K59rmt6AI/3RR+97Q==
+
+"@tanstack/virtual-core@3.0.0-beta.54":
+  version "3.0.0-beta.54"
+  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.0.0-beta.54.tgz#12259d007911ad9fce1388385c54a9141f4ecdc4"
+  integrity sha512-jtkwqdP2rY2iCCDVAFuaNBH3fiEi29aTn2RhtIoky8DTTiCdc48plpHHreLwmv1PICJ4AJUUESaq3xa8fZH8+g==
 
 "@testing-library/dom@^9.0.0":
   version "9.2.0"
@@ -3647,6 +3671,11 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+highlight-words@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/highlight-words/-/highlight-words-1.2.1.tgz#6de4194bb28fc647431859af7c50531bb93af80e"
+  integrity sha512-FtF50tuaaYathtSPFk5FwGf0Zex5iqNsTx/OsVM6mdsB3xqs5nM+PAoPWs/gIUxGF3/Qqu2v86sAUenTh6oL3Q==
+
 hoist-non-react-statics@^3.3.1:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
@@ -4562,6 +4591,16 @@ mantine-datatable@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/mantine-datatable/-/mantine-datatable-2.4.2.tgz#cb56ba832a22e31f8cd9af2e6e713a9b0c757d76"
   integrity sha512-B8EPjhqUZB7QgUqPu+6qjTod4lPWr77ef6UCsUXmK3nV9hSEe3xxYeWXS9puka1OCVRQg6iPIPlKwCpU32tQZA==
+
+mantine-react-table@^1.0.0-beta.3:
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/mantine-react-table/-/mantine-react-table-1.0.0-beta.3.tgz#38a6818eec77d04957cc36226377e7122368175c"
+  integrity sha512-iV8L8YTt0Y3vNCuX0T3p95Z95u/mqD3LWuQN+Ij2OIhV8tLpWXC/ZCnxOdKptczUl//SaHTfe5ZaVdttQNpieg==
+  dependencies:
+    "@tanstack/match-sorter-utils" "8.8.4"
+    "@tanstack/react-table" "8.8.5"
+    "@tanstack/react-virtual" "3.0.0-beta.54"
+    highlight-words "1.2.1"
 
 map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
