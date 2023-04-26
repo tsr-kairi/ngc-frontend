@@ -1,73 +1,189 @@
-import { ActionIcon, Box, Button, TextInput, Textarea } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Group,
+  TextInput,
+  Textarea,
+  Text,
+  Tooltip,
+} from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
-import { IconPlus } from '@tabler/icons-react';
+import { useForm } from '@mantine/form';
+import { randomId } from '@mantine/hooks';
+import { IconCalendar, IconPlus, IconTrash } from '@tabler/icons-react';
 import { FormEvent, useState } from 'react';
 
 function TimesheetForm({ setOpened }: { setOpened: (value: boolean) => void }) {
   const [loading, setLoading] = useState(false);
 
-  const handleOnboard = (e: FormEvent<HTMLFormElement>) => {
+  const form = useForm({
+    initialValues: {
+      timesheet: [
+        {
+          date: '',
+          hours: '',
+          total_hours: '',
+          task: '',
+          key: randomId(),
+        },
+      ],
+    },
+  });
+
+  const fields = form.values.timesheet.map((item, index) => (
+    <Group key={item.key} mt="xs">
+      <TextInput
+        type="text"
+        placeholder={`${index + 1}`}
+        variant="unstyled"
+        sx={{ width: '18px' }}
+      />
+      <TextInput
+        type="number"
+        placeholder="Total Hours"
+        withAsterisk
+        sx={{ flex: 0.3 }}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...form.getInputProps(`timesheet.${index}.hours`)}
+      />
+      <Textarea
+        size="xs"
+        autosize
+        withAsterisk
+        placeholder="Write your task..."
+        style={{ width: '350px' }}
+        sx={{ flex: 1 }}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...form.getInputProps(`timesheet.${index}.task`)}
+      />
+      <ActionIcon
+        color="red"
+        onClick={() => form.removeListItem('timesheet', index)}
+      >
+        <IconTrash size="1rem" />
+      </ActionIcon>
+    </Group>
+  ));
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
   };
   return (
-    <form
-      onSubmit={handleOnboard}
-      style={{
-        paddingTop: '1rem',
-        display: 'flex',
-        gap: '1rem',
-      }}
-    >
-      <DatePickerInput
-        placeholder="Pick a date"
-        modalProps={{ withinPortal: true }}
-      />
-      <TextInput type="number" placeholder="Total Hours" withAsterisk />
-      <Textarea
-        size="xs"
-        autosize
-        placeholder="Write your task..."
-        style={{ height: '200px' }}
-      />
-      <ActionIcon
-        // style={{
-        //   position: 'absolute',
-        //   right: '46px',
-        // }}
-        color="blue"
-        // onClick={addNewDoc}
-      >
-        <IconPlus size={40} />
-      </ActionIcon>
-      <Box
-        sx={(theme) => ({
-          position: 'absolute',
-          bottom: 0,
-          borderTop: `1px solid ${
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[5]
-              : theme.colors.gray[2]
-          }`,
-          padding: '1rem',
-          width: '95%',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          gap: '1rem',
-        })}
-      >
-        <Button
-          color="dark"
-          type="reset"
-          radius="xs"
-          variant="subtle"
-          onClick={() => setOpened(false)}
+    <form onSubmit={handleSubmit}>
+      <Box mt={10}>
+        {fields.length > 0 ? (
+          <>
+            <Group
+              mb="md"
+              sx={(theme) => ({
+                borderBottom: `1px solid ${
+                  theme.colorScheme === 'dark'
+                    ? theme.colors.dark[5]
+                    : theme.colors.gray[2]
+                }`,
+              })}
+            >
+              <Tooltip
+                position="right-start"
+                offset={-340}
+                withArrow
+                label="Pic a date"
+              >
+                <DatePickerInput
+                  icon={<IconCalendar size="1.1rem" stroke={1.5} />}
+                  modalProps={{ withinPortal: true }}
+                  sx={{
+                    transition: 'all 0.3s ease',
+                    flex: 0.5,
+                  }}
+                  variant="unstyled"
+                />
+              </Tooltip>
+            </Group>
+            <Group mb="xs">
+              <Text weight={500} size="sm" sx={{ flex: 1 }}>
+                #
+              </Text>
+              <Text weight={500} size="sm" sx={{ flex: 5 }}>
+                Hours
+              </Text>
+              <Text weight={500} size="sm" pr={300}>
+                Task
+              </Text>
+            </Group>
+          </>
+        ) : (
+          <Text color="dimmed" align="center">
+            No one here...
+          </Text>
+        )}
+        {fields}
+        <Group
+          position="center"
+          mt="md"
+          style={{ position: 'absolute', right: '0', top: '45px' }}
         >
-          Cancel
-        </Button>
-        <Button color="blue" loading={loading} type="submit" radius="xs">
-          Submit
-        </Button>
+          <Button
+            onClick={() =>
+              form.insertListItem('timesheet', {
+                date: '',
+                hours: '',
+                total_hours: '',
+                task: '',
+                key: randomId(),
+              })
+            }
+            variant="none"
+          >
+            <Tooltip
+              // color="lightblue"
+              position="left-start"
+              withArrow
+              label="Add new"
+            >
+              <ActionIcon color="sky">
+                <IconPlus size={40} />
+              </ActionIcon>
+            </Tooltip>
+          </Button>
+        </Group>
+        <Box
+          sx={(theme) => ({
+            position: 'absolute',
+            bottom: 0,
+            borderTop: `1px solid ${
+              theme.colorScheme === 'dark'
+                ? theme.colors.dark[5]
+                : theme.colors.gray[2]
+            }`,
+            padding: '1rem',
+            width: '95%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '1rem',
+          })}
+        >
+          <Group>
+            <Text>Total Hours : .00</Text>
+          </Group>
+          <Group>
+            <Button
+              color="dark"
+              type="reset"
+              radius="xs"
+              variant="subtle"
+              onClick={() => setOpened(false)}
+            >
+              Cancel
+            </Button>
+            <Button color="blue" loading={loading} type="submit" radius="xs">
+              Submit
+            </Button>
+          </Group>
+        </Box>
       </Box>
     </form>
   );

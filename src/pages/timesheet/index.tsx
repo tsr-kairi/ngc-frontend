@@ -1,27 +1,40 @@
+// lorem20
+
+import { useEffect, useMemo, useState } from 'react';
+
+// MRT Imports
+import {
+  MantineReactTable,
+  MRT_ColumnDef,
+  MRT_SortingState,
+} from 'mantine-react-table';
+
+// Mantine Imports
 import {
   ActionIcon,
-  Box,
   Button,
-  Text,
-  Group,
-  TextInput,
   createStyles,
   Drawer,
+  Menu,
+  Text,
+  Tooltip,
 } from '@mantine/core';
-import { IconEdit, IconPlus, IconSearch, IconTrash } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
-import { DataTable, DataTableSortStatus } from 'mantine-datatable';
-import { ChangeEvent, useEffect, useState } from 'react';
-import TimesheetData from './data';
+
+// Icons Imports
 import {
-  getHotkeyHandler,
-  useDebouncedValue,
-  useFocusWithin,
-} from '@mantine/hooks';
-import dayjs from 'dayjs';
+  IconEdit,
+  IconPlus,
+  IconTrash,
+  IconUserCircle,
+} from '@tabler/icons-react';
+
+// Mock Data
+// eslint-disable-next-line import/no-cycle
+import data from './mokdata';
 import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import TimesheetForm from '@/components/form/timesheet/createForm';
 
+// createStyles import
 const useStyles = createStyles(() => ({
   drawer: {
     overflowY: 'scroll',
@@ -31,79 +44,16 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const PAGE_SIZE = 7;
+export type TimesheetProps = {
+  date: string;
+  hours: string;
+  task: string;
+};
 
-export default function Timesheet() {
-  const [page, setPage] = useState(1);
-  const [records, setRecords] = useState(TimesheetData.slice(0, PAGE_SIZE));
-  const [query, setQuery] = useState('');
+function Timesheet() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [sorting, setSorting] = useState<MRT_SortingState>([]);
   const [opened, setOpened] = useState(false);
-  const [sortStatus, setSortStatus] = useState<DataTableSortStatus>({
-    columnAccessor: 'slNo',
-    direction: 'asc',
-  });
-  const { ref, focused } = useFocusWithin();
-
-  const [debouncedQuery] = useDebouncedValue(query, 200);
-
-  useEffect(() => {
-    setRecords(
-      records.filter(({ slNo, date, hours, task }) => {
-        if (
-          debouncedQuery !== '' &&
-          !`${slNo} ${date} ${hours} ${task}`
-            .toLowerCase()
-            .includes(debouncedQuery.trim().toLowerCase())
-        ) {
-          return false;
-        }
-        return true;
-      })
-    );
-  }, [debouncedQuery, records]);
-
-  useEffect(() => {
-    const from = (page - 1) * PAGE_SIZE;
-    const to = from + PAGE_SIZE;
-    setRecords(TimesheetData.slice(from, to));
-  }, [page]);
-
-  const handleSortStatusChange = (status: DataTableSortStatus) => {
-    setPage(1);
-    setSortStatus(status);
-  };
-
-  // search esc
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
-  useEffect(() => {
-    document.addEventListener(
-      'keydown',
-      (e) => {
-        if (e.key === 'Escape') {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          ref.current?.blur();
-        }
-        if (e.key === '/') {
-          e.preventDefault();
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          ref.current?.focus();
-        }
-      },
-      true
-    );
-  }, [ref]);
-  const handleClearSearch = () => {
-    setQuery('');
-  };
-
-  const { isFetching } = useQuery(
-    ['timesheet', sortStatus.columnAccessor, sortStatus.direction, page],
-    // async () => records({ recordsPerPage: PAGE_SIZE, page, sortStatus }),
-    { refetchOnWindowFocus: false }
-  );
 
   const {
     theme: {
@@ -113,171 +63,132 @@ export default function Timesheet() {
   } = useStyles();
   const aboveXsMediaQuery = `(min-width: ${xsBreakpoint})`;
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const columns = useMemo<MRT_ColumnDef<TimesheetProps>[]>(
+    () => [
+      {
+        id: 'employee', // id used to define `group` column
+        header: '',
+        columns: [
+          {
+            accessorFn: (row) => new Date(row.date),
+            id: 'date',
+            header: 'Date',
+            filterFn: 'lessThanOrEqualTo',
+            sortingFn: 'datetime',
+            visibleMediaQuery: aboveXsMediaQuery,
+            Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(),
+          },
+          {
+            accessorKey: 'hours',
+            header: 'Hours',
+            visibleMediaQuery: aboveXsMediaQuery,
+          },
+          {
+            accessorKey: 'task',
+            header: 'Task',
+            visibleMediaQuery: aboveXsMediaQuery,
+          },
+        ],
+      },
+    ],
+    []
+  );
+
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '20px',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <Text size={20} weight={500}>
-            Timesheet
-          </Text>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.25rem',
-          }}
-        >
-          {!IsMobileScreen() && (
-            <TextInput
-              placeholder={
-                focused ? 'Search for timesheet' : 'Search... (Press /)'
-              }
-              icon={<IconSearch size={14} stroke={1.5} />}
-              sx={{
-                width: focused ? '25rem' : '10rem',
-                transition: 'all 0.3s ease',
-              }}
-              ref={ref}
-              size="xs"
-              value={query}
-              onChange={handleChange}
-              radius="xl"
-              onKeyDown={getHotkeyHandler([['Escape', handleClearSearch]])}
-            />
-          )}
-          <Button
-            sx={(theme) => ({
-              backgroundColor: theme.colors.brand[9],
-            })}
-            leftIcon={<IconPlus size={14} />}
-            size="xs"
-            onClick={() => setOpened(true)}
-          >
-            Add new timesheet
-          </Button>
-        </Box>
-      </div>
-      {IsMobileScreen() && (
-        <TextInput
-          placeholder="Search for users"
-          my="sm"
-          icon={<IconSearch size={14} stroke={1.5} />}
-          ref={ref}
-          size="xs"
-          value={query}
-          onChange={handleChange}
-          radius="xl"
-          onKeyDown={getHotkeyHandler([['Escape', handleClearSearch]])}
-        />
+    <MantineReactTable
+      columns={columns}
+      data={data}
+      enableColumnFilterModes
+      enableBottomToolbar
+      enableColumnOrdering
+      enablePagination
+      enableGrouping
+      enablePinning
+      onSortingChange={setSorting}
+      state={{ isLoading, sorting }}
+      enableRowActions
+      enableRowNumbers
+      enableRowSelection
+      initialState={{ showColumnFilters: false }}
+      positionToolbarAlertBanner="bottom"
+      renderRowActionMenuItems={() => (
+        <>
+          <Menu.Item icon={<IconUserCircle />}>View Profile</Menu.Item>
+          <Menu.Item icon={<IconEdit />}>Edit Timesheet</Menu.Item>
+          <Menu.Item icon={<IconTrash />}>Delete Timesheet</Menu.Item>
+        </>
       )}
-      <DataTable
-        columns={[
-          {
-            accessor: 'slNo',
-            ellipsis: true,
-            sortable: true,
-          },
-          {
-            accessor: 'date',
-            ellipsis: true,
-            sortable: true,
-            visibleMediaQuery: aboveXsMediaQuery,
-            render: ({ date }) => dayjs(date).format('MMM DD YYYY'),
-          },
-          {
-            accessor: 'hours',
-            ellipsis: true,
-            sortable: true,
-            visibleMediaQuery: aboveXsMediaQuery,
-          },
-          {
-            accessor: 'task',
-            ellipsis: true,
-            sortable: true,
-            visibleMediaQuery: aboveXsMediaQuery,
-            // render: ({ birthDate }) => dayjs(birthDate).format('MMM DD YYYY'),
-          },
-          {
-            accessor: 'actions',
-            title: 'Action',
-            textAlignment: 'right',
-            render: () => (
-              <Group spacing={4} position="right" noWrap>
-                <ActionIcon
-                  color="blue"
-                  //   onClick={(e: MouseEvent) => {
-                  //     e.stopPropagation();
-                  //     editInfo(company);
-                  //   }}
-                >
-                  <IconEdit size={16} />
-                </ActionIcon>
-                <ActionIcon
-                  color="red"
-                  //   onClick={(e: MouseEvent) => {
-                  //     e.stopPropagation();
-                  //     deleteCompany(company);
-                  //   }}
-                >
-                  <IconTrash size={16} />
-                </ActionIcon>
-              </Group>
-            ),
-          },
-        ]}
-        records={records}
-        borderRadius="sm"
-        withBorder
-        highlightOnHover
-        verticalAlignment="top"
-        fetching={isFetching}
-        // ! pagination props
-        page={page}
-        totalRecords={TimesheetData.length}
-        recordsPerPage={PAGE_SIZE}
-        onPageChange={(p) => setPage(p)}
-        // ! sorting props
-        sortStatus={sortStatus}
-        onSortStatusChange={handleSortStatusChange}
-        loaderVariant="oval"
-        loaderSize="lg"
-        rowBorderColor={(theme) =>
-          theme.colorScheme === 'dark'
-            ? theme.colors.dark[6]
-            : theme.colors.gray[1]
-        }
-        borderColor={(theme) =>
-          theme.colorScheme === 'dark'
-            ? theme.colors.dark[5]
-            : theme.colors.gray[1]
-        }
-      />
-      {/* Timesheet Create Drawer */}
-      <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Add new timesheet"
-        padding="md"
-        size={IsMobileScreen() ? 'xl' : 'xl'}
-        position="right"
-        className={classes.drawer}
-      >
-        <TimesheetForm setOpened={setOpened} />
-      </Drawer>
-    </>
+      renderTopToolbarCustomActions={({ table }) => {
+        const handleDeactivate = () => {
+          // eslint-disable-next-line array-callback-return
+          table.getSelectedRowModel().flatRows.map((row) => {
+            // eslint-disable-next-line no-alert
+            alert(`deactivating ${row.getValue('name')}`);
+          });
+        };
+
+        const handleActivate = () => {
+          // eslint-disable-next-line array-callback-return
+          table.getSelectedRowModel().flatRows.map((row) => {
+            // eslint-disable-next-line no-alert
+            alert(`activating ${row.getValue('name')}`);
+          });
+        };
+
+        return (
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <Text size={20} weight={500}>
+              Timesheet
+            </Text>
+            <Tooltip zIndex="10000rem" withArrow label="Add new timesheet">
+              <ActionIcon variant="subtle" onClick={() => setOpened(true)}>
+                <IconPlus size="2rem" />
+              </ActionIcon>
+            </Tooltip>
+            <Button
+              color="red"
+              size="xs"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleDeactivate}
+              variant="filled"
+              sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
+            >
+              Deactivate
+            </Button>
+            <Button
+              color="green"
+              size="xs"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleActivate}
+              variant="filled"
+              sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
+            >
+              Activate
+            </Button>
+
+            {/* Timesheet Create Drawer */}
+            <Drawer
+              opened={opened}
+              onClose={() => setOpened(false)}
+              title="Add new timesheet"
+              padding="md"
+              size={IsMobileScreen() ? 'xl' : 'xl'}
+              position="right"
+              className={classes.drawer}
+            >
+              <TimesheetForm setOpened={setOpened} />
+            </Drawer>
+          </div>
+        );
+      }}
+    />
   );
 }
+
+export default Timesheet;
