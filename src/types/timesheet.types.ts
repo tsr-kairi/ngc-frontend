@@ -45,7 +45,7 @@ export type {
   TTimesheetWeeklyData,
   TTimesheetWeeklyDataFindAll,
   TTimesheetWeeklyDataCreateResponse,
-  TTimesheetWeeklyDataFindById
+  TTimesheetWeeklyDataFindById,
 };
 
 // TimesheetWeeklyData ZOD exports

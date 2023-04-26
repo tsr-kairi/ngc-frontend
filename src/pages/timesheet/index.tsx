@@ -97,7 +97,7 @@ function Timesheet() {
         ],
       },
     ],
-    []
+    [aboveXsMediaQuery]
   );
 
   return (

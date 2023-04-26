@@ -219,19 +219,19 @@ export default function Timesheet() {
               <Group spacing={4} position="right" noWrap>
                 <ActionIcon
                   color="blue"
-                //   onClick={(e: MouseEvent) => {
-                //     e.stopPropagation();
-                //     editInfo(company);
-                //   }}
+                  //   onClick={(e: MouseEvent) => {
+                  //     e.stopPropagation();
+                  //     editInfo(company);
+                  //   }}
                 >
                   <IconEdit size={16} />
                 </ActionIcon>
                 <ActionIcon
                   color="red"
-                //   onClick={(e: MouseEvent) => {
-                //     e.stopPropagation();
-                //     deleteCompany(company);
-                //   }}
+                  //   onClick={(e: MouseEvent) => {
+                  //     e.stopPropagation();
+                  //     deleteCompany(company);
+                  //   }}
                 >
                   <IconTrash size={16} />
                 </ActionIcon>
