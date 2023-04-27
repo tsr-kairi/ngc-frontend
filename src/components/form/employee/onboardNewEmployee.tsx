@@ -5,9 +5,9 @@ import { z } from 'zod';
 const emailType = z.string().email({ message: 'Invalid Email' });
 
 function OnboardNewEmployee({
-  setOpened,
+  setOpenedOnBoard,
 }: {
-  setOpened: (value: boolean) => void;
+  setOpenedOnBoard: (value: boolean) => void;
 }) {
   const [salutation, setSalutation] = useState<string>('MR');
   const [firstName, setFirstName] = useState('');
@@ -121,7 +121,7 @@ function OnboardNewEmployee({
           type="reset"
           radius="xs"
           variant="subtle"
-          onClick={() => setOpened(false)}
+          onClick={() => setOpenedOnBoard(false)}
         >
           Cancel
         </Button>

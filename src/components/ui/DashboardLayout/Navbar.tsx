@@ -88,12 +88,12 @@ const data = [
       {
         icon: IconBrandBlogger,
         label: 'Blog',
-        href: '/',
+        href: '/employees',
       },
     ],
     rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
   },
-  { icon: IconCalendarTime, label: 'Timesheet', href: '/' },
+  { icon: IconCalendarTime, label: 'Timesheet', href: '/timesheet' },
 ];
 
 export default function Navbar() {
