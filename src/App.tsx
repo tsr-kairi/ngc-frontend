@@ -9,7 +9,7 @@ import DashBoard from './pages/dashboard';
 import EmployeeUserProfile from './pages/employee/employeeProfile';
 import EmployeeOnboard from './pages/onboard/employeeOnboard';
 import Timesheet from './pages/timesheet';
-import Employee from './pages/employee/employeeTable';
+import Employee from './pages/employee';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')

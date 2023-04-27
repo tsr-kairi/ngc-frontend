@@ -145,7 +145,7 @@ function Timesheet() {
             <Text size={20} weight={500}>
               Timesheet
             </Text>
-            <Tooltip position='right' withArrow label="Add new timesheet">
+            <Tooltip position="right" withArrow label="Add new timesheet">
               <ActionIcon variant="subtle" onClick={() => setOpened(true)}>
                 <IconPlus size="2rem" />
               </ActionIcon>

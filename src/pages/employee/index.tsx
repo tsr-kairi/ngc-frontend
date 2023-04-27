@@ -1,245 +1,333 @@
-import IsMobileScreen from '@/hooks/useIsMobileScreen';
+// lorem20
+
+import { useEffect, useMemo, useState } from 'react';
+
+// MRT Imports
 import {
+  MantineReactTable,
+  MRT_ColumnDef,
+  MRT_SortingState,
+} from 'mantine-react-table';
+
+// Mantine Imports
+import {
+  ActionIcon,
   Badge,
-  Box,
   Button,
   createStyles,
+  Modal,
   Drawer,
-  Pagination,
+  Menu,
   SegmentedControl,
   Text,
-  TextInput,
+  Tooltip,
 } from '@mantine/core';
-import { getHotkeyHandler, useFocusWithin } from '@mantine/hooks';
-import { IconPlus, IconSearch } from '@tabler/icons-react';
-import { ChangeEvent, useEffect, useState } from 'react';
-import EmployeeTable from './employeeTable';
-import OnboardNewEmployee from '@/components/form/employee/onboardNewEmployee';
 
-const useStyles = createStyles((theme) => ({
+// Icons Imports
+import {
+  IconAddressBookOff,
+  IconEdit,
+  IconPlus,
+  IconTrash,
+  IconUsersPlus,
+  IconUserCircle,
+} from '@tabler/icons-react';
+
+// Mock Data
+// eslint-disable-next-line import/no-cycle
+import data from './mokdata';
+import IsMobileScreen from '@/hooks/useIsMobileScreen';
+import OnBoardNewEmployee from '../../components/form/employee/onboardNewEmployee';
+import OffBoardNewEmployee from '../../components/form/employee/offboardEmployee';
+// createStyles import
+const useStyles = createStyles(() => ({
   drawer: {
     overflowY: 'scroll',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
   },
-
-  root: {
-    backgroundColor:
-      theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-    border: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1]
-    }`,
-  },
-
-  active: {
-    backgroundImage: theme.fn.gradient({
-      from: theme.colors.brand[8],
-      to: theme.colors.brand[9],
-    }),
-  },
-
-  control: {
-    border: '0 !important',
-  },
-
-  labelActive: {
-    color: `${theme.white} !important`,
-  },
 }));
 
-function EmployeeTab() {
-  const [opened, setOpened] = useState(false);
-  const [search, setSearch] = useState<string>('');
-  const [employeeType, setEmployeeType] = useState('internal');
-  const { classes } = useStyles();
-
-  const { ref, focused } = useFocusWithin();
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
+export type EmployeeProps = {
+  uuid: string;
+  lastUpdate: string;
+  name: {
+    firstName: string;
+    lastName: string;
   };
+  email: string;
+  phone: string;
+  roles: string;
+};
+
+function Employee() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [sorting, setSorting] = useState<MRT_SortingState>([]);
+  const [openedOnBoard, setOpenedOnBoard] = useState(false);
+  const [openedOffBoard, setOpenedOffBoard] = useState(false);
+  const [employeeType, setEmployeeType] = useState('internal');
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+
+  const {
+    theme: {
+      breakpoints: { xs: xsBreakpoint },
+    },
+    classes,
+  } = useStyles();
+  const aboveXsMediaQuery = `(min-width: ${xsBreakpoint})`;
 
   useEffect(() => {
-    document.addEventListener(
-      'keydown',
-      (e) => {
-        if (e.key === 'Escape') {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          ref.current?.blur();
-        }
-        if (e.key === '/') {
-          e.preventDefault();
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          ref.current?.focus();
-        }
+    if (typeof window !== 'undefined') {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const columns = useMemo<MRT_ColumnDef<EmployeeProps>[]>(
+    () => [
+      {
+        accessorFn: (row) => new Date(row.lastUpdate),
+        id: 'lastUpdate',
+        header: 'Last Update',
+        filterFn: 'lessThanOrEqualTo',
+        sortingFn: 'datetime',
+        visibleMediaQuery: aboveXsMediaQuery,
+        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(),
       },
-      true
-    );
-  }, [ref]);
-  const handleClearSearch = () => {
-    setSearch('');
-  };
+      {
+        accessorFn: (row) => `${row.name.firstName} ${row.name.lastName}`,
+        accessorKey: 'name',
+        header: 'Name',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Phone',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'roles',
+        header: 'Roles',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+    ],
+    [aboveXsMediaQuery]
+  );
 
   return (
-    <div>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <Text size={20} weight={500}>
-            Employees
-          </Text>
-          {!IsMobileScreen() && (
-            <SegmentedControl
-              size="xs"
-              color="blue"
-              radius="xl"
-              classNames={classes}
-              value={employeeType}
-              onChange={setEmployeeType}
-              data={[
-                { label: 'Internal', value: 'internal' },
-                { label: 'External', value: 'external' },
-                { label: 'All', value: 'all' },
-              ]}
-            />
-          )}
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.25rem',
-          }}
-        >
-          {!IsMobileScreen() && (
-            <TextInput
-              placeholder={focused ? 'Search for users' : 'Search... (Press /)'}
-              icon={<IconSearch size={14} stroke={1.5} />}
-              sx={{
-                width: focused ? '25rem' : '10rem',
-                transition: 'all 0.3s ease',
-              }}
-              ref={ref}
-              size="xs"
-              value={search}
-              onChange={handleChange}
-              radius="xl"
-              onKeyDown={getHotkeyHandler([['Escape', handleClearSearch]])}
-            />
-          )}
-          <Button
-            sx={(theme) => ({
-              backgroundColor: theme.colors.brand[9],
-            })}
-            leftIcon={<IconPlus size={14} />}
-            size="xs"
-            onClick={() => setOpened(true)}
+    <MantineReactTable
+      columns={columns}
+      data={data}
+      enableColumnFilterModes
+      enableBottomToolbar
+      enableColumnOrdering
+      enablePagination
+      enableGrouping
+      enablePinning
+      enableRowVirtualization
+      onSortingChange={setSorting}
+      state={{ isLoading, sorting }}
+      enableRowActions
+      enableRowNumbers
+      enableRowSelection
+      initialState={{ showColumnFilters: false }}
+      positionToolbarAlertBanner="bottom"
+      editingMode="row"
+      enableEditing
+      enableStickyHeader
+      renderRowActionMenuItems={() => (
+        <>
+          <Menu.Item icon={<IconUserCircle />}>View Profile</Menu.Item>
+          <Menu.Item icon={<IconEdit />}>Edit Employee</Menu.Item>
+          <Menu.Item icon={<IconTrash />}>Delete Employee</Menu.Item>
+          <Menu.Item
+            onClick={() => setOpenedOffBoard(true)}
+            icon={<IconAddressBookOff />}
           >
-            Onboard New Employee
-          </Button>
-        </Box>
-      </div>
-      <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Onboard New Employee"
-        padding="md"
-        size={IsMobileScreen() ? 'xl' : 'md'}
-        position="right"
-        className={classes.drawer}
-      >
-        <OnboardNewEmployee setOpened={setOpened} />
-      </Drawer>
-      {IsMobileScreen() && (
-        <TextInput
-          placeholder="Search for users"
-          mt="sm"
-          icon={<IconSearch size={14} stroke={1.5} />}
-          value={search}
-          onChange={handleChange}
-        />
+            OffBoard Employee
+          </Menu.Item>
+        </>
       )}
-      {IsMobileScreen() && (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            marginTop: '0.5rem',
-          }}
-        >
-          <Badge
-            variant={employeeType === 'all' ? 'filled' : 'outline'}
-            size="lg"
-            sx={(theme) => ({
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: theme.colors.brand[4],
-                color: 'white',
-              },
-            })}
-            onClick={() => setEmployeeType('all')}
-          >
-            All
-          </Badge>
-          <Badge
-            variant={employeeType === 'internal' ? 'filled' : 'outline'}
-            size="lg"
-            sx={(theme) => ({
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: theme.colors.brand[4],
-                color: 'white',
-              },
-            })}
-            onClick={() => setEmployeeType('internal')}
-          >
-            Internal
-          </Badge>
-          <Badge
-            variant={employeeType === 'external' ? 'filled' : 'outline'}
-            size="lg"
-            sx={(theme) => ({
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: theme.colors.brand[4],
-                color: 'white',
-              },
-            })}
-            onClick={() => setEmployeeType('external')}
-          >
-            External
-          </Badge>
-        </Box>
-      )}
+      renderTopToolbarCustomActions={({ table }) => {
+        const handleDeactivate = () => {
+          // eslint-disable-next-line array-callback-return
+          table.getSelectedRowModel().flatRows.map((row) => {
+            // eslint-disable-next-line no-alert
+            alert(`deactivating ${row.getValue('name')}`);
+          });
+        };
 
-      <EmployeeTable />
-      <Pagination
-        // page={activePage}
-        onChange={() => {
-          // setPage(page);
-          // setSkip((page - 1) * 25);
-        }}
-        // total={usersData ? usersData.data.pages : 1}
-        size="xs"
-        position="right"
-        mt={5}
-        mb={-5}
-        total={0}
-      />
-    </div>
+        const handleActivate = () => {
+          // eslint-disable-next-line array-callback-return
+          table.getSelectedRowModel().flatRows.map((row) => {
+            // eslint-disable-next-line no-alert
+            alert(`activating ${row.getValue('name')}`);
+          });
+        };
+
+        return (
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <Text size={20} weight={500}>
+              Employee
+            </Text>
+            <Tooltip position="right" withArrow label="Onboard Employee">
+              <ActionIcon
+                variant="subtle"
+                onClick={() => setOpenedOnBoard(true)}
+              >
+                <IconPlus size="2rem" />
+              </ActionIcon>
+            </Tooltip>
+            {!IsMobileScreen() && (
+              <SegmentedControl
+                size="xs"
+                color="blue"
+                radius="xl"
+                value={employeeType}
+                onChange={setEmployeeType}
+                data={[
+                  { label: 'Internal', value: 'internal' },
+                  { label: 'External', value: 'external' },
+                  { label: 'All', value: 'all' },
+                ]}
+              />
+            )}
+            {IsMobileScreen() && (
+              <>
+                <Tooltip position="right" withArrow label="Change Employee">
+                  <ActionIcon
+                    variant="subtle"
+                    onClick={() => setCreateModalOpen(true)}
+                  >
+                    <IconUsersPlus cursor="pointer" />
+                  </ActionIcon>
+                </Tooltip>
+                <Modal
+                  title="Select Employee type"
+                  opened={createModalOpen}
+                  onClose={() => setCreateModalOpen(false)}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1rem',
+                      marginTop: '1rem',
+                    }}
+                  >
+                    <Badge
+                      variant={employeeType === 'all' ? 'filled' : 'outline'}
+                      size="lg"
+                      sx={(theme) => ({
+                        cursor: 'pointer',
+                        '&:hover': {
+                          backgroundColor: theme.colors.brand[4],
+                          color: 'white',
+                        },
+                      })}
+                      onClick={() => {
+                        setEmployeeType('all');
+                        setCreateModalOpen(false);
+                      }}
+                    >
+                      All
+                    </Badge>
+                    <Badge
+                      variant={
+                        employeeType === 'internal' ? 'filled' : 'outline'
+                      }
+                      size="lg"
+                      sx={(theme) => ({
+                        cursor: 'pointer',
+                        '&:hover': {
+                          backgroundColor: theme.colors.brand[4],
+                          color: 'white',
+                        },
+                      })}
+                      onClick={() => {
+                        setEmployeeType('internal');
+                        setCreateModalOpen(false);
+                      }}
+                    >
+                      Internal
+                    </Badge>
+                    <Badge
+                      variant={
+                        employeeType === 'external' ? 'filled' : 'outline'
+                      }
+                      size="lg"
+                      sx={(theme) => ({
+                        cursor: 'pointer',
+                        '&:hover': {
+                          backgroundColor: theme.colors.brand[4],
+                          color: 'white',
+                        },
+                      })}
+                      onClick={() => {
+                        setEmployeeType('external');
+                        setCreateModalOpen(false);
+                      }}
+                    >
+                      External
+                    </Badge>
+                  </div>
+                </Modal>
+              </>
+            )}
+            <Button
+              color="red"
+              size="xs"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleDeactivate}
+              variant="filled"
+              sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
+            >
+              Deactivate
+            </Button>
+            <Button
+              color="green"
+              size="xs"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleActivate}
+              variant="filled"
+              sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
+            >
+              Activate
+            </Button>
+
+            {/* Onboard Employee Create Drawer */}
+            <Drawer
+              opened={openedOnBoard}
+              onClose={() => setOpenedOnBoard(false)}
+              title="Onboard Employee"
+              padding="md"
+              size={IsMobileScreen() ? 'xl' : 'xl'}
+              position="right"
+              className={classes.drawer}
+            >
+              <OnBoardNewEmployee setOpenedOnBoard={setOpenedOnBoard} />
+            </Drawer>
+            {/* OffBoard Employee Create Drawer */}
+            <Drawer
+              opened={openedOffBoard}
+              onClose={() => setOpenedOffBoard(false)}
+              title="OffBoard Employee"
+              padding="md"
+              size={IsMobileScreen() ? 'xl' : 'xl'}
+              position="right"
+              className={classes.drawer}
+            >
+              <OffBoardNewEmployee setOpenedOffBoard={setOpenedOffBoard} />
+            </Drawer>
+          </div>
+        );
+      }}
+    />
   );
 }
 

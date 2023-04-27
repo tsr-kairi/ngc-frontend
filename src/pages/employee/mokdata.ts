@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { EmployeeProps } from './employeeTable';
+import { EmployeeProps } from './index';
 
 const data: EmployeeProps[] = [
   {
