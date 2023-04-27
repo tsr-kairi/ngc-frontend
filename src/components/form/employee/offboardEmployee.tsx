@@ -2,9 +2,9 @@ import { Box, Button, Select } from '@mantine/core';
 import { FormEvent, useState } from 'react';
 
 function OffBoardEmployee({
-  setOpened,
+  setOpenedOffBoard,
 }: {
-  setOpened: (value: boolean) => void;
+  setOpenedOffBoard: (value: boolean) => void;
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -62,7 +62,7 @@ function OffBoardEmployee({
           type="reset"
           radius="xs"
           variant="subtle"
-          onClick={() => setOpened(false)}
+          onClick={() => setOpenedOffBoard(false)}
         >
           Cancel
         </Button>

@@ -48,7 +48,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function Employee() {
+function EmployeeTab() {
   const [opened, setOpened] = useState(false);
   const [search, setSearch] = useState<string>('');
   const [employeeType, setEmployeeType] = useState('internal');

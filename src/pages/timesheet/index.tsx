@@ -72,29 +72,23 @@ function Timesheet() {
   const columns = useMemo<MRT_ColumnDef<TimesheetProps>[]>(
     () => [
       {
-        id: 'employee', // id used to define `group` column
-        header: '',
-        columns: [
-          {
-            accessorFn: (row) => new Date(row.date),
-            id: 'date',
-            header: 'Date',
-            filterFn: 'lessThanOrEqualTo',
-            sortingFn: 'datetime',
-            visibleMediaQuery: aboveXsMediaQuery,
-            Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(),
-          },
-          {
-            accessorKey: 'hours',
-            header: 'Hours',
-            visibleMediaQuery: aboveXsMediaQuery,
-          },
-          {
-            accessorKey: 'task',
-            header: 'Task',
-            visibleMediaQuery: aboveXsMediaQuery,
-          },
-        ],
+        accessorFn: (row) => new Date(row.date),
+        id: 'date',
+        header: 'Date',
+        filterFn: 'lessThanOrEqualTo',
+        sortingFn: 'datetime',
+        visibleMediaQuery: aboveXsMediaQuery,
+        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(),
+      },
+      {
+        accessorKey: 'hours',
+        header: 'Hours',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'task',
+        header: 'Task',
+        visibleMediaQuery: aboveXsMediaQuery,
       },
     ],
     [aboveXsMediaQuery]
@@ -110,11 +104,16 @@ function Timesheet() {
       enablePagination
       enableGrouping
       enablePinning
+      enableRowVirtualization
       onSortingChange={setSorting}
       state={{ isLoading, sorting }}
       enableRowActions
       enableRowNumbers
       enableRowSelection
+      editingMode="row"
+      enableEditing
+      enableStickyHeader
+      memoMode="cells"
       initialState={{ showColumnFilters: false }}
       positionToolbarAlertBanner="bottom"
       renderRowActionMenuItems={() => (
@@ -146,7 +145,7 @@ function Timesheet() {
             <Text size={20} weight={500}>
               Timesheet
             </Text>
-            <Tooltip zIndex="10000rem" withArrow label="Add new timesheet">
+            <Tooltip position='right' withArrow label="Add new timesheet">
               <ActionIcon variant="subtle" onClick={() => setOpened(true)}>
                 <IconPlus size="2rem" />
               </ActionIcon>

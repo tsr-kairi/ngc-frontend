@@ -1,296 +1,334 @@
-/* eslint-disable no-nested-ternary */
-import IsMobileScreen from '@/hooks/useIsMobileScreen';
+// lorem20
+
+import { useEffect, useMemo, useState } from 'react';
+
+// MRT Imports
+import {
+  MantineReactTable,
+  MRT_ColumnDef,
+  MRT_SortingState,
+} from 'mantine-react-table';
+
+// Mantine Imports
 import {
   ActionIcon,
-  Avatar,
+  Badge,
+  Button,
   createStyles,
+  Modal,
   Drawer,
-  Group,
-  ScrollArea,
-  Switch,
-  Table,
+  Menu,
+  SegmentedControl,
   Text,
   Tooltip,
 } from '@mantine/core';
+
+// Icons Imports
 import {
   IconAddressBookOff,
-  IconChecks,
-  IconCircleDotted,
   IconEdit,
-  IconEditOff,
-  IconPlayerPause,
+  IconPlus,
+  IconTrash,
+  IconUsersPlus,
+  IconUserCircle,
 } from '@tabler/icons-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import OffBoardNewEmployee from '../../components/form/employee/offboardEmployee';
 
-const useStyles = createStyles((theme) => ({
-  table: {
-    backgroundColor:
-      theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
-    borderRadius: 5,
-    '@media (max-width: 755px)': {
-      minWidth: 1200,
-    },
-    border: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.dark[2]
-    }`,
-  },
+// Mock Data
+// eslint-disable-next-line import/no-cycle
+import data from './mokdata';
+import IsMobileScreen from '@/hooks/useIsMobileScreen';
+import OnBoardNewEmployee from '../../components/form/employee/onboardNewEmployee';
+import OffBoardNewEmployee from '../../components/form/employee/offboardEmployee';
+// createStyles import
+const useStyles = createStyles(() => ({
   drawer: {
     overflowY: 'scroll',
     '&::-webkit-scrollbar': {
       display: 'none',
     },
   },
-  rowSelected: {
-    backgroundColor:
-      theme.colorScheme === 'dark'
-        ? theme.colors.dark[6]
-        : theme.colors.brand[1],
-  },
-
-  header: {
-    position: 'sticky',
-    top: 0,
-    zIndex: 5,
-    backgroundColor:
-      theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-    transition: 'box-shadow 150ms ease',
-
-    '&::after': {
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 0,
-      borderBottom: `1px solid ${
-        theme.colorScheme === 'dark'
-          ? theme.colors.dark[4]
-          : theme.colors.gray[5]
-      }`,
-    },
-  },
-
-  tableRow: {
-    borderBottom: `1px solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1]
-    } !important`,
-  },
 }));
 
-function EmployeeTable() {
-  const { classes } = useStyles();
-  const navigate = useNavigate();
-  const [opened, setOpened] = useState(false);
-  // const [resetChecked, setResetChecked] = useState(true);
-
-  const avatarColors = [
-    'red',
-    'blue',
-    'yellow',
-    'indigo',
-    'pink',
-    'teal',
-    'cyan',
-    'violet',
-    'orange',
-  ];
-  const elements = [
-    {
-      uuid: 'ggfg7f7fgfgf8g--ytyty',
-      lastUpdate: 'Jun 07 2022, 18:27',
-      firstName: 'Ravin',
-      lastName: 'Trep',
-      email: 'ravintrep@gmail.com',
-      phone: '+91 8876645893',
-      roles: {
-        name: 'SUPER-ADMIN',
-      },
-    },
-    {
-      uuid: 'ggfg7f7fgfgf8g--gfgf77',
-      lastUpdate: 'Jun 07 2022, 18:27',
-      firstName: 'Ravin',
-      lastName: 'Trep',
-      email: 'ravintrep@gmail.com',
-      phone: '+91 8876645893',
-      roles: {
-        name: 'HR',
-      },
-    },
-    {
-      uuid: 'ggfg7f7fgfgf8g--fgfgf',
-      lastUpdate: 'Jun 07 2022, 18:27',
-      firstName: 'Ravin',
-      lastName: 'Trep',
-      email: 'ravintrep@gmail.com',
-      phone: '+91 8876645893',
-      roles: {
-        name: 'SUPER-ADMIN',
-      },
-    },
-    {
-      uuid: 'ggfg7f7fgfgf8g--sds',
-      lastUpdate: 'Jun 07 2022, 18:27',
-      firstName: 'Ravin',
-      lastName: 'Trep',
-      email: 'ravintrep@gmail.com',
-      phone: '+91 8876645893',
-      roles: {
-        name: 'CEO',
-      },
-    },
-    {
-      uuid: 'ggfg7f7fgfgf8g--dsds',
-      lastUpdate: 'Jun 07 2022, 18:27',
-      firstName: 'Ravin',
-      lastName: 'Trep',
-      email: 'ravintrep@gmail.com',
-      phone: '+91 8876645893',
-      roles: {
-        name: 'SUPER-ADMIN',
-      },
-    },
-  ];
-
-  const employeeName = (name: string) => {
-    const [firstName, lastName] = name.split(' ');
-    return `${firstName[0]}${lastName[0]}`;
+export type EmployeeProps = {
+  uuid: string;
+  lastUpdate: string;
+  name: {
+    firstName: string;
+    lastName: string;
   };
+  email: string;
+  phone: string;
+  roles: string;
+};
 
-  // selected Checkbox
-  const rows = elements.map((item) => {
-    return (
-      <tr key={item.uuid}>
-        <td className={classes.tableRow}>{item.lastUpdate}</td>
-        <td className={classes.tableRow}>
-          <Group spacing="sm">
-            <Avatar
-              size="sm"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQEZrATmgHOi5ls0YCCQBTkocia_atSw0X-Q&usqp=CAU"
-              radius="xl"
-              color={
-                avatarColors[Math.floor(Math.random() * avatarColors.length)]
-              }
-            >
-              {employeeName(`${item.firstName} ${item.lastName}`)}
-            </Avatar>
-            <Text size="sm" weight={400}>
-              {`${item.firstName} ${item.lastName}`}
+function Employee() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [sorting, setSorting] = useState<MRT_SortingState>([]);
+  const [openedOnBoard, setOpenedOnBoard] = useState(false);
+  const [openedOffBoard, setOpenedOffBoard] = useState(false);
+  const [employeeType, setEmployeeType] = useState('internal');
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+
+  const {
+    theme: {
+      breakpoints: { xs: xsBreakpoint },
+    },
+    classes,
+  } = useStyles();
+  const aboveXsMediaQuery = `(min-width: ${xsBreakpoint})`;
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const columns = useMemo<MRT_ColumnDef<EmployeeProps>[]>(
+    () => [
+      {
+        accessorFn: (row) => new Date(row.lastUpdate),
+        id: 'lastUpdate',
+        header: 'Last Update',
+        filterFn: 'lessThanOrEqualTo',
+        sortingFn: 'datetime',
+        visibleMediaQuery: aboveXsMediaQuery,
+        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(),
+      },
+      {
+        accessorFn: (row) => `${row.name.firstName} ${row.name.lastName}`,
+        accessorKey: 'name',
+        header: 'Name',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Phone',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'roles',
+        header: 'Roles',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+    ],
+    [aboveXsMediaQuery]
+  );
+
+  return (
+    <MantineReactTable
+      columns={columns}
+      data={data}
+      enableColumnFilterModes
+      enableBottomToolbar
+      enableColumnOrdering
+      enablePagination
+      enableGrouping
+      enablePinning
+      enableRowVirtualization
+      onSortingChange={setSorting}
+      state={{ isLoading, sorting }}
+      enableRowActions
+      enableRowNumbers
+      enableRowSelection
+      initialState={{ showColumnFilters: false }}
+      positionToolbarAlertBanner="bottom"
+      editingMode="row"
+      enableEditing
+      enableStickyHeader
+      renderRowActionMenuItems={() => (
+        <>
+          <Menu.Item icon={<IconUserCircle />}>View Profile</Menu.Item>
+          <Menu.Item icon={<IconEdit />}>Edit Employee</Menu.Item>
+          <Menu.Item icon={<IconTrash />}>Delete Employee</Menu.Item>
+          <Menu.Item
+            onClick={() => setOpenedOffBoard(true)}
+            icon={<IconAddressBookOff />}
+          >
+            OffBoard Employee
+          </Menu.Item>
+        </>
+      )}
+      renderTopToolbarCustomActions={({ table }) => {
+        const handleDeactivate = () => {
+          // eslint-disable-next-line array-callback-return
+          table.getSelectedRowModel().flatRows.map((row) => {
+            // eslint-disable-next-line no-alert
+            alert(`deactivating ${row.getValue('name')}`);
+          });
+        };
+
+        const handleActivate = () => {
+          // eslint-disable-next-line array-callback-return
+          table.getSelectedRowModel().flatRows.map((row) => {
+            // eslint-disable-next-line no-alert
+            alert(`activating ${row.getValue('name')}`);
+          });
+        };
+
+        return (
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <Text size={20} weight={500}>
+              Employee
             </Text>
-          </Group>
-        </td>
-        <td className={classes.tableRow}>{item.email}</td>
-        <td className={classes.tableRow}>{item.phone}</td>
-        <td
-          style={{
-            maxWidth: 200,
-          }}
-          className={classes.tableRow}
-        >
-          {item.roles.name}
-        </td>
-        <td className={classes.tableRow}>
-          <Switch
-            size="xs"
-            // checked={resetChecked}
-            // onChange={(event) => setResetChecked(event.currentTarget.checked)}
-          />
-        </td>
-        <td className={classes.tableRow}>
-          {item.roles.name === 'SUPER-ADMIN' ? (
-            <IconChecks color="green" size={18} />
-          ) : // eslint-disable-next-line no-nested-ternary
-          item.roles.name === 'HR' ? (
-            <IconCircleDotted color="yellow" size={18} />
-          ) : item.roles.name === 'CEO' ? (
-            <IconPlayerPause color="brown" size={18} />
-          ) : null}
-        </td>
-        <td
-          className={classes.tableRow}
-          style={{
-            width: 120,
-          }}
-        >
-          <Group>
-            {item.roles.name && (
-              <Tooltip label="Edit Employee" withArrow color="gray">
-                <ActionIcon
-                  color="blue"
-                  onClick={() =>
-                    navigate(
-                      `${
-                        item.roles.name === 'SUPER-ADMIN'
-                          ? `/employee/edit/${item.uuid}`
-                          : ''
-                      }`
-                    )
-                  }
-                >
-                  {item.roles.name === 'SUPER-ADMIN' ? (
-                    <IconEdit size={18} />
-                  ) : (
-                    <IconEditOff size={18} />
-                  )}
-                </ActionIcon>
-              </Tooltip>
-            )}
-            <Tooltip
-              label="OffBoard Employee"
-              withArrow
-              color="gray"
-              onClick={() => setOpened(true)}
-            >
-              <ActionIcon color="blue">
-                <IconAddressBookOff size={18} />
+            <Tooltip position="right" withArrow label="Onboard Employee">
+              <ActionIcon
+                variant="subtle"
+                onClick={() => setOpenedOnBoard(true)}
+              >
+                <IconPlus size="2rem" />
               </ActionIcon>
             </Tooltip>
-          </Group>
-        </td>
-      </tr>
-    );
-  });
-  return (
-    <ScrollArea
-      sx={{ height: 'calc(90vh - 100px)', marginTop: '0.5rem' }}
-      type="never"
-    >
-      <Table
-        horizontalSpacing="xs"
-        verticalSpacing={5}
-        highlightOnHover
-        fontSize="xs"
-        className={classes.table}
-      >
-        <thead className={classes.header}>
-          <tr>
-            <th>Last Updated</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Roles</th>
-            <th style={{ display: 'flex', gap: '10px' }}>Is Active</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-      {/* offBoard employee drawer */}
-      <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="OffBoard Employee"
-        padding="md"
-        size={IsMobileScreen() ? 'xl' : 'md'}
-        position="right"
-        className={classes.drawer}
-      >
-        <OffBoardNewEmployee setOpened={setOpened} />
-      </Drawer>
-    </ScrollArea>
+            {!IsMobileScreen() && (
+              <SegmentedControl
+                size="xs"
+                color="blue"
+                radius="xl"
+                value={employeeType}
+                onChange={setEmployeeType}
+                data={[
+                  { label: 'Internal', value: 'internal' },
+                  { label: 'External', value: 'external' },
+                  { label: 'All', value: 'all' },
+                ]}
+              />
+            )}
+            {IsMobileScreen() && (
+              <>
+                <Tooltip position="right" withArrow label="Change Employee">
+                  <ActionIcon
+                    variant="subtle"
+                    onClick={() => setCreateModalOpen(true)}
+                  >
+                    <IconUsersPlus cursor="pointer" />
+                  </ActionIcon>
+                </Tooltip>
+                <Modal
+                  title="Select Employee type"
+                  opened={createModalOpen}
+                  onClose={() => setCreateModalOpen(false)}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1rem',
+                      marginTop: '1rem',
+                    }}
+                  >
+                    <Badge
+                      variant={employeeType === 'all' ? 'filled' : 'outline'}
+                      size="lg"
+                      sx={(theme) => ({
+                        cursor: 'pointer',
+                        '&:hover': {
+                          backgroundColor: theme.colors.brand[4],
+                          color: 'white',
+                        },
+                      })}
+                      onClick={() => {
+                        setEmployeeType('all');
+                        setCreateModalOpen(false);
+                      }}
+                    >
+                      All
+                    </Badge>
+                    <Badge
+                      variant={
+                        employeeType === 'internal' ? 'filled' : 'outline'
+                      }
+                      size="lg"
+                      sx={(theme) => ({
+                        cursor: 'pointer',
+                        '&:hover': {
+                          backgroundColor: theme.colors.brand[4],
+                          color: 'white',
+                        },
+                      })}
+                      onClick={() => {
+                        setEmployeeType('internal');
+                        setCreateModalOpen(false);
+                      }}
+                    >
+                      Internal
+                    </Badge>
+                    <Badge
+                      variant={
+                        employeeType === 'external' ? 'filled' : 'outline'
+                      }
+                      size="lg"
+                      sx={(theme) => ({
+                        cursor: 'pointer',
+                        '&:hover': {
+                          backgroundColor: theme.colors.brand[4],
+                          color: 'white',
+                        },
+                      })}
+                      onClick={() => {
+                        setEmployeeType('external');
+                        setCreateModalOpen(false);
+                      }}
+                    >
+                      External
+                    </Badge>
+                  </div>
+                </Modal>
+              </>
+            )}
+            <Button
+              color="red"
+              size="xs"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleDeactivate}
+              variant="filled"
+              sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
+            >
+              Deactivate
+            </Button>
+            <Button
+              color="green"
+              size="xs"
+              disabled={!table.getIsSomeRowsSelected()}
+              onClick={handleActivate}
+              variant="filled"
+              sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
+            >
+              Activate
+            </Button>
+
+            {/* Onboard Employee Create Drawer */}
+            <Drawer
+              opened={openedOnBoard}
+              onClose={() => setOpenedOnBoard(false)}
+              title="Onboard Employee"
+              padding="md"
+              size={IsMobileScreen() ? 'xl' : 'xl'}
+              position="right"
+              className={classes.drawer}
+            >
+              <OnBoardNewEmployee setOpenedOnBoard={setOpenedOnBoard} />
+            </Drawer>
+            {/* OffBoard Employee Create Drawer */}
+            <Drawer
+              opened={openedOffBoard}
+              onClose={() => setOpenedOffBoard(false)}
+              title="OffBoard Employee"
+              padding="md"
+              size={IsMobileScreen() ? 'xl' : 'xl'}
+              position="right"
+              className={classes.drawer}
+            >
+              <OffBoardNewEmployee setOpenedOffBoard={setOpenedOffBoard} />
+            </Drawer>
+          </div>
+        );
+      }}
+    />
   );
 }
 
-export default EmployeeTable;
+export default Employee;

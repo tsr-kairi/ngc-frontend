@@ -6,10 +6,10 @@ import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import DashBoard from './pages/dashboard';
 // import Employee from './pages/employee';
-import Employee from './pages/employee';
 import EmployeeUserProfile from './pages/employee/employeeProfile';
 import EmployeeOnboard from './pages/onboard/employeeOnboard';
 import Timesheet from './pages/timesheet';
+import Employee from './pages/employee/employeeTable';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
