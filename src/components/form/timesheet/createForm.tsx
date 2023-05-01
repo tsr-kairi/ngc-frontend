@@ -41,7 +41,7 @@ function TimesheetForm({ setOpened }: { setOpened: (value: boolean) => void }) {
       />
       <TextInput
         type="number"
-        placeholder="Total Hours"
+        placeholder="Hours"
         withAsterisk
         sx={{ flex: 0.3 }}
         // eslint-disable-next-line react/jsx-props-no-spreading
@@ -84,23 +84,20 @@ function TimesheetForm({ setOpened }: { setOpened: (value: boolean) => void }) {
                     : theme.colors.gray[2]
                 }`,
               })}
+              grow
             >
-              <Tooltip
-                position="right-start"
-                offset={-340}
-                withArrow
-                label="Pic a date"
-              >
+              <Tooltip position="right-start" withArrow label="Pic a date">
                 <DatePickerInput
-                  icon={<IconCalendar size="1.1rem" stroke={1.5} />}
+                  placeholder="Pic a date"
                   modalProps={{ withinPortal: true }}
                   sx={{
                     transition: 'all 0.3s ease',
-                    flex: 0.5,
                   }}
-                  variant="unstyled"
                 />
               </Tooltip>
+              <ActionIcon color="sky">
+                <IconCalendar size={40} />
+              </ActionIcon>
             </Group>
             <Group mb="xs">
               <Text weight={500} size="sm" sx={{ flex: 1 }}>
@@ -123,7 +120,7 @@ function TimesheetForm({ setOpened }: { setOpened: (value: boolean) => void }) {
         <Group
           position="center"
           mt="md"
-          style={{ position: 'absolute', right: '0', top: '45px' }}
+          style={{ position: 'absolute', right: '0', top: '95px' }}
         >
           <Button
             onClick={() =>

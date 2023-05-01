@@ -1,39 +1,118 @@
 import { Loader } from '@mantine/core';
-import React from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
-import DashBoard from './pages/dashboard';
-// import Employee from './pages/employee';
-import EmployeeUserProfile from './pages/employee/employeeProfile';
-import EmployeeOnboard from './pages/onboard/employeeOnboard';
-import Timesheet from './pages/timesheet';
-import Employee from './pages/employee';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
 );
+const DashBoard = React.lazy(() => import('./pages/dashboard'));
+const Employee = React.lazy(() => import('./pages/employee'));
+const Timesheet = React.lazy(() => import('./pages/timesheet'));
+const EmployeeUserProfile = React.lazy(
+  () => import('./pages/employee/employeeProfile')
+);
+const EmployeeOnboard = React.lazy(
+  () => import('./pages/onboard/employeeOnboard')
+);
+
+interface Props {
+  children: ReactNode;
+}
+
+function WrapSuspense({ children }: Props) {
+  return <Suspense fallback={<Loader variant="dots" />}>{children}</Suspense>;
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <React.Suspense fallback={<Loader variant="dots" />}>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Loader variant="oval" />
+          </div>
+        }
+      >
         <Routes>
           {/* Public Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/confirm-password" element={<ConfirmPassword />} />
+          <Route
+            path="/login"
+            element={
+              <WrapSuspense>
+                <Login />
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              <WrapSuspense>
+                <ForgotPassword />
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/confirm-password"
+            element={
+              <WrapSuspense>
+                <ConfirmPassword />
+              </WrapSuspense>
+            }
+          />
           {/* Protected Routes */}
           <Route element={<DashboardLayout />}>
-            <Route path="/" element={<DashBoard />} />
-            <Route path="/employee" element={<Employee />} />
-            <Route path="/timesheet" element={<Timesheet />} />
-            <Route path="/employee-profile" element={<EmployeeUserProfile />} />
-            <Route path="/emponboard" element={<EmployeeOnboard />} />
+            <Route
+              path="/"
+              element={
+                <WrapSuspense>
+                  <DashBoard />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/employee"
+              element={
+                <WrapSuspense>
+                  <Employee />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/timesheet"
+              element={
+                <WrapSuspense>
+                  <Timesheet />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/employee-profile"
+              element={
+                <WrapSuspense>
+                  <EmployeeUserProfile />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/emponboard"
+              element={
+                <WrapSuspense>
+                  <EmployeeOnboard />
+                </WrapSuspense>
+              }
+            />
           </Route>
         </Routes>
-      </React.Suspense>
+      </Suspense>
     </BrowserRouter>
   );
 }
