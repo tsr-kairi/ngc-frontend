@@ -3,9 +3,9 @@ import {
   Box,
   Button,
   Group,
+  Text,
   TextInput,
   Textarea,
-  Text,
   Tooltip,
 } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
@@ -30,6 +30,15 @@ function TimesheetForm({ setOpened }: { setOpened: (value: boolean) => void }) {
       ],
     },
   });
+
+  // calculateTotalHours function
+  const calculateTotalHours = () => {
+    let totalHours = 0;
+    form.values.timesheet.forEach((item) => {
+      totalHours += Number(item.hours);
+    });
+    return totalHours.toFixed(2);
+  };
 
   const fields = form.values.timesheet.map((item, index) => (
     <Group key={item.key} mt="xs">
@@ -84,19 +93,17 @@ function TimesheetForm({ setOpened }: { setOpened: (value: boolean) => void }) {
                     : theme.colors.gray[2]
                 }`,
               })}
-              grow
+              position="apart"
             >
               <Tooltip position="right-start" withArrow label="Pic a date">
                 <DatePickerInput
                   placeholder="Pic a date"
                   modalProps={{ withinPortal: true }}
-                  sx={{
-                    transition: 'all 0.3s ease',
-                  }}
+                  mb="xs"
                 />
               </Tooltip>
               <ActionIcon color="sky">
-                <IconCalendar size={40} />
+                <IconCalendar size={30} />
               </ActionIcon>
             </Group>
             <Group mb="xs">
@@ -164,7 +171,7 @@ function TimesheetForm({ setOpened }: { setOpened: (value: boolean) => void }) {
           })}
         >
           <Group>
-            <Text>Total Hours : .00</Text>
+            <Text>Total Hours : {calculateTotalHours()}</Text>
           </Group>
           <Group>
             <Button

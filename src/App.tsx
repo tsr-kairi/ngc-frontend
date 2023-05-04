@@ -36,6 +36,7 @@ function App() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              margin: '0'
             }}
           >
             <Loader variant="oval" />
