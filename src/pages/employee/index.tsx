@@ -12,13 +12,10 @@ import {
 // Mantine Imports
 import {
   ActionIcon,
-  Badge,
-  Button,
   createStyles,
-  Modal,
   Drawer,
   Menu,
-  SegmentedControl,
+  Modal,
   Text,
   Tooltip,
 } from '@mantine/core';
@@ -29,16 +26,21 @@ import {
   IconEdit,
   IconPlus,
   IconTrash,
-  IconUsersPlus,
   IconUserCircle,
+  IconUsersPlus,
 } from '@tabler/icons-react';
 
 // Mock Data
 // eslint-disable-next-line import/no-cycle
-import data from './mokdata';
+import { Tab } from '@/components/common/tabs/employeeTab';
 import IsMobileScreen from '@/hooks/useIsMobileScreen';
-import OnBoardNewEmployee from '../../components/form/employee/onboardNewEmployee';
+import { Link } from 'react-router-dom';
 import OffBoardNewEmployee from '../../components/form/employee/offboardEmployee';
+import OnBoardNewEmployee from '../../components/form/employee/onboardNewEmployee';
+
+// eslint-disable-next-line import/no-cycle
+import data from './mokdata';
+
 // createStyles import
 const useStyles = createStyles(() => ({
   drawer: {
@@ -66,8 +68,7 @@ function Employee() {
   const [sorting, setSorting] = useState<MRT_SortingState>([]);
   const [openedOnBoard, setOpenedOnBoard] = useState(false);
   const [openedOffBoard, setOpenedOffBoard] = useState(false);
-  const [employeeType, setEmployeeType] = useState('internal');
-  const [createModalOpen, setCreateModalOpen] = useState(false);
+  const [tabModalOpen, setTabModalOpen] = useState(false);
 
   const {
     theme: {
@@ -134,42 +135,35 @@ function Employee() {
       state={{ isLoading, sorting }}
       enableRowActions
       enableRowNumbers
-      enableRowSelection
+      enableDensityToggle={false}
       initialState={{ showColumnFilters: false }}
       positionToolbarAlertBanner="bottom"
-      editingMode="row"
-      enableEditing
       enableStickyHeader
+      mantineSearchTextInputProps={{
+        placeholder: `Search ${data.length} rows`,
+        sx: { minWidth: '290px', paddingLeft: '10px' },
+        variant: 'filled',
+      }}
       renderRowActionMenuItems={() => (
         <>
-          <Menu.Item icon={<IconUserCircle />}>View Profile</Menu.Item>
-          <Menu.Item icon={<IconEdit />}>Edit Employee</Menu.Item>
-          <Menu.Item icon={<IconTrash />}>Delete Employee</Menu.Item>
+          <Menu.Item
+            icon={<IconUserCircle />}
+            component={Link}
+            to="/employee-profile"
+          >
+            View Profile
+          </Menu.Item>
           <Menu.Item
             onClick={() => setOpenedOffBoard(true)}
             icon={<IconAddressBookOff />}
           >
             OffBoard Employee
           </Menu.Item>
+          <Menu.Item icon={<IconEdit />}>Edit Employee</Menu.Item>
+          <Menu.Item icon={<IconTrash />}>Delete Employee</Menu.Item>
         </>
       )}
-      renderTopToolbarCustomActions={({ table }) => {
-        const handleDeactivate = () => {
-          // eslint-disable-next-line array-callback-return
-          table.getSelectedRowModel().flatRows.map((row) => {
-            // eslint-disable-next-line no-alert
-            alert(`deactivating ${row.getValue('name')}`);
-          });
-        };
-
-        const handleActivate = () => {
-          // eslint-disable-next-line array-callback-return
-          table.getSelectedRowModel().flatRows.map((row) => {
-            // eslint-disable-next-line no-alert
-            alert(`activating ${row.getValue('name')}`);
-          });
-        };
-
+      renderTopToolbarCustomActions={() => {
         return (
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             <Text size={20} weight={500}>
@@ -184,122 +178,31 @@ function Employee() {
               </ActionIcon>
             </Tooltip>
             {!IsMobileScreen() && (
-              <SegmentedControl
-                size="xs"
-                color="blue"
-                radius="xl"
-                value={employeeType}
-                onChange={setEmployeeType}
-                data={[
-                  { label: 'Internal', value: 'internal' },
-                  { label: 'External', value: 'external' },
-                  { label: 'All', value: 'all' },
-                ]}
-              />
+              <Tab onClose={() => setTabModalOpen(false)} />
             )}
             {IsMobileScreen() && (
               <>
-                <Tooltip position="right" withArrow label="Change Employee">
+                <Tooltip
+                  position="right"
+                  withArrow
+                  label="Change Employee Type"
+                >
                   <ActionIcon
                     variant="subtle"
-                    onClick={() => setCreateModalOpen(true)}
+                    onClick={() => setTabModalOpen(true)}
                   >
                     <IconUsersPlus cursor="pointer" />
                   </ActionIcon>
                 </Tooltip>
                 <Modal
                   title="Select Employee type"
-                  opened={createModalOpen}
-                  onClose={() => setCreateModalOpen(false)}
+                  opened={tabModalOpen}
+                  onClose={() => setTabModalOpen(false)}
                 >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '1rem',
-                      marginTop: '1rem',
-                    }}
-                  >
-                    <Badge
-                      variant={employeeType === 'all' ? 'filled' : 'outline'}
-                      size="lg"
-                      sx={(theme) => ({
-                        cursor: 'pointer',
-                        '&:hover': {
-                          backgroundColor: theme.colors.brand[4],
-                          color: 'white',
-                        },
-                      })}
-                      onClick={() => {
-                        setEmployeeType('all');
-                        setCreateModalOpen(false);
-                      }}
-                    >
-                      All
-                    </Badge>
-                    <Badge
-                      variant={
-                        employeeType === 'internal' ? 'filled' : 'outline'
-                      }
-                      size="lg"
-                      sx={(theme) => ({
-                        cursor: 'pointer',
-                        '&:hover': {
-                          backgroundColor: theme.colors.brand[4],
-                          color: 'white',
-                        },
-                      })}
-                      onClick={() => {
-                        setEmployeeType('internal');
-                        setCreateModalOpen(false);
-                      }}
-                    >
-                      Internal
-                    </Badge>
-                    <Badge
-                      variant={
-                        employeeType === 'external' ? 'filled' : 'outline'
-                      }
-                      size="lg"
-                      sx={(theme) => ({
-                        cursor: 'pointer',
-                        '&:hover': {
-                          backgroundColor: theme.colors.brand[4],
-                          color: 'white',
-                        },
-                      })}
-                      onClick={() => {
-                        setEmployeeType('external');
-                        setCreateModalOpen(false);
-                      }}
-                    >
-                      External
-                    </Badge>
-                  </div>
+                  <Tab onClose={() => setTabModalOpen(false)} />
                 </Modal>
               </>
             )}
-            <Button
-              color="red"
-              size="xs"
-              disabled={!table.getIsSomeRowsSelected()}
-              onClick={handleDeactivate}
-              variant="filled"
-              sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
-            >
-              Deactivate
-            </Button>
-            <Button
-              color="green"
-              size="xs"
-              disabled={!table.getIsSomeRowsSelected()}
-              onClick={handleActivate}
-              variant="filled"
-              sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
-            >
-              Activate
-            </Button>
-
             {/* Onboard Employee Create Drawer */}
             <Drawer
               opened={openedOnBoard}

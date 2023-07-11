@@ -4,20 +4,28 @@ import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import {
   Box,
   Burger,
+  Divider,
   Header,
   MediaQuery,
+  TextInput,
   createStyles,
   useMantineColorScheme,
 } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import ToggleThemeBtn from '../Buttons/ToggleThemeBtn';
 import UserProfileBtn from '../Buttons/UserProfileBtn';
+import LayoutSidebarIcon from '../Buttons/LayoutSidebarIcon';
 
 const useStyles = createStyles(() => ({
   header: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  searchField: {
+    flex: 1,
+    width: '290px',
   },
 }));
 
@@ -46,7 +54,7 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
             display: 'flex',
             alignItems: 'center',
             height: '100%',
-            gap: `${!IsMobileScreen() ? '40px' : '0px'}`,
+            gap: `${!IsMobileScreen() ? '32px' : '0px'}`,
           }}
         >
           <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
@@ -60,18 +68,30 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
           <Link to="/">
             {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
           </Link>
-          {!IsMobileScreen() && <ToggleThemeBtn />}
+          <LayoutSidebarIcon />
+          {!IsMobileScreen() && (
+            <TextInput
+              placeholder="Search by any field"
+              icon={<IconSearch size={14} stroke={1.5} />}
+              radius="xs"
+              className={classes.searchField}
+            />
+          )}
         </Box>
       </Box>
+
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0.5rem',
+          gap: `${!IsMobileScreen() ? '1rem' : '0.3rem'}`,
+          paddingTop: '0.5rem',
+          paddingBottom: '0.5rem',
         }}
       >
+        <ToggleThemeBtn />
+        <Divider orientation="vertical" />
         <UserProfileBtn />
-        {IsMobileScreen() && <ToggleThemeBtn />}
       </Box>
     </Header>
   );

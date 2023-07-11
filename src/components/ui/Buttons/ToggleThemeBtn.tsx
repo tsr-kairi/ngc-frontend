@@ -6,7 +6,7 @@ function ToggleThemeBtn() {
   const dark = colorScheme === 'dark';
   return (
     <ActionIcon
-      variant="outline"
+      variant="transparent"
       color={dark ? 'yellow' : 'blue'}
       onClick={() => toggleColorScheme()}
       title="Toggle color scheme"
