@@ -82,13 +82,13 @@ const data = [
     links: [
       {
         icon: IconUserPlus,
-        label: 'Personal',
+        label: 'Emp Onboard',
         href: '/emponboard',
       },
       {
         icon: IconBrandBlogger,
         label: 'Blog',
-        href: '/employees',
+        href: '/blog',
       },
     ],
     rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
