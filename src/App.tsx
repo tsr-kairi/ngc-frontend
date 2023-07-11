@@ -11,7 +11,7 @@ const DashboardLayout = React.lazy(
 const DashBoard = React.lazy(() => import('./pages/dashboard'));
 const Employee = React.lazy(() => import('./pages/employee'));
 const Timesheet = React.lazy(() => import('./pages/timesheet'));
-const Blog = React.lazy(() => import('./pages/blog'));
+// const Blog = React.lazy(() => import('./pages/blog'));
 const EmployeeUserProfile = React.lazy(
   () => import('./pages/employee/employeeProfile')
 );
@@ -112,14 +112,14 @@ function App() {
                 </WrapSuspense>
               }
             />
-            <Route
+            {/* <Route
               path="/blog"
               element={
                 <WrapSuspense>
                   <Blog />
                 </WrapSuspense>
               }
-            />
+            /> */}
           </Route>
         </Routes>
       </Suspense>
