@@ -184,9 +184,9 @@ function Blog() {
     manualSorting: true,
     mantineToolbarAlertBannerProps: isError
       ? {
-        color: 'red',
-        children: 'Error loading data',
-      }
+          color: 'red',
+          children: 'Error loading data',
+        }
       : undefined,
     onColumnFilterFnsChange: setColumnFilterFns,
     onColumnFiltersChange: setColumnFilters,
