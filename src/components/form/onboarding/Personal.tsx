@@ -1,38 +1,68 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import { Box, NumberInput, Select, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
-import { TextInput } from '@mantine/core';
-import { useForm, UseFormReturnType } from '@mantine/form';
-
-interface FormValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-
-function FirstNameInput({ form }: { form: UseFormReturnType<FormValues> }) {
-  return <TextInput label="First Name" {...form.getInputProps('firstName')} />;
-}
-
-function LastNameInput({ form }: { form: UseFormReturnType<FormValues> }) {
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <TextInput label="Last Name" {...form.getInputProps('lastName')} />;
-}
-
-function EmailInput({ form }: { form: UseFormReturnType<FormValues> }) {
-  return <TextInput label="Email" {...form.getInputProps('email')} />;
-}
-
-export default function Personal(): JSX.Element {
-  const form = useForm<FormValues>({
-    initialValues: { firstName: '', lastName: '', email: '' },
+export default function Personal() {
+  const form = useForm({
+    initialValues: {
+      age: 0,
+      phone: '',
+      alternatePhone: '',
+      alternateEmail: '',
+    },
+    validate: {
+      age: (value) =>
+        value < 18 ? 'You must be at least 18 to register' : null,
+    },
   });
 
   return (
-    <form>
-      <FirstNameInput form={form} />
-      <LastNameInput form={form} />
-      <EmailInput form={form} />
-      <button type="submit">Submit</button>
-    </form>
+    <Box maw={320} mx="auto">
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <NumberInput
+          mt="sm"
+          label="Age"
+          placeholder="Age"
+          min={0}
+          max={99}
+          style={{ flex: 1, marginRight: '10px' }}
+          {...form.getInputProps('age')}
+        />
+        <Select
+          mt="sm"
+          label="Gender"
+          placeholder="Pick one"
+          style={{ flex: 1 }}
+          data={[
+            { value: 'react', label: 'Male' },
+            { value: 'ng', label: 'Female' },
+          ]}
+        />
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <TextInput
+          mt="sm"
+          label="Phone"
+          placeholder="Phone"
+          style={{ flex: 1, marginRight: '10px' }}
+          {...form.getInputProps('phone')}
+        />
+        <TextInput
+          mt="sm"
+          label="Alternate Phone"
+          placeholder="Phone"
+          style={{ flex: 1 }}
+          {...form.getInputProps('phone')}
+        />
+      </div>
+
+      <TextInput
+        mt="md"
+        label="Email"
+        placeholder="Alternate Email"
+        {...form.getInputProps('email')}
+      />
+    </Box>
   );
 }
