@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
+import Onboarding from './pages/onboarding';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -46,6 +47,14 @@ function App() {
       >
         <Routes>
           {/* Public Routes */}
+          <Route
+            path="/onboarding"
+            element={
+              <WrapSuspense>
+                <Onboarding />
+              </WrapSuspense>
+            }
+          />
           <Route
             path="/login"
             element={
