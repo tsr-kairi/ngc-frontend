@@ -5,60 +5,64 @@ import { useForm } from '@mantine/form';
 export default function Address() {
   const form = useForm({
     initialValues: {
-      streetline1: '',
-      streerline2: '',
+      streetLine1: '',
+      streetLine2: '',
       city: '',
       state: '',
       country: '',
-      pincode: 0,
+      pinCode: 0,
     },
   });
 
   return (
     <Box>
-      <Group position="apart" mt="md">
+      <Group position="apart" mt="sm" grow>
         <TextInput
-          label="street line 1"
-          placeholder="Phone"
-          {...form.getInputProps('phone')}
+          label="Street line 1"
+          placeholder="Enter your “Street” line 1"
+          {...form.getInputProps('streetLine1')}
         />
         <TextInput
-          label="street line 2"
-          placeholder="Phone"
-          {...form.getInputProps('phone')}
+          label="Street line 2"
+          placeholder="Enter your “Street” line 2"
+          {...form.getInputProps('streetLine2')}
         />
       </Group>
-      <Group position="apart" mt="md">
+      <Group position="apart" mt="sm" grow>
         <Select
           label="City"
-          placeholder="Pick one"
+          placeholder="Select your city"
           data={[
-            { value: 'react', label: 'Male' },
-            { value: 'ng', label: 'Female' },
+            { value: 'gp', label: 'Gajipur' },
+            { value: 'kxj', label: 'Karimganj' },
           ]}
+          {...form.getInputProps('city')}
         />
         <Select
           label="State"
-          placeholder="Pick one"
+          placeholder="Select your state"
           data={[
-            { value: 'react', label: 'Male' },
-            { value: 'ng', label: 'Female' },
+            { value: 'up', label: 'Uttar Pradesh' },
+            { value: 'as', label: 'Assam' },
           ]}
+          {...form.getInputProps('state')}
         />
       </Group>
-      <Group position="apart" mt="md">
+      <Group position="apart" mt="sm" grow>
         <Select
           label="Country"
-          placeholder="Pick one"
+          placeholder="Select your country"
           data={[
-            { value: 'react', label: 'Male' },
-            { value: 'ng', label: 'Female' },
+            { value: 'in', label: 'India' },
+            { value: 'usa', label: 'America' },
           ]}
+          {...form.getInputProps('country')}
         />
         <TextInput
-          label="Pincode"
-          placeholder="Phone"
-          {...form.getInputProps('phone')}
+          label="Pin Code"
+          placeholder="Enter your pin code"
+          type="number"
+          {...form.getInputProps('pinCode')}
         />
       </Group>
     </Box>

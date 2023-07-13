@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, NumberInput, Select, TextInput } from '@mantine/core';
+import { Box, Group, Select, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 export default function Personal() {
   const form = useForm({
     initialValues: {
       age: 0,
-      phone: '',
-      alternatePhone: '',
+      phone: 0,
+      alternatePhone: 0,
       alternateEmail: '',
     },
     validate: {
@@ -17,52 +17,51 @@ export default function Personal() {
   });
 
   return (
-    <Box maw={707} mx="auto" w="100%">
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <NumberInput
-          mt="sm"
+    <Box>
+      <Group position="apart" mt="sm" grow>
+        <TextInput
           label="Age"
-          placeholder="Age"
-          min={0}
-          max={99}
-          style={{ flex: 1, marginRight: '10px' }}
+          placeholder="Enter your age"
+          type="number"
           {...form.getInputProps('age')}
+          required
         />
         <Select
-          mt="sm"
+          required
           label="Gender"
           placeholder="Select your gender"
-          style={{ flex: 1 }}
           data={[
-            { value: 'react', label: 'Male' },
-            { value: 'ng', label: 'Female' },
+            { value: 'male', label: 'Male' },
+            { value: 'female', label: 'Female' },
+            { value: 'others', label: 'Others' },
           ]}
         />
-      </div>
+      </Group>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Group position="apart" mt="sm" grow>
         <TextInput
-          mt="sm"
+          required
           label="Phone"
-          placeholder="Phone"
-          style={{ flex: 1, marginRight: '10px' }}
+          placeholder="Enter your phone"
+          type="number"
           {...form.getInputProps('phone')}
         />
         <TextInput
-          mt="sm"
+          required
           label="Alternate Phone"
-          placeholder="Phone"
-          style={{ flex: 1 }}
+          placeholder="Enter your alternate phone"
+          type="number"
           {...form.getInputProps('alternatePhone')}
         />
-      </div>
-
-      <TextInput
-        mt="md"
-        label="Email"
-        placeholder="Alternate Email"
-        {...form.getInputProps('alternateEmail')}
-      />
+      </Group>
+      <Group position="apart" mt="sm" grow>
+        <TextInput
+          required
+          label="Email"
+          placeholder="Enter your alternate email"
+          {...form.getInputProps('alternateEmail')}
+        />
+      </Group>
     </Box>
   );
 }

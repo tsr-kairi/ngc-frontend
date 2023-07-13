@@ -1,13 +1,24 @@
 /* eslint-disable react/function-component-definition */
 import Personal from '@/components/form/onboarding/Personal';
 import Address from '@/components/form/onboarding/address';
+import Document from '@/components/form/onboarding/documents';
+import Password from '@/components/form/onboarding/password';
 import ToggleThemeBtn from '@/components/ui/Buttons/ToggleThemeBtn';
-import { Box, Button, Group, Stepper, Text, createStyles } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Group,
+  Stepper,
+  Text,
+  createStyles,
+} from '@mantine/core';
 import {
   IconAddressBook,
   IconFileImport,
   IconFlagFilled,
   IconLock,
+  IconLogin,
 } from '@tabler/icons-react';
 
 import { FC, useState } from 'react';
@@ -17,11 +28,17 @@ const useStyles = createStyles((theme) => ({
   stepperWrapper: {
     display: 'flex',
     overflowY: 'hidden',
-    backgroundColor: 'white',
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.bgSteeperOutletDark
+        : theme.colors.bgSteeperOutletLight,
   },
   stepperWrapperOuter: {
     width: '25vw',
-    backgroundColor: '#F9FBFC',
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.bgStepperNavbarDark
+        : theme.colors.bgStepperNavbarLight,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -54,6 +71,16 @@ const useStyles = createStyles((theme) => ({
   stepStyle: {
     paddingBottom: '36px',
   },
+  btn: {
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.bgAccentColor
+        : theme.colors.bgAccentColor,
+    color:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[9]
+        : theme.colors.gray[0],
+  },
 }));
 
 interface FormProps {
@@ -62,8 +89,9 @@ interface FormProps {
 }
 
 const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
+  const { classes } = useStyles();
+  // forms render
   let form = null;
-
   switch (activeStep) {
     case 1:
       form = <Personal />;
@@ -72,35 +100,85 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
       form = <Address />;
       break;
     case 3:
-      form = <Personal />;
+      form = <Document />;
       break;
     case 4:
-      form = <Personal />;
+      form = <Password />;
       break;
     default:
       form = <Personal />;
   }
 
+  // form icon render
+  let formIcon = null;
+  switch (activeStep) {
+    case 1:
+      formIcon = (
+        <ActionIcon variant="outline">
+          <IconFlagFilled size="1.125rem" />
+        </ActionIcon>
+      );
+      break;
+    case 2:
+      formIcon = (
+        <ActionIcon variant="outline">
+          <IconAddressBook size="1.125rem" />
+        </ActionIcon>
+      );
+      break;
+    case 3:
+      formIcon = (
+        <ActionIcon variant="outline">
+          <IconFileImport size="1.125rem" />
+        </ActionIcon>
+      );
+      break;
+    case 4:
+      formIcon = (
+        <ActionIcon variant="outline">
+          <IconLock size="1.125rem" />
+        </ActionIcon>
+      );
+      break;
+    default:
+      formIcon = (
+        <ActionIcon variant="outline">
+          <IconLogin size="1.125rem" />
+        </ActionIcon>
+      );
+  }
+
   return (
-    <Box>
+    <Box w="100%">
+      <Group position="center" style={{ marginBottom: '70px' }}>
+        {formIcon}
+      </Group>
       {form}
       {activeStep < 4 ? (
-        <Button
-          sx={{ marginTop: '55px' }}
-          fullWidth
-          onClick={() => setActiveStep(activeStep + 1)}
-        >
-          Continue
-        </Button>
+        <Group position="center" mt="sm">
+          <Button
+            sx={{ marginTop: '55px' }}
+            w="400px"
+            onClick={() => setActiveStep(activeStep + 1)}
+            className={classes.btn}
+            color="green"
+          >
+            Continue
+          </Button>
+        </Group>
       ) : (
-        <Button
-          sx={{ marginTop: '55px' }}
-          fullWidth
-          // eslint-disable-next-line no-console
-          onClick={() => console.log('Form submitted')}
-        >
-          Submit
-        </Button>
+        <Group position="center" mt="sm">
+          <Button
+            sx={{ marginTop: '55px' }}
+            w="400px"
+            // eslint-disable-next-line no-console
+            onClick={() => console.log('Form submitted')}
+            className={classes.btn}
+            color="green"
+          >
+            Submit
+          </Button>
+        </Group>
       )}
     </Box>
   );
@@ -117,7 +195,7 @@ const Onboarding: FC = () => {
     description: string;
   };
 
-  // step data content here
+  // step data content goes here
   const stepData: StepProps[] = [
     {
       id: 1,
@@ -161,7 +239,7 @@ const Onboarding: FC = () => {
             orientation="vertical"
             color="green"
           >
-            {/* steps content mapping here */}
+            {/* steps content mapping goes here */}
             {stepData.map((step) => {
               return (
                 <Stepper.Step
@@ -182,20 +260,8 @@ const Onboarding: FC = () => {
         </div>
       </Box>
       <div className={classes.outletStyle}>
-        <div>
-          <Text
-            fz="xl"
-            sx={{
-              textTransform: 'uppercase',
-              paddingBottom: '100px',
-              textAlign: 'center',
-            }}
-            title="text"
-          >
-            Nexg
-          </Text>
-          <Form activeStep={activeStep} setActiveStep={setActiveStep} />
-        </div>
+        <Form activeStep={activeStep} setActiveStep={setActiveStep} />
+
         <div
           style={{
             display: 'flex',
