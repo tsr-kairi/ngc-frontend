@@ -17,7 +17,7 @@ export default function Personal() {
   });
 
   return (
-    <Box maw={320} mx="auto">
+    <Box maw={707} mx="auto" w="100%">
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <NumberInput
           mt="sm"
@@ -31,7 +31,7 @@ export default function Personal() {
         <Select
           mt="sm"
           label="Gender"
-          placeholder="Pick one"
+          placeholder="Select your gender"
           style={{ flex: 1 }}
           data={[
             { value: 'react', label: 'Male' },
@@ -53,7 +53,7 @@ export default function Personal() {
           label="Alternate Phone"
           placeholder="Phone"
           style={{ flex: 1 }}
-          {...form.getInputProps('phone')}
+          {...form.getInputProps('alternatePhone')}
         />
       </div>
 
@@ -61,7 +61,7 @@ export default function Personal() {
         mt="md"
         label="Email"
         placeholder="Alternate Email"
-        {...form.getInputProps('email')}
+        {...form.getInputProps('alternateEmail')}
       />
     </Box>
   );
