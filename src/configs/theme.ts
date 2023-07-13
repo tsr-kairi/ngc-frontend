@@ -51,8 +51,12 @@ const theme = (colorScheme: ColorScheme): MantineThemeOverride => ({
       '#478BD1',
       '#397EC6',
     ],
+    bgAccentColor: ['#2BEBC8'],
+    bgStepperNavbarLight: ['#F9FBFC'],
+    bgStepperNavbarDark: ['#0C0C0E'],
+    bgSteeperOutletLight: ['#FFFFFF'],
+    bgSteeperOutletDark: ['#151618'],
   },
-  primaryColor: 'brand',
 
   shadows: {
     md: '1px 1px 3px rgba(0, 0, 0, .25)',
