@@ -3,6 +3,7 @@ import {
   createStyles,
   Group,
   Menu,
+  Text,
   UnstyledButton,
 } from '@mantine/core';
 import { IconLogout, IconSettings, IconUser } from '@tabler/icons-react';
@@ -44,6 +45,16 @@ function UserProfileBtn() {
               radius="xl"
               color="blue"
             />
+            <div style={{ flex: 1 }}>
+              <Text size="sm" color="dimmed" weight={500}>
+                Aryan
+              </Text>
+
+              <Text color="dimmed" size="xs">
+                @gmail.com
+              </Text>
+            </div>
+            <IconLogout style={{ color: 'blue' }} stroke={1.5} />
           </Group>
         </UnstyledButton>
       </Menu.Target>
@@ -78,11 +89,3 @@ function UserProfileBtn() {
   );
 }
 export default UserProfileBtn;
-
-/* <div style={{ flex: 1 }}>
-  <Text size="sm" weight={500}>
-    Rabin Trep
-  </Text>
-
-  <Text size={11}>rabintrep@gmail.com</Text>
-</div> */
