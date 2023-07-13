@@ -1,17 +1,60 @@
 /* eslint-disable react/function-component-definition */
-import Adress from '@/components/form/onboarding/adress';
 import Personal from '@/components/form/onboarding/Personal';
-import { Box, Button, Stepper } from '@mantine/core';
+import Address from '@/components/form/onboarding/address';
+import ToggleThemeBtn from '@/components/ui/Buttons/ToggleThemeBtn';
+import { Box, Button, Group, Stepper, Text, createStyles } from '@mantine/core';
+import {
+  IconAddressBook,
+  IconFileImport,
+  IconFlagFilled,
+  IconLock,
+} from '@tabler/icons-react';
+
 import { FC, useState } from 'react';
 
-const boxStyle = {
-  maxWidth: 400,
-  margin: '0 auto',
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginTop: '100px',
-  height: '100vh',
-};
+// create style for this components
+const useStyles = createStyles((theme) => ({
+  stepperWrapper: {
+    display: 'flex',
+    overflowY: 'hidden',
+    backgroundColor: 'white',
+  },
+  stepperWrapperOuter: {
+    width: '25vw',
+    backgroundColor: '#F9FBFC',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100vh',
+    paddingLeft: '36px',
+    paddingRight: '36px',
+    paddingTop: '20px',
+    paddingBottom: '20px',
+
+    [theme.fn.smallerThan('xs')]: {
+      display: 'none',
+    },
+  },
+  stepperWrapperInner: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  outletStyle: {
+    width: '100%',
+    maxWidth: 707,
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '36px',
+    marginBottom: '36px',
+    height: 'auto',
+  },
+  stepStyle: {
+    paddingBottom: '36px',
+  },
+}));
 
 interface FormProps {
   activeStep: number;
@@ -26,7 +69,7 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
       form = <Personal />;
       break;
     case 2:
-      form = <Adress />;
+      form = <Address />;
       break;
     case 3:
       form = <Personal />;
@@ -39,79 +82,161 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
   }
 
   return (
-    <Box sx={boxStyle}>
+    <Box>
       {form}
       {activeStep < 4 ? (
-        <Button onClick={() => setActiveStep(activeStep + 1)}>Next</Button>
+        <Button
+          sx={{ marginTop: '55px' }}
+          fullWidth
+          onClick={() => setActiveStep(activeStep + 1)}
+        >
+          Continue
+        </Button>
       ) : (
-        // eslint-disable-next-line no-console
-        <Button onClick={() => console.log('Form submitted')}>Submit</Button>
+        <Button
+          sx={{ marginTop: '55px' }}
+          fullWidth
+          // eslint-disable-next-line no-console
+          onClick={() => console.log('Form submitted')}
+        >
+          Submit
+        </Button>
       )}
     </Box>
   );
 };
 
 const Onboarding: FC = () => {
+  const { classes } = useStyles();
   const [activeStep, setActiveStep] = useState<number>(1);
 
+  type StepProps = {
+    icon: React.ReactNode;
+    id: number;
+    label: string;
+    description: string;
+  };
+
+  // step data content here
+  const stepData: StepProps[] = [
+    {
+      id: 1,
+      label: 'Personal',
+      description: 'Please provide your personal details',
+      icon: <IconFlagFilled />,
+    },
+    {
+      id: 2,
+      label: 'Address',
+      description: 'Please provide your address details',
+      icon: <IconAddressBook />,
+    },
+    {
+      id: 3,
+      label: 'Documents',
+      description: 'Add your legal documents and details',
+      icon: <IconFileImport />,
+    },
+    {
+      id: 4,
+      label: 'Password',
+      description: 'Must be at least 8 characters',
+      icon: <IconLock />,
+    },
+  ];
+
   return (
-    <div style={{ display: 'flex', backgroundColor: 'white' }}>
-      <div style={{ width: '300px' }}>
-        <h1>NEXG</h1>
-        <Stepper
-          active={activeStep}
-          onStepClick={setActiveStep}
-          orientation="vertical"
-          style={{
-            backgroundColor: '#F9FBFC',
-            width: '25vw',
-          }}
-        >
-          <Stepper.Step
-            style={{
-              padding: '20px',
-              marginLeft: '50px',
-              marginTop: '50px',
-            }}
-            label="Step 1"
-            description="Form 1"
-          />
-          <Stepper.Step
-            style={{
-              padding: '20px',
-              marginLeft: '50px',
-              marginTop: '50px',
-            }}
-            label="Step 2"
-            description="Form 2"
-          />
-          <Stepper.Step
-            style={{
-              padding: '20px',
-              marginLeft: '50px',
-              marginTop: '50px',
-            }}
-            label="Step 3"
-            description="Form 3"
-          />
-          <Stepper.Step
-            style={{
-              padding: '20px',
-              marginLeft: '50px',
-              marginTop: '50px',
-            }}
-            label="Step 4"
-            description="Form 4"
-          />
-        </Stepper>
+    <Box className={classes.stepperWrapper}>
+      <Box className={classes.stepperWrapperOuter}>
+        <Box className={classes.stepperWrapperInner}>
+          <Group position="apart" sx={{ paddingBottom: '55px' }}>
+            <Text fz="xl" sx={{ textTransform: 'uppercase' }}>
+              Nexg
+            </Text>
+            <ToggleThemeBtn />
+          </Group>
+          <Stepper
+            active={activeStep}
+            onStepClick={setActiveStep}
+            orientation="vertical"
+            color="green"
+          >
+            {/* steps content mapping here */}
+            {stepData.map((step) => {
+              return (
+                <Stepper.Step
+                  className={classes.stepStyle}
+                  key={step.id}
+                  label={step.label}
+                  description={step.description}
+                  icon={step.icon}
+                />
+              );
+            })}
+          </Stepper>
+        </Box>
+
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <small>@nexg copyright 2023</small>
           <small>connect@nexg.tech</small>
         </div>
+      </Box>
+      <div className={classes.outletStyle}>
+        <div>
+          <Text
+            fz="xl"
+            sx={{
+              textTransform: 'uppercase',
+              paddingBottom: '100px',
+              textAlign: 'center',
+            }}
+            title="text"
+          >
+            Nexg
+          </Text>
+          <Form activeStep={activeStep} setActiveStep={setActiveStep} />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            gap: '10px',
+          }}
+        >
+          <div
+            style={{
+              width: '15px',
+              height: '15px',
+              backgroundColor: '#D9D9D9',
+              borderRadius: '100%',
+            }}
+          />
+          <div
+            style={{
+              width: '15px',
+              height: '15px',
+              backgroundColor: '#D9D9D9',
+              borderRadius: '100%',
+            }}
+          />
+          <div
+            style={{
+              width: '15px',
+              height: '15px',
+              backgroundColor: '#D9D9D9',
+              borderRadius: '100%',
+            }}
+          />
+          <div
+            style={{
+              width: '15px',
+              height: '15px',
+              backgroundColor: '#D9D9D9',
+              borderRadius: '100%',
+            }}
+          />
+        </div>
       </div>
-
-      <Form activeStep={activeStep} setActiveStep={setActiveStep} />
-    </div>
+    </Box>
   );
 };
 
