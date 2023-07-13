@@ -1,5 +1,9 @@
 // eslint-disable-next-line import/no-cycle
-import { TimesheetProps } from './index';
+export type TimesheetProps = {
+  date: string;
+  hours: string;
+  task: string;
+};
 
 const data: TimesheetProps[] = [
   {
