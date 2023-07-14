@@ -14,11 +14,15 @@ export default function Password() {
     <Box>
       <Group position="apart" mt="sm" grow>
         <PasswordInput
+          required
+          type="password"
           label="Password"
           placeholder="Enter your password"
           {...form.getInputProps('password')}
         />
         <PasswordInput
+          required
+          type="password"
           label="Confirm Password"
           placeholder="Enter your confirm password"
           {...form.getInputProps('confirmPassword')}
