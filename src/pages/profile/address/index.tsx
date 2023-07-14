@@ -128,7 +128,7 @@ export default function Address() {
           {...form.getInputProps('country')}
         />
         <TextInput
-          label="Pin Code"
+          label="Pin Code1"
           placeholder="Enter your pin code"
           type="number"
           {...form.getInputProps('pinCode')}
