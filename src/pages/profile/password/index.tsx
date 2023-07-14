@@ -1,7 +1,7 @@
-import { Box, Group, PasswordInput, Progress, Text } from '@mantine/core';
+import { Box, PasswordInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-function Password() {
+function ProfilePassword() {
   const form = useForm({
     initialValues: {
       password: '',
@@ -17,15 +17,6 @@ function Password() {
         width: '60%',
       }}
     >
-      <Group position="apart" mt="xs">
-        <Text fz="sm" color="dimmed">
-          Progress
-        </Text>
-        <Text fz="sm" color="dimmed">
-          62%
-        </Text>
-      </Group>
-      <Progress value={62} mt={5} />
       <Text fz="xl" weight={700}>
         Password
       </Text>
@@ -61,4 +52,4 @@ function Password() {
   );
 }
 
-export default Password;
+export default ProfilePassword;

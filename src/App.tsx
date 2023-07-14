@@ -5,7 +5,8 @@ import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
-import Proflayout from './pages/profile';
+import ProfileLayout from './components/layout/ProfileLayout';
+import ProfilePassword from './pages/profile/password';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -123,10 +124,12 @@ function App() {
               }
             />
             <Route
-              path="/profile"
+              path="/profile/password"
               element={
                 <WrapSuspense>
-                  <Proflayout />
+                  <ProfileLayout>
+                    <ProfilePassword />
+                  </ProfileLayout>
                 </WrapSuspense>
               }
             />

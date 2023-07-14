@@ -71,7 +71,7 @@ function ProfileSidebar() {
       </Box>
       <Box
         sx={{
-          height: '550px',
+          height: '100%',
           width: '210px',
           backgroundColor: 'white',
           paddingTop: '20px',
