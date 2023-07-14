@@ -1,11 +1,12 @@
 import { Loader } from '@mantine/core';
 import React, { ReactNode, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ProfileLayout from './components/layout/ProfileLayout';
 import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
-import Proflayout from './pages/profile';
+import ProfilePassword from './pages/profile/password';
 import Address from './pages/profile/address';
 
 const DashboardLayout = React.lazy(
@@ -124,10 +125,12 @@ function App() {
               }
             />
             <Route
-              path="/profile"
+              path="/profile/password"
               element={
                 <WrapSuspense>
-                  <Proflayout />
+                  <ProfileLayout title="Password" subTitle="Set New Password">
+                    <ProfilePassword />
+                  </ProfileLayout>
                 </WrapSuspense>
               }
             />

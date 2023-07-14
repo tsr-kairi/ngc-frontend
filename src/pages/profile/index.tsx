@@ -1,4 +1,4 @@
-import Password from '@/components/ui/ProfileLayout/Password';
+import Password from '@/pages/profile/password';
 import ProfileSidebar from '@/components/ui/ProfileLayout/ProfileSidebar';
 
 function Proflayout() {

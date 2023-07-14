@@ -1,9 +1,10 @@
-import { Box, Group, PasswordInput, Progress, Text } from '@mantine/core';
+import { Box, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-function Password() {
+function ProfilePassword() {
   const form = useForm({
     initialValues: {
+      currentPassword: '',
       password: '',
       confirmPassword: '',
     },
@@ -13,36 +14,30 @@ function Password() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-
-        width: '60%',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
       }}
     >
-      <Group position="apart" mt="xs">
-        <Text fz="sm" color="dimmed">
-          Progress
-        </Text>
-        <Text fz="sm" color="dimmed">
-          62%
-        </Text>
-      </Group>
-      <Progress value={62} mt={5} />
-      <Text fz="xl" weight={700}>
-        Password
-      </Text>
-      <Text fz="md">Set new Password</Text>
       <Box
         sx={{
           justifyItems: 'center',
           justifyContent: 'center',
           backgroundColor: 'white',
-          top: '100px',
+          padding: '100px',
+          width: '60%',
+          borderRadius: '5px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px',
         }}
       >
         <PasswordInput
           label="Current Password"
           placeholder="Enter your password"
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...form.getInputProps('password')}
+          {...form.getInputProps('currentPassword')}
         />
         <PasswordInput
           label="Password"
@@ -61,4 +56,4 @@ function Password() {
   );
 }
 
-export default Password;
+export default ProfilePassword;

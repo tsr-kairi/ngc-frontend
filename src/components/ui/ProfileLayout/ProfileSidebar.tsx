@@ -1,23 +1,24 @@
 import { ActionIcon, Avatar, Box, NavLink, Text } from '@mantine/core';
 import {
   Icon2fa,
-  IconBellRinging,
   IconDatabaseImport,
   IconFingerprint,
   IconKey,
-  IconReceipt2,
+  IconBackpack,
   IconSettings,
+  IconUser,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 
 const tabs = [
-  { link: '', label: 'Notifications', icon: IconBellRinging },
-  { link: '', label: 'Billing', icon: IconReceipt2 },
-  { link: '', label: 'Security', icon: IconFingerprint },
-  { link: '', label: 'SSH Keys', icon: IconKey },
-  { link: '', label: 'Databases', icon: IconDatabaseImport },
-  { link: '', label: 'Authentication', icon: Icon2fa },
-  { link: '', label: 'Other Settings', icon: IconSettings },
+  { link: '', label: 'Personal', icon: IconUser },
+  { link: '', label: 'Education', icon: IconBackpack },
+  { link: '', label: 'Professional', icon: IconFingerprint },
+  { link: '', label: 'Banking', icon: IconKey },
+  { link: '', label: 'Address', icon: IconDatabaseImport },
+  { link: '', label: 'Documents', icon: Icon2fa },
+  { link: '', label: 'Skills', icon: IconSettings },
+  { link: '', label: 'Settings', icon: IconSettings },
 ];
 
 function ProfileSidebar() {
@@ -29,7 +30,9 @@ function ProfileSidebar() {
       active={index === itemActive}
       label={item.label}
       href={item.link}
+      py="md"
       component="a"
+      style={{ borderRadius: '5px' }}
       icon={
         <ActionIcon variant="light">
           <item.icon size="1rem" stroke={1.5} />
@@ -39,18 +42,24 @@ function ProfileSidebar() {
     />
   ));
   return (
-    <div style={{ height: '100%', width: '250px' }}>
+    <div
+      style={{
+        height: '100%',
+        width: '350px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Box
         sx={{
-          height: '210px',
-          width: '210px',
+          height: '250px',
+          width: '100%',
           backgroundColor: 'white',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          alignItems: 'center',
           marginBottom: '10px',
-          paddingLeft: '60px',
-          paddingRight: '30px',
         }}
       >
         <Avatar
@@ -70,9 +79,11 @@ function ProfileSidebar() {
         </Text>
       </Box>
       <Box
+        py="lg"
+        px="sm"
         sx={{
-          height: '550px',
-          width: '210px',
+          flex: 1,
+          width: '100%',
           backgroundColor: 'white',
           paddingTop: '20px',
         }}
