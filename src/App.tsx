@@ -7,6 +7,7 @@ import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import ProfilePassword from './pages/profile/password';
+import Address from './pages/profile/address';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -130,6 +131,14 @@ function App() {
                   <ProfileLayout title="Password" subTitle="Set New Password">
                     <ProfilePassword />
                   </ProfileLayout>
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/profile/address"
+              element={
+                <WrapSuspense>
+                  <Address />
                 </WrapSuspense>
               }
             />
