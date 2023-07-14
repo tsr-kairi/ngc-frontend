@@ -1,5 +1,4 @@
 // lorem20
-
 import { Suspense, useEffect, useMemo, useState } from 'react';
 
 // MRT Imports
@@ -30,10 +29,9 @@ import {
 } from '@tabler/icons-react';
 
 // Mock Data
-// eslint-disable-next-line import/no-cycle
-import data from './mokdata';
-import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import TimesheetForm from '@/components/form/timesheet/createForm';
+import IsMobileScreen from '@/hooks/useIsMobileScreen';
+import data from './mokdata';
 
 // createStyles import
 const useStyles = createStyles(() => ({
@@ -112,7 +110,6 @@ function Timesheet() {
         enableRowActions
         enableRowNumbers
         enableRowSelection
-        editingMode="row"
         enableEditing
         enableStickyHeader
         memoMode="cells"
