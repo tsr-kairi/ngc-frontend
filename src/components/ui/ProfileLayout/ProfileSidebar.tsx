@@ -29,7 +29,9 @@ function ProfileSidebar() {
       active={index === itemActive}
       label={item.label}
       href={item.link}
+      py="md"
       component="a"
+      style={{ borderRadius: '5px' }}
       icon={
         <ActionIcon variant="light">
           <item.icon size="1rem" stroke={1.5} />
@@ -39,18 +41,24 @@ function ProfileSidebar() {
     />
   ));
   return (
-    <div style={{ height: '100%', width: '250px' }}>
+    <div
+      style={{
+        height: '100%',
+        width: '350px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Box
         sx={{
-          height: '210px',
-          width: '210px',
+          height: '250px',
+          width: '100%',
           backgroundColor: 'white',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
+          alignItems: 'center',
           marginBottom: '10px',
-          paddingLeft: '60px',
-          paddingRight: '30px',
         }}
       >
         <Avatar
@@ -70,9 +78,11 @@ function ProfileSidebar() {
         </Text>
       </Box>
       <Box
+        py="lg"
+        px="sm"
         sx={{
-          height: '100%',
-          width: '210px',
+          flex: 1,
+          width: '100%',
           backgroundColor: 'white',
           paddingTop: '20px',
         }}
