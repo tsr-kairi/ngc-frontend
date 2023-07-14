@@ -2,7 +2,13 @@ import { Box, Group, Progress, Text } from '@mantine/core';
 import React from 'react';
 import ProfileSidebar from '../ui/ProfileLayout/ProfileSidebar';
 
-function ProfileLayout({ children }: { children: React.ReactNode }) {
+interface ProfileLayoutProps {
+  children: React.ReactNode;
+  title: string;
+  subTitle: string;
+}
+
+function ProfileLayout({ children, title, subTitle }: ProfileLayoutProps) {
   return (
     <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
       <ProfileSidebar />
@@ -16,7 +22,17 @@ function ProfileLayout({ children }: { children: React.ReactNode }) {
           </Text>
         </Group>
         <Progress value={62} mt={5} />
-        {children}
+        <div
+          style={{
+            paddingTop: '20px',
+          }}
+        >
+          <Text fz="xl" weight={900}>
+            {title}
+          </Text>
+          <Text fz="md">{subTitle}</Text>
+        </div>
+        <div style={{ flex: 1 }}>{children}</div>
       </Box>
     </div>
   );

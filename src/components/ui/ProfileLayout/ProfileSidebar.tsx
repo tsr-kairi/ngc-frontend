@@ -1,23 +1,24 @@
 import { ActionIcon, Avatar, Box, NavLink, Text } from '@mantine/core';
 import {
   Icon2fa,
-  IconBellRinging,
   IconDatabaseImport,
   IconFingerprint,
   IconKey,
-  IconReceipt2,
+  IconBackpack,
   IconSettings,
+  IconUser,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 
 const tabs = [
-  { link: '', label: 'Notifications', icon: IconBellRinging },
-  { link: '', label: 'Billing', icon: IconReceipt2 },
-  { link: '', label: 'Security', icon: IconFingerprint },
-  { link: '', label: 'SSH Keys', icon: IconKey },
-  { link: '', label: 'Databases', icon: IconDatabaseImport },
-  { link: '', label: 'Authentication', icon: Icon2fa },
-  { link: '', label: 'Other Settings', icon: IconSettings },
+  { link: '', label: 'Personal', icon: IconUser },
+  { link: '', label: 'Education', icon: IconBackpack },
+  { link: '', label: 'Professional', icon: IconFingerprint },
+  { link: '', label: 'Banking', icon: IconKey },
+  { link: '', label: 'Address', icon: IconDatabaseImport },
+  { link: '', label: 'Documents', icon: Icon2fa },
+  { link: '', label: 'Skills', icon: IconSettings },
+  { link: '', label: 'Settings', icon: IconSettings },
 ];
 
 function ProfileSidebar() {

@@ -1,9 +1,10 @@
-import { Box, PasswordInput, Text } from '@mantine/core';
+import { Box, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 function ProfilePassword() {
   const form = useForm({
     initialValues: {
+      currentPassword: '',
       password: '',
       confirmPassword: '',
     },
@@ -13,27 +14,30 @@ function ProfilePassword() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-
-        width: '60%',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
       }}
     >
-      <Text fz="xl" weight={700}>
-        Password
-      </Text>
-      <Text fz="md">Set new Password</Text>
       <Box
         sx={{
           justifyItems: 'center',
           justifyContent: 'center',
           backgroundColor: 'white',
-          top: '100px',
+          padding: '100px',
+          width: '60%',
+          borderRadius: '5px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px',
         }}
       >
         <PasswordInput
           label="Current Password"
           placeholder="Enter your password"
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...form.getInputProps('password')}
+          {...form.getInputProps('currentPassword')}
         />
         <PasswordInput
           label="Password"
