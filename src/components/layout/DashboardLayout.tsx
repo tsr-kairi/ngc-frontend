@@ -2,7 +2,7 @@ import { AppShell } from '@mantine/core';
 import { useNetwork } from '@mantine/hooks';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import DashboardHeader from '../ui/DashboardLayout/Header';
+// import DashboardHeader from '../ui/DashboardLayout/Header';
 import Navbar from '../ui/DashboardLayout/Navbar';
 
 function DashboardLayout() {
@@ -22,10 +22,10 @@ function DashboardLayout() {
       asideOffsetBreakpoint="sm"
       navbar={
         <div hidden={opened}>
-          <Navbar />
+          <Navbar opened={opened} setOpened={setOpened} />
         </div>
       }
-      header={<DashboardHeader opened={opened} setOpened={setOpened} />}
+      // header={<DashboardHeader opened={opened} setOpened={setOpened} />}
     >
       {online ? (
         <div>
