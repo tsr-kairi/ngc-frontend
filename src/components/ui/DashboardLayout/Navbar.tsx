@@ -142,11 +142,6 @@ const smallData = [
     label: 'Profile',
     href: '/profile',
   },
-  {
-    icon: IconSwitchHorizontal,
-    label: 'Profile',
-    href: '/profile',
-  },
 ];
 
 export default function Navbar({ opened, setOpened }: HeaderProps) {
@@ -212,11 +207,12 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
     <Box
       w={300}
       px="md"
-      my="md"
+      py="lg"
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
+        height: '100%',
       }}
     >
       <Box>
