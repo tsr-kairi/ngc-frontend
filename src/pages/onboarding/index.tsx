@@ -30,25 +30,21 @@ const useStyles = createStyles((theme) => ({
   stepperWrapper: {
     display: 'flex',
     overflowY: 'hidden',
-    backgroundColor:
-      theme.colorScheme === 'dark'
-        ? theme.colors.bgSteeperOutletDark
-        : theme.colors.bgSteeperOutletLight,
     [theme.fn.smallerThan('xs')]: {
       height: '100vh',
       overflowY: 'auto',
       backgroundColor:
         theme.colorScheme === 'dark'
-          ? theme.colors.bgStepperNavbarDark
-          : theme.colors.bgSteeperOutletLight,
+          ? theme.colors.dark[7]
+          : theme.colors.gray[0],
     },
   },
   stepperWrapperOuter: {
     width: '25vw',
     backgroundColor:
       theme.colorScheme === 'dark'
-        ? theme.colors.bgStepperNavbarDark
-        : theme.colors.bgStepperNavbarLight,
+        ? theme.colors.dark[6]
+        : theme.colors.gray[1],
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -78,53 +74,51 @@ const useStyles = createStyles((theme) => ({
   },
   outletStyle: {
     width: '100%',
-    maxWidth: 707,
+    maxWidth: 800,
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: '36px',
     marginBottom: '36px',
     height: 'auto',
     [theme.fn.smallerThan('xs')]: {
       width: '100%',
-      marginTop: '16px',
-      marginBottom: '16px',
       alignItems: 'initial',
     },
   },
   stepStyle: {
     paddingBottom: '36px',
   },
-  btn: {
+  box: {
     backgroundColor:
       theme.colorScheme === 'dark'
-        ? theme.colors.bgAccentColor
-        : theme.colors.bgAccentColor,
-    color:
-      theme.colorScheme === 'dark'
-        ? theme.colors.dark[9]
-        : theme.colors.gray[0],
-  },
-  box: {
+        ? theme.colors.dark[6]
+        : theme.colors.gray[1],
+    paddingLeft: '75px',
+    paddingRight: '75px',
+    paddingTop: '75px',
+    paddingBottom: '75px',
+    marginTop: '55px',
     [theme.fn.smallerThan('xs')]: {
       backgroundColor:
         theme.colorScheme === 'dark'
-          ? theme.colors.bgSteeperOutletDark
-          : theme.colors.bgStepperNavbarLight,
-      padding: '20px',
-      // borderRadius: '10px',
+          ? theme.colors.dark[6]
+          : theme.colors.gray[1],
+      padding: '30px',
+      paddingTop: '20px',
+      paddingBottom: '50px',
+      marginTop: '0px',
     },
   },
   formIcon: {
-    paddingBottom: '70px',
+    padding: '10px',
     [theme.fn.smallerThan('xs')]: {
       display: 'flex',
       alignItems: 'center',
       backgroundColor:
         theme.colorScheme === 'dark'
-          ? theme.colors.bgSteeperOutletDark
-          : theme.colors.bgStepperNavbarLight,
+          ? theme.colors.dark[6]
+          : theme.colors.gray[1],
       padding: '15px',
       borderTopRightRadius: '10px',
       borderTopLeftRadius: '10px',
@@ -143,16 +137,16 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
   // forms render
   let form = null;
   switch (activeStep) {
-    case 1:
+    case 0:
       form = <Personal />;
       break;
-    case 2:
+    case 1:
       form = <Address />;
       break;
-    case 3:
+    case 2:
       form = <Document />;
       break;
-    case 4:
+    case 3:
       form = <Password />;
       break;
     default:
@@ -162,7 +156,7 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
   // form icon render
   let formIcon = null;
   switch (activeStep) {
-    case 1:
+    case 0:
       formIcon = (
         <Group>
           <ActionIcon variant="outline">
@@ -172,7 +166,7 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
         </Group>
       );
       break;
-    case 2:
+    case 1:
       formIcon = (
         <Group>
           <ActionIcon variant="outline">
@@ -182,7 +176,7 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
         </Group>
       );
       break;
-    case 3:
+    case 2:
       formIcon = (
         <Group>
           <ActionIcon variant="outline">
@@ -192,7 +186,7 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
         </Group>
       );
       break;
-    case 4:
+    case 3:
       formIcon = (
         <Group>
           <ActionIcon variant="outline">
@@ -217,21 +211,20 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
       </Group>
       <Box w="100%" className={classes.box}>
         {form}
-        {activeStep < 4 ? (
+        {activeStep < 3 ? (
           <div style={{ marginTop: '55px' }}>
             {IsMobileScreen() ? (
               <Group position="center" grow>
                 <Button
                   onClick={() => setActiveStep(activeStep - 1)}
-                  className={classes.btn}
-                  color="green"
+                  // className={classes.btn}
                 >
                   Back
                 </Button>
                 <Button
                   onClick={() => setActiveStep(activeStep + 1)}
-                  className={classes.btn}
-                  color="green"
+                  // className={classes.btn}
+                  // color="green"
                 >
                   Continue
                 </Button>
@@ -241,8 +234,8 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
                 <Button
                   w="400px"
                   onClick={() => setActiveStep(activeStep + 1)}
-                  className={classes.btn}
-                  color="green"
+                  // className={classes.btn}
+                  // color="green"
                 >
                   Continue
                 </Button>
@@ -253,18 +246,12 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
           <div style={{ marginTop: '55px' }}>
             {IsMobileScreen() ? (
               <Group position="apart" grow>
-                <Button
-                  onClick={() => setActiveStep(activeStep - 1)}
-                  className={classes.btn}
-                  color="green"
-                >
+                <Button onClick={() => setActiveStep(activeStep - 1)}>
                   Back
                 </Button>
                 <Button
                   // eslint-disable-next-line no-console
                   onClick={() => console.log('Form submitted')}
-                  className={classes.btn}
-                  color="green"
                 >
                   Submit
                 </Button>
@@ -276,8 +263,6 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
                   w="400px"
                   // eslint-disable-next-line no-console
                   onClick={() => console.log('Form submitted')}
-                  className={classes.btn}
-                  color="green"
                 >
                   Submit
                 </Button>
@@ -293,11 +278,7 @@ const Form: FC<FormProps> = ({ activeStep, setActiveStep }) => {
 const Onboarding: FC = () => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const [activeStep, setActiveStep] = useState<number>(1);
-
-  // const handleDotClick = (step: number) => {
-  //   setActiveStep(step);
-  // };
+  const [activeStep, setActiveStep] = useState<number>(0);
 
   type StepProps = {
     icon: React.ReactNode;
@@ -391,20 +372,35 @@ const Onboarding: FC = () => {
         >
           <div
             style={{
+              width: activeStep === 0 ? '28px' : '10px',
+              height: '10px',
+              backgroundColor:
+                activeStep === 0
+                  ? `${theme.colors.brand[7]}`
+                  : `${
+                      theme.colorScheme === 'dark'
+                        ? theme.colors.gray[0]
+                        : theme.colors.gray[5]
+                    }`,
+              borderRadius: activeStep === 0 ? '8px' : '100%',
+              cursor: 'pointer',
+            }}
+          />
+          <div
+            style={{
               width: activeStep === 1 ? '28px' : '10px',
               height: '10px',
               backgroundColor:
                 activeStep === 1
-                  ? `${theme.colors.bgAccentColor}`
+                  ? `${theme.colors.brand[7]}`
                   : `${
                       theme.colorScheme === 'dark'
-                        ? theme.colors.bgStepperNavbarLight
-                        : '#D9D9D9'
+                        ? theme.colors.gray[0]
+                        : theme.colors.gray[5]
                     }`,
               borderRadius: activeStep === 1 ? '8px' : '100%',
               cursor: 'pointer',
             }}
-            // onClick={() => handleDotClick(1)}
           />
           <div
             style={{
@@ -412,16 +408,15 @@ const Onboarding: FC = () => {
               height: '10px',
               backgroundColor:
                 activeStep === 2
-                  ? `${theme.colors.bgAccentColor}`
+                  ? `${theme.colors.brand[7]}`
                   : `${
                       theme.colorScheme === 'dark'
-                        ? theme.colors.bgStepperNavbarLight
-                        : '#D9D9D9'
+                        ? theme.colors.gray[0]
+                        : theme.colors.gray[5]
                     }`,
               borderRadius: activeStep === 2 ? '8px' : '100%',
               cursor: 'pointer',
             }}
-            // onClick={() => handleDotClick(2)}
           />
           <div
             style={{
@@ -429,33 +424,15 @@ const Onboarding: FC = () => {
               height: '10px',
               backgroundColor:
                 activeStep === 3
-                  ? `${theme.colors.bgAccentColor}`
+                  ? `${theme.colors.brand[7]}`
                   : `${
                       theme.colorScheme === 'dark'
-                        ? theme.colors.bgStepperNavbarLight
-                        : '#D9D9D9'
+                        ? theme.colors.gray[0]
+                        : theme.colors.gray[5]
                     }`,
               borderRadius: activeStep === 3 ? '8px' : '100%',
               cursor: 'pointer',
             }}
-            // onClick={() => handleDotClick(3)}
-          />
-          <div
-            style={{
-              width: activeStep === 4 ? '28px' : '10px',
-              height: '10px',
-              backgroundColor:
-                activeStep === 4
-                  ? `${theme.colors.bgAccentColor}`
-                  : `${
-                      theme.colorScheme === 'dark'
-                        ? theme.colors.bgStepperNavbarLight
-                        : '#D9D9D9'
-                    }`,
-              borderRadius: activeStep === 4 ? '8px' : '100%',
-              cursor: 'pointer',
-            }}
-            // onClick={() => handleDotClick(4)}
           />
         </Group>
       </div>

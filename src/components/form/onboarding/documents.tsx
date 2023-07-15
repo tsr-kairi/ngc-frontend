@@ -5,10 +5,13 @@ import {
   FileInput,
   Group,
   Select,
+  SimpleGrid,
   Text,
   TextInput,
+  rem,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { IconUpload } from '@tabler/icons-react';
 
 export default function Document() {
   const form = useForm({
@@ -36,7 +39,11 @@ export default function Document() {
           </ActionIcon>
           <Text>Personal Document</Text>
         </Group>
-        <Group position="apart" mt="sm" grow>
+        <SimpleGrid
+          cols={2}
+          breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
+          my="sm"
+        >
           <TextInput
             required
             type="number"
@@ -49,9 +56,14 @@ export default function Document() {
             label="Aadhar Scan"
             placeholder="Choose file"
             {...form.getInputProps('aadharScan')}
+            rightSection={<IconUpload size={rem(14)} />}
           />
-        </Group>
-        <Group position="apart" mt="sm" grow>
+        </SimpleGrid>
+        <SimpleGrid
+          cols={2}
+          breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
+          mb="sm"
+        >
           <TextInput
             required
             type="number"
@@ -64,8 +76,9 @@ export default function Document() {
             label="Pan Scan"
             placeholder="Choose file"
             {...form.getInputProps('panScan')}
+            rightSection={<IconUpload size={rem(14)} />}
           />
-        </Group>
+        </SimpleGrid>
       </Box>
       <Box mt="xl">
         <Group>
@@ -76,7 +89,11 @@ export default function Document() {
             <Text>Bank Document</Text>
           </Group>
         </Group>
-        <Group position="apart" mt="sm" grow>
+        <SimpleGrid
+          cols={2}
+          breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
+          my="sm"
+        >
           <TextInput
             required
             type="number"
@@ -91,8 +108,12 @@ export default function Document() {
             placeholder="Enter your confirm account no"
             {...form.getInputProps('confirmAccountNo')}
           />
-        </Group>
-        <Group position="apart" mt="sm" grow>
+        </SimpleGrid>
+        <SimpleGrid
+          cols={2}
+          breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
+          mb="sm"
+        >
           <Select
             required
             label="Bank Name"
@@ -110,8 +131,8 @@ export default function Document() {
             placeholder="Enter your ifsc code"
             {...form.getInputProps('ifscCode')}
           />
-        </Group>
-        <Group position="apart" mt="sm" grow>
+        </SimpleGrid>
+        <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
           <TextInput
             required
             type="number"
@@ -124,8 +145,9 @@ export default function Document() {
             label="Passbook Scan"
             placeholder="Choose file"
             {...form.getInputProps('passbookScan')}
+            rightSection={<IconUpload size={rem(14)} />}
           />
-        </Group>
+        </SimpleGrid>
       </Box>
     </Box>
   );
