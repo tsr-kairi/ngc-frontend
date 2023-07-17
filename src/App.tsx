@@ -6,8 +6,9 @@ import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
-import ProfilePassword from './pages/profile/password';
 import Address from './pages/profile/address';
+import ProfileExperience from './pages/profile/experience';
+import ProfilePassword from './pages/profile/password';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -130,6 +131,19 @@ function App() {
                 <WrapSuspense>
                   <ProfileLayout title="Password" subTitle="Set New Password">
                     <ProfilePassword />
+                  </ProfileLayout>
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/profile/experience"
+              element={
+                <WrapSuspense>
+                  <ProfileLayout
+                    title="Experience"
+                    subTitle="Add Your Experience Here"
+                  >
+                    <ProfileExperience />
                   </ProfileLayout>
                 </WrapSuspense>
               }
