@@ -16,12 +16,12 @@ export default function Address() {
 
   return (
     <div>
-      <Text fz="lg" weight={700}>
+      {/* <Text fz="lg" weight={700}>
         Address
       </Text>
       <Text fz="sm" weight={300}>
         add you address here
-      </Text>
+      </Text> */}
 
       <Text mt="lg" mb="sm" fz="md" weight={520}>
         Present Address

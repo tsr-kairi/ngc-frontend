@@ -8,6 +8,8 @@ import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import ProfilePassword from './pages/profile/password';
 import Address from './pages/profile/address';
+import ProfileInfo from './pages/profile/personal';
+import Banking from './pages/profile/banking';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -138,7 +140,38 @@ function App() {
               path="/profile/address"
               element={
                 <WrapSuspense>
-                  <Address />
+                  <ProfileLayout
+                    title="Address"
+                    subTitle="Add your address here"
+                  >
+                    <Address />
+                  </ProfileLayout>
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/profile/personal"
+              element={
+                <WrapSuspense>
+                  <ProfileLayout
+                    title="Perosnal Information"
+                    subTitle="This is the personal information section"
+                  >
+                    <ProfileInfo />
+                  </ProfileLayout>
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/profile/banking"
+              element={
+                <WrapSuspense>
+                  <ProfileLayout
+                    title="Banking"
+                    subTitle="This is the personal information section"
+                  >
+                    <Banking />
+                  </ProfileLayout>
                 </WrapSuspense>
               }
             />
