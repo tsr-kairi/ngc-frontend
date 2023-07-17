@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, Group, PasswordInput } from '@mantine/core';
+import { Box, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 export default function Password() {
@@ -12,18 +12,21 @@ export default function Password() {
 
   return (
     <Box>
-      <Group position="apart" mt="sm" grow>
-        <PasswordInput
-          label="Password"
-          placeholder="Enter your password"
-          {...form.getInputProps('password')}
-        />
-        <PasswordInput
-          label="Confirm Password"
-          placeholder="Enter your confirm password"
-          {...form.getInputProps('confirmPassword')}
-        />
-      </Group>
+      <PasswordInput
+        required
+        type="password"
+        label="Password"
+        placeholder="Enter your password"
+        {...form.getInputProps('password')}
+      />
+      <PasswordInput
+        mt="sm"
+        required
+        type="password"
+        label="Confirm Password"
+        placeholder="Enter your confirm password"
+        {...form.getInputProps('confirmPassword')}
+      />
     </Box>
   );
 }

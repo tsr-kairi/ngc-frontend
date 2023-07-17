@@ -1,67 +1,68 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, Group, Select, TextInput } from '@mantine/core';
+import { Box, Select, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 export default function Personal() {
   const form = useForm({
     initialValues: {
-      age: 0,
-      phone: 0,
-      alternatePhone: 0,
+      age: '',
+      phone: '',
+      alternatePhone: '',
       alternateEmail: '',
     },
     validate: {
       age: (value) =>
-        value < 18 ? 'You must be at least 18 to register' : null,
+        value < '18' ? 'You must be at least 18 to register' : null,
     },
   });
 
   return (
-    <Box>
-      <Group position="apart" mt="sm" grow>
+    <form>
+      <Box mt="sm">
         <TextInput
+          mb="sm"
           label="Age"
           placeholder="Enter your age"
           type="number"
-          {...form.getInputProps('age')}
           required
+          {...form.getInputProps('age')}
         />
         <Select
-          required
-          label="Gender"
+          mb="sm"
           placeholder="Select your gender"
+          label="Gender"
           data={[
             { value: 'male', label: 'Male' },
             { value: 'female', label: 'Female' },
             { value: 'others', label: 'Others' },
           ]}
-        />
-      </Group>
-
-      <Group position="apart" mt="sm" grow>
-        <TextInput
           required
+          {...form.getInputProps('gender')}
+        />
+        <TextInput
+          mb="sm"
+          type="number"
           label="Phone"
           placeholder="Enter your phone"
-          type="number"
           {...form.getInputProps('phone')}
+          required
         />
         <TextInput
-          required
+          mb="sm"
           label="Alternate Phone"
           placeholder="Enter your alternate phone"
           type="number"
+          required
           {...form.getInputProps('alternatePhone')}
         />
-      </Group>
-      <Group position="apart" mt="sm" grow>
         <TextInput
-          required
-          label="Email"
+          label="Alternate Email"
           placeholder="Enter your alternate email"
+          type="email"
+          required
           {...form.getInputProps('alternateEmail')}
         />
-      </Group>
-    </Box>
+      </Box>
+    </form>
   );
 }
