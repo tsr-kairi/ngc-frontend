@@ -12,7 +12,6 @@ import Education from './pages/profile/eductaion';
 import ProfileExperience from './pages/profile/experience';
 import ProfilePassword from './pages/profile/password';
 import ProfileInfo from './pages/profile/personal';
-import Banking from './pages/profile/banking';
 import ProfileSkills from './pages/profile/skills';
 
 const DashboardLayout = React.lazy(
@@ -201,7 +200,19 @@ function App() {
                     subTitle="You cam add your work experience here"
                   >
                     <Education />
-
+                  </ProfileLayout>
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/profile/skills"
+              element={
+                <WrapSuspense>
+                  <ProfileLayout
+                    title="Skills"
+                    subTitle="You cam add your skills here"
+                  >
+                    <ProfileSkills />
                   </ProfileLayout>
                 </WrapSuspense>
               }
