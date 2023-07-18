@@ -4,19 +4,19 @@ import {
   Box,
   Button,
   createStyles,
+  FileButton,
   Paper,
   Progress,
   SimpleGrid,
   Text,
   TextInput,
 } from '@mantine/core';
-import { Dropzone } from '@mantine/dropzone';
 import { useForm } from '@mantine/form';
 import {
   IconFileDescription,
   IconSquareRoundedCheckFilled,
 } from '@tabler/icons-react';
-import { useRef } from 'react';
+import { useState } from 'react';
 
 // create style for this components
 const useStyles = createStyles((theme) => ({
@@ -42,7 +42,7 @@ const documents = [
   },
 ];
 function Banking() {
-  const openRef = useRef<() => void>(null);
+  const [file, setFile] = useState<File | null>(null);
   const { classes } = useStyles();
   const form = useForm({
     initialValues: {
@@ -66,9 +66,10 @@ function Banking() {
         <IconFileDescription
           size={50}
           strokeWidth={2}
+          color="red"
           className={classes.iconStyle}
         />
-        <Box sx={{ marginLeft: 10, width: 200 }}>
+        <Box sx={{ marginLeft: 15, width: 200 }}>
           <Text weight={500} size="md" mb={0} pb={0}>
             {element.fileName}
           </Text>
@@ -77,7 +78,7 @@ function Banking() {
           </Text>
           <Progress value={100} />
         </Box>
-        <Box>
+        <Box sx={{ paddingLeft: '10px' }}>
           <IconSquareRoundedCheckFilled size={20} fill="green" />
           <Text size="sm" mt="md">
             100%
@@ -114,14 +115,18 @@ function Banking() {
         Bank Documents
       </Text>
       {items}
-      <Dropzone
-        openRef={openRef}
-        onDrop={() => {}}
-        activateOnClick={false}
-        styles={{ inner: { pointerEvents: 'all' } }}
-      >
-        <Button>Upload</Button>
-      </Dropzone>
+      <FileButton onChange={setFile} accept="image/png,image/jpeg">
+        {(props) => (
+          <Button m="md" {...props}>
+            Upload image
+          </Button>
+        )}
+      </FileButton>
+      {file && (
+        <Text size="sm" align="center" mt="sm">
+          Picked file: {file.name}
+        </Text>
+      )}
     </Box>
   );
 }
