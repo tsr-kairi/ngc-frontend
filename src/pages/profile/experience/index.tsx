@@ -1,8 +1,8 @@
 import { Box, Button, Drawer, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import DrawerContent from './drawer';
 import { ItimeLineProps } from './experienceTypes';
 import TimeLine from './timline';
-import DrawerContent from './drawer';
 
 const data: ItimeLineProps[] = [
   {
