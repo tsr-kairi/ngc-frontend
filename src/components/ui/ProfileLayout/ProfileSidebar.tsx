@@ -1,19 +1,20 @@
 import { ActionIcon, Avatar, Box, NavLink, Text } from '@mantine/core';
 import {
   Icon2fa,
+  IconBackpack,
   IconDatabaseImport,
   IconFingerprint,
   IconKey,
-  IconBackpack,
   IconSettings,
   IconUser,
 } from '@tabler/icons-react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const tabs = [
-  { link: '', label: 'Personal', icon: IconUser },
-  { link: '', label: 'Education', icon: IconBackpack },
-  { link: '', label: 'Professional', icon: IconFingerprint },
+  { link: '/profile/personal', label: 'Personal', icon: IconUser },
+  { link: '/profile/education', label: 'Education', icon: IconBackpack },
+  { link: '/profile/experience', label: 'Professional', icon: IconFingerprint },
   { link: '', label: 'Banking', icon: IconKey },
   { link: '', label: 'Address', icon: IconDatabaseImport },
   { link: '', label: 'Documents', icon: Icon2fa },
@@ -23,7 +24,16 @@ const tabs = [
 
 function ProfileSidebar() {
   const [itemActive, setItemActive] = useState(0);
+  const location = useLocation();
 
+  const currentTabIndex = tabs.findIndex(
+    (tab) => tab.link === location.pathname
+  );
+
+  // If the current location is found and different from the active item, update the active item
+  if (currentTabIndex !== -1 && currentTabIndex !== itemActive) {
+    setItemActive(currentTabIndex);
+  }
   const items = tabs.map((item, index) => (
     <NavLink
       key={item.label}
