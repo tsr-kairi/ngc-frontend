@@ -8,6 +8,7 @@ import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import Address from './pages/profile/address';
 import Banking from './pages/profile/banking';
+import Dofiles from './pages/profile/dofiles';
 import Education from './pages/profile/eductaion';
 import ProfileExperience from './pages/profile/experience';
 import ProfilePassword from './pages/profile/password';
@@ -213,6 +214,19 @@ function App() {
                     subTitle="You cam add your skills here"
                   >
                     <ProfileSkills />
+                  </ProfileLayout>
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/profile/documents"
+              element={
+                <WrapSuspense>
+                  <ProfileLayout
+                    title="Documents"
+                    subTitle="You cam add your work experience here"
+                  >
+                    <Dofiles />
                   </ProfileLayout>
                 </WrapSuspense>
               }

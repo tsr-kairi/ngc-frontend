@@ -12,10 +12,7 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import {
-  IconFileDescription,
-  IconSquareRoundedCheckFilled,
-} from '@tabler/icons-react';
+import { IconFiles, IconSquareRoundedCheckFilled } from '@tabler/icons-react';
 import { useState } from 'react';
 
 // create style for this components
@@ -60,10 +57,10 @@ function Banking() {
   const items = documents.map((element) => (
     <Paper
       shadow="xs"
-      style={{ maxWidth: 300, padding: '5px', margin: '10px' }}
+      style={{ maxWidth: 300, padding: '10px', margin: '10px' }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <IconFileDescription
+        <IconFiles
           size={50}
           strokeWidth={2}
           color="red"
@@ -76,7 +73,7 @@ function Banking() {
           <Text fz="sm" weight={200}>
             {element.size}
           </Text>
-          <Progress value={100} />
+          <Progress mt="10px" value={100} />
         </Box>
         <Box sx={{ paddingLeft: '10px' }}>
           <IconSquareRoundedCheckFilled size={20} fill="green" />
@@ -118,7 +115,7 @@ function Banking() {
       <FileButton onChange={setFile} accept="image/png,image/jpeg">
         {(props) => (
           <Button m="md" {...props}>
-            Upload image
+            Upload
           </Button>
         )}
       </FileButton>
