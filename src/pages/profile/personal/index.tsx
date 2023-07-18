@@ -5,7 +5,6 @@ import {
   Button,
   Flex,
   Modal,
-  MultiSelect,
   Select,
   SimpleGrid,
   Table,
@@ -16,20 +15,11 @@ import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { IconEdit } from '@tabler/icons-react';
 import { useState } from 'react';
+import ModalForm from './modalForm';
 
 const elements = [
   { name: 6, relationship: 12.011, phone: 'C', email: 'Carbon' },
   { name: 7, relationship: 14.007, phone: 'N', email: 'Nitrogen' },
-];
-
-const Skills = [
-  { value: 'react', label: 'React' },
-  { value: 'ng', label: 'Angular' },
-  { value: 'svelte', label: 'Svelte' },
-  { value: 'vue', label: 'Vue' },
-  { value: 'riot', label: 'Riot' },
-  { value: 'next', label: 'Next.js' },
-  { value: 'blitz', label: 'Blitz.js' },
 ];
 
 function ProfileInfo() {
@@ -190,18 +180,9 @@ function ProfileInfo() {
         <Text fz="lg" mt="md" mb="md" weight={600}>
           Emergency Contact Details
         </Text>
-        <Modal opened={opened} onClose={close} title="Add Skill">
-          <Box sx={{ height: '200px' }}>
-            <MultiSelect
-              data={Skills}
-              radius="md"
-              my="lg"
-              label="Your favorite frameworks/libraries"
-              placeholder="Pick all that you like"
-              searchable
-              nothingFound="Nothing found"
-            />
-            <Button>Add contact</Button>
+        <Modal opened={opened} onClose={close} title="Add your Contact Details">
+          <Box>
+            <ModalForm />
           </Box>
         </Modal>
 
