@@ -1,24 +1,23 @@
 import { ActionIcon, Avatar, Box, NavLink, Text } from '@mantine/core';
 import {
   Icon2fa,
-  IconDatabaseImport,
-  IconFingerprint,
-  IconKey,
   IconBackpack,
+  IconDatabaseImport,
+  IconKey,
   IconSettings,
   IconUser,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 
 const tabs = [
-  { link: '', label: 'Personal', icon: IconUser },
-  { link: '', label: 'Education', icon: IconBackpack },
-  { link: '', label: 'Professional', icon: IconFingerprint },
-  { link: '', label: 'Banking', icon: IconKey },
-  { link: '', label: 'Address', icon: IconDatabaseImport },
-  { link: '', label: 'Documents', icon: Icon2fa },
-  { link: '', label: 'Skills', icon: IconSettings },
-  { link: '', label: 'Settings', icon: IconSettings },
+  { link: '/profile/personal', label: 'Personal', icon: IconUser },
+  { link: '/profile/education', label: 'Education', icon: IconBackpack },
+  // { link: '/profile/', label: 'Professional', icon: IconFingerprint },
+  { link: '/profile/banking', label: 'Banking', icon: IconKey },
+  { link: '/profile/address', label: 'Address', icon: IconDatabaseImport },
+  { link: '/profile/documents', label: 'Documents', icon: Icon2fa },
+  { link: '/profile/experience', label: 'Experience', icon: IconSettings },
+  // { link: '/profile/', label: 'Settings', icon: IconSettings },
 ];
 
 function ProfileSidebar() {
@@ -42,8 +41,8 @@ function ProfileSidebar() {
     />
   ));
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         height: '100%',
         width: '350px',
         display: 'flex',
@@ -90,7 +89,7 @@ function ProfileSidebar() {
       >
         {items}
       </Box>
-    </div>
+    </Box>
   );
 }
 

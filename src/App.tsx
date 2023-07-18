@@ -7,10 +7,11 @@ import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import Address from './pages/profile/address';
+import Banking from './pages/profile/banking';
+import Education from './pages/profile/eductaion';
 import ProfileExperience from './pages/profile/experience';
 import ProfilePassword from './pages/profile/password';
 import ProfileInfo from './pages/profile/personal';
-import Banking from './pages/profile/banking';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -185,6 +186,19 @@ function App() {
                     subTitle="This is the personal information section"
                   >
                     <Banking />
+                  </ProfileLayout>
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/profile/education"
+              element={
+                <WrapSuspense>
+                  <ProfileLayout
+                    title="Education"
+                    subTitle="You cam add your work experience here"
+                  >
+                    <Education />
                   </ProfileLayout>
                 </WrapSuspense>
               }
