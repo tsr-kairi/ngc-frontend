@@ -1,6 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Select, SimpleGrid, Table, Text, TextInput } from '@mantine/core';
+import {
+  Button,
+  Select,
+  SimpleGrid,
+  Table,
+  Text,
+  TextInput,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useState } from 'react';
 
 const elements = [
   { name: 6, relationship: 12.011, phone: 'C', email: 'Carbon' },
@@ -30,17 +38,32 @@ function ProfileInfo() {
     </tr>
   ));
 
+  const [edit, setEdit] = useState(false);
+
   return (
-    <div className="">
+    <div style={{ width: 'full' }}>
+      <Button
+        size="md"
+        my="lg"
+        sx={{
+          paddingLeft: '40px',
+          paddingRight: '40px',
+        }}
+        onClick={() => setEdit(!edit)}
+      >
+        {edit ? 'Save' : 'Edit'}
+      </Button>
       <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <TextInput
           label="First name"
           placeholder="Jane"
+          disabled={!edit}
           {...form.getInputProps('streetLine1')}
         />
         <TextInput
           label="Last name"
           placeholder="Jane"
+          disabled={!edit}
           {...form.getInputProps('streetLine2')}
         />
         <TextInput
@@ -48,6 +71,7 @@ function ProfileInfo() {
           placeholder="Enter your alternate email"
           type="email"
           required
+          disabled={!edit}
           {...form.getInputProps('alternateEmail')}
         />
         <TextInput
@@ -55,12 +79,14 @@ function ProfileInfo() {
           placeholder="Enter your alternate email"
           type="email"
           required
+          disabled={!edit}
           {...form.getInputProps('alternateEmail')}
         />
         <TextInput
           mb="sm"
           type="number"
           label="Phone"
+          disabled={!edit}
           placeholder="Enter your phone"
           {...form.getInputProps('phone')}
           required
@@ -71,6 +97,7 @@ function ProfileInfo() {
           placeholder="Enter your alternate phone"
           type="number"
           required
+          disabled={!edit}
           {...form.getInputProps('alternatePhone')}
         />
       </SimpleGrid>
@@ -81,6 +108,7 @@ function ProfileInfo() {
           placeholder="12/12/12"
           type="number"
           required
+          disabled={!edit}
           {...form.getInputProps('alternatePhone')}
         />
         <Select
@@ -93,11 +121,13 @@ function ProfileInfo() {
             { value: 'others', label: 'Others' },
           ]}
           required
+          disabled={!edit}
           {...form.getInputProps('gender')}
         />
         <TextInput
           label="Blood Group"
           placeholder="B+ve"
+          disabled={!edit}
           {...form.getInputProps('streetLine2')}
         />
       </SimpleGrid>
@@ -105,6 +135,7 @@ function ProfileInfo() {
         <Select
           label="Nationality"
           placeholder="Select your country"
+          disabled={!edit}
           data={[
             { value: 'in', label: 'India' },
             { value: 'usa', label: 'America' },
@@ -115,6 +146,7 @@ function ProfileInfo() {
           mb="sm"
           placeholder="Marital Status"
           label="Any"
+          disabled={!edit}
           data={[
             { value: 'male', label: 'Male' },
             { value: 'female', label: 'Female' },

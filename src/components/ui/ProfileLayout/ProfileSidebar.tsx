@@ -19,7 +19,6 @@ const tabs = [
   { link: '/profile/documents', label: 'Documents', icon: Icon2fa },
   { link: '/profile/experience', label: 'Experience', icon: IconSettings },
   // { link: '/profile/', label: 'Settings', icon: IconSettings },
-
 ];
 
 function ProfileSidebar() {
