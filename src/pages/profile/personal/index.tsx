@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
+  ActionIcon,
   Button,
+  Flex,
   Select,
   SimpleGrid,
   Table,
@@ -8,6 +10,7 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { IconEdit } from '@tabler/icons-react';
 import { useState } from 'react';
 
 const elements = [
@@ -42,17 +45,11 @@ function ProfileInfo() {
 
   return (
     <div style={{ width: 'full' }}>
-      <Button
-        size="md"
-        my="lg"
-        sx={{
-          paddingLeft: '40px',
-          paddingRight: '40px',
-        }}
-        onClick={() => setEdit(!edit)}
-      >
-        {edit ? 'Save' : 'Edit'}
-      </Button>
+      <Flex sx={{ alignItems: 'right', justifyContent: 'end' }}>
+        <ActionIcon onClick={() => setEdit(!edit)} variant="subtle">
+          <IconEdit size="3rem" />
+        </ActionIcon>
+      </Flex>
       <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <TextInput
           label="First name"
@@ -156,6 +153,16 @@ function ProfileInfo() {
           {...form.getInputProps('gender')}
         />
       </SimpleGrid>
+      <Button
+        size="md"
+        sx={{
+          visibility: `${edit ? 'visible' : 'hidden'}`,
+          paddingLeft: '40px',
+          paddingRight: '40px',
+        }}
+      >
+        Save Changes
+      </Button>
 
       {/* <Group position="center" mt="md">
         <Button color="gray" size="md">
