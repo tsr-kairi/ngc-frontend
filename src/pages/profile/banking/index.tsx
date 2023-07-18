@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
   Box,
+  Button,
   createStyles,
   Paper,
   Progress,
@@ -9,11 +10,13 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
+import { Dropzone } from '@mantine/dropzone';
 import { useForm } from '@mantine/form';
 import {
   IconFileDescription,
   IconSquareRoundedCheckFilled,
 } from '@tabler/icons-react';
+import { useRef } from 'react';
 
 // create style for this components
 const useStyles = createStyles((theme) => ({
@@ -39,6 +42,7 @@ const documents = [
   },
 ];
 function Banking() {
+  const openRef = useRef<() => void>(null);
   const { classes } = useStyles();
   const form = useForm({
     initialValues: {
@@ -107,9 +111,17 @@ function Banking() {
         />
       </SimpleGrid>
       <Text fz="lg" mt="md" weight={600}>
-        Emergency Contact Details
+        Bank Documents
       </Text>
       {items}
+      <Dropzone
+        openRef={openRef}
+        onDrop={() => {}}
+        activateOnClick={false}
+        styles={{ inner: { pointerEvents: 'all' } }}
+      >
+        <Button>Upload</Button>
+      </Dropzone>
     </Box>
   );
 }

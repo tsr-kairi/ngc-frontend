@@ -1,6 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
+  Box,
   Button,
+  Flex,
+  Modal,
+  MultiSelect,
   Select,
   SimpleGrid,
   Table,
@@ -8,6 +12,7 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 
 const elements = [
@@ -15,6 +20,26 @@ const elements = [
   { name: 7, relationship: 14.007, phone: 'N', email: 'Nitrogen' },
 ];
 
+const Skills = [
+  { value: 'react', label: 'React' },
+  { value: 'ng', label: 'Angular' },
+  { value: 'svelte', label: 'Svelte' },
+  { value: 'vue', label: 'Vue' },
+  { value: 'riot', label: 'Riot' },
+  { value: 'next', label: 'Next.js' },
+  { value: 'blitz', label: 'Blitz.js' },
+];
+
+const categories = [
+  {
+    title: 'Programming Languages',
+    skills: 'uwhsib w',
+  },
+  {
+    title: 'Programming Languages',
+    skills: 'uwhsib w',
+  },
+];
 function ProfileInfo() {
   const form = useForm({
     initialValues: {
@@ -39,6 +64,7 @@ function ProfileInfo() {
   ));
 
   const [edit, setEdit] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <div style={{ width: 'full' }}>
@@ -164,10 +190,29 @@ function ProfileInfo() {
         </Button>
         <Button size="md"> Confirm</Button>
       </Group> */}
+      <Flex sx={{ alignItems: 'start', justifyContent: 'space-between' }}>
+        <Text fz="lg" mt="md" mb="md" weight={600}>
+          Emergency Contact Details
+        </Text>
+        <Modal opened={opened} onClose={close} title="Add Skill">
+          <Box sx={{ height: '200px' }}>
+            <MultiSelect
+              data={Skills}
+              radius="md"
+              my="lg"
+              label="Your favorite frameworks/libraries"
+              placeholder="Pick all that you like"
+              searchable
+              nothingFound="Nothing found"
+            />
+            <Button>Add Skill</Button>
+          </Box>
+        </Modal>
 
-      <Text fz="lg" mt="md" weight={600}>
-        Emergency Contact Details
-      </Text>
+        <Button onClick={open} size="xs" mt="20px">
+          +
+        </Button>
+      </Flex>
       <Table>
         <thead>
           <tr>
