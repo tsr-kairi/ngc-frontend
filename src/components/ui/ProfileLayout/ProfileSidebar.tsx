@@ -3,7 +3,6 @@ import {
   Icon2fa,
   IconBackpack,
   IconDatabaseImport,
-  IconFingerprint,
   IconKey,
   IconSettings,
   IconUser,
@@ -14,12 +13,13 @@ import { useLocation } from 'react-router-dom';
 const tabs = [
   { link: '/profile/personal', label: 'Personal', icon: IconUser },
   { link: '/profile/education', label: 'Education', icon: IconBackpack },
-  { link: '/profile/experience', label: 'Professional', icon: IconFingerprint },
-  { link: '', label: 'Banking', icon: IconKey },
-  { link: '', label: 'Address', icon: IconDatabaseImport },
-  { link: '', label: 'Documents', icon: Icon2fa },
-  { link: '', label: 'Skills', icon: IconSettings },
-  { link: '', label: 'Settings', icon: IconSettings },
+  // { link: '/profile/', label: 'Professional', icon: IconFingerprint },
+  { link: '/profile/banking', label: 'Banking', icon: IconKey },
+  { link: '/profile/address', label: 'Address', icon: IconDatabaseImport },
+  { link: '/profile/documents', label: 'Documents', icon: Icon2fa },
+  { link: '/profile/experience', label: 'Experience', icon: IconSettings },
+  // { link: '/profile/', label: 'Settings', icon: IconSettings },
+
 ];
 
 function ProfileSidebar() {
@@ -52,8 +52,8 @@ function ProfileSidebar() {
     />
   ));
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         height: '100%',
         width: '350px',
         display: 'flex',
@@ -100,7 +100,7 @@ function ProfileSidebar() {
       >
         {items}
       </Box>
-    </div>
+    </Box>
   );
 }
 

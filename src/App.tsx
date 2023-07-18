@@ -7,6 +7,8 @@ import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import Address from './pages/profile/address';
+import Banking from './pages/profile/banking';
+import Education from './pages/profile/eductaion';
 import ProfileExperience from './pages/profile/experience';
 import ProfilePassword from './pages/profile/password';
 import ProfileInfo from './pages/profile/personal';
@@ -191,14 +193,15 @@ function App() {
               }
             />
             <Route
-              path="/profile/skills"
+              path="/profile/education"
               element={
                 <WrapSuspense>
                   <ProfileLayout
-                    title="Skills"
-                    subTitle="You can add your skills here"
+                    title="Education"
+                    subTitle="You cam add your work experience here"
                   >
-                    <ProfileSkills />
+                    <Education />
+
                   </ProfileLayout>
                 </WrapSuspense>
               }

@@ -1,5 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Checkbox, Select, Text, TextInput } from '@mantine/core';
+import {
+  Box,
+  Checkbox,
+  Select,
+  SimpleGrid,
+  Text,
+  TextInput,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 export default function Address() {
@@ -15,7 +22,7 @@ export default function Address() {
   });
 
   return (
-    <div>
+    <Box>
       {/* <Text fz="lg" weight={700}>
         Address
       </Text>
@@ -26,13 +33,7 @@ export default function Address() {
       <Text mt="lg" mb="sm" fz="md" weight={520}>
         Present Address
       </Text>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '10px',
-        }}
-      >
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <TextInput
           label="Street line 1"
           placeholder="Enter your “Street” line 1"
@@ -76,20 +77,14 @@ export default function Address() {
           type="number"
           {...form.getInputProps('pinCode')}
         />
-      </div>
+      </SimpleGrid>
 
       <Checkbox mt="md" mb="lg" label="same as permanent address" />
 
       <Text mt="lg" mb="sm" fz="md" weight={520}>
         Permanent Address
       </Text>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '10px',
-        }}
-      >
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <TextInput
           label="Street line 1"
           placeholder="Enter your “Street” line 1"
@@ -133,7 +128,7 @@ export default function Address() {
           type="number"
           {...form.getInputProps('pinCode')}
         />
-      </div>
-    </div>
+      </SimpleGrid>
+    </Box>
   );
 }

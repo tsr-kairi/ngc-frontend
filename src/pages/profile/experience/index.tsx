@@ -20,13 +20,7 @@ const data: ItimeLineProps[] = [
     startDate: 'june 2022',
     endDate: 'july 2023',
     description: `Some Description about the works,
-     I have done xyz in so and so project and have
-      tried working in x part Some Description about 
-      the works, I have done xyz in so and so project 
-      and have tried working in x part Some Description
-       about the works, I have done xyz in so and so project
-        and have tried working in x part Some Description about
-         the works, I have done xyz in so and so project and have tried working in x part `,
+     I hav `,
   },
   // Add more entries as needed
 ];
@@ -35,7 +29,14 @@ function ProfileExperience() {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Box sx={{ padding: '50px', display: 'flex' }}>
+    <Box
+      sx={{
+        padding: '50px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'start',
+      }}
+    >
       <div>
         <TimeLine data={data} />
       </div>

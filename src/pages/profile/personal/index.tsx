@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Button, Group, Select, Table, TextInput, Text } from '@mantine/core';
+import { Select, SimpleGrid, Table, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 const elements = [
@@ -32,13 +32,7 @@ function ProfileInfo() {
 
   return (
     <div className="">
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '10px',
-        }}
-      >
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <TextInput
           label="First name"
           placeholder="Jane"
@@ -79,6 +73,8 @@ function ProfileInfo() {
           required
           {...form.getInputProps('alternatePhone')}
         />
+      </SimpleGrid>
+      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <TextInput
           mb="sm"
           label="Date of Birth"
@@ -99,6 +95,13 @@ function ProfileInfo() {
           required
           {...form.getInputProps('gender')}
         />
+        <TextInput
+          label="Blood Group"
+          placeholder="B+ve"
+          {...form.getInputProps('streetLine2')}
+        />
+      </SimpleGrid>
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <Select
           label="Nationality"
           placeholder="Select your country"
@@ -120,24 +123,16 @@ function ProfileInfo() {
           required
           {...form.getInputProps('gender')}
         />
-        <TextInput
-          label="Blood Group"
-          placeholder="B+ve"
-          {...form.getInputProps('streetLine2')}
-        />
-        <div style={{ paddingTop: '20px' }}>
-          <Group>
-            <Button color="gray" size="md">
-              {' '}
-              cancel
-            </Button>
-            <Button color="violet" size="md">
-              {' '}
-              Confirm
-            </Button>
-          </Group>
-        </div>
-      </div>
+      </SimpleGrid>
+
+      {/* <Group position="center" mt="md">
+        <Button color="gray" size="md">
+          {' '}
+          cancel
+        </Button>
+        <Button size="md"> Confirm</Button>
+      </Group> */}
+
       <Text fz="lg" mt="md" weight={600}>
         Emergency Contact Details
       </Text>

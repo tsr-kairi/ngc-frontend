@@ -1,6 +1,14 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/jsx-props-no-spreading */
-import { createStyles, Paper, Progress, Text, TextInput } from '@mantine/core';
+import {
+  Box,
+  createStyles,
+  Paper,
+  Progress,
+  SimpleGrid,
+  Text,
+  TextInput,
+} from '@mantine/core';
 import { useForm } from '@mantine/form';
 import {
   IconFileDescription,
@@ -50,13 +58,13 @@ function Banking() {
       shadow="xs"
       style={{ maxWidth: 300, padding: '5px', margin: '10px' }}
     >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <IconFileDescription
           size={50}
           strokeWidth={2}
           className={classes.iconStyle}
         />
-        <div style={{ marginLeft: 10, width: 200 }}>
+        <Box sx={{ marginLeft: 10, width: 200 }}>
           <Text weight={500} size="md" mb={0} pb={0}>
             {element.fileName}
           </Text>
@@ -64,25 +72,19 @@ function Banking() {
             {element.size}
           </Text>
           <Progress value={100} />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <IconSquareRoundedCheckFilled size={20} fill="green" />
           <Text size="sm" mt="md">
             100%
           </Text>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Paper>
   ));
   return (
-    <div className="">
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '10px',
-        }}
-      >
+    <Box className="">
+      <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <TextInput
           label="Account number"
           placeholder="90XXXXXX"
@@ -103,12 +105,12 @@ function Banking() {
           placeholder="Jane"
           {...form.getInputProps('streetLine2')}
         />
-      </div>
+      </SimpleGrid>
       <Text fz="lg" mt="md" weight={600}>
         Emergency Contact Details
       </Text>
       {items}
-    </div>
+    </Box>
   );
 }
 export default Banking;
