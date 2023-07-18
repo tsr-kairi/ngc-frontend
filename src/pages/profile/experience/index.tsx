@@ -51,7 +51,7 @@ function ProfileExperience() {
         >
           <DrawerContent />
         </Drawer>
-        <Button radius="md" color="teal" onClick={open}>
+        <Button radius="md" onClick={open}>
           Add Experience
         </Button>
       </>

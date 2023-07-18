@@ -8,6 +8,7 @@ import {
   IconUser,
 } from '@tabler/icons-react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const tabs = [
   { link: '/profile/personal', label: 'Personal', icon: IconUser },
@@ -18,11 +19,21 @@ const tabs = [
   { link: '/profile/documents', label: 'Documents', icon: Icon2fa },
   { link: '/profile/experience', label: 'Experience', icon: IconSettings },
   // { link: '/profile/', label: 'Settings', icon: IconSettings },
+
 ];
 
 function ProfileSidebar() {
   const [itemActive, setItemActive] = useState(0);
+  const location = useLocation();
 
+  const currentTabIndex = tabs.findIndex(
+    (tab) => tab.link === location.pathname
+  );
+
+  // If the current location is found and different from the active item, update the active item
+  if (currentTabIndex !== -1 && currentTabIndex !== itemActive) {
+    setItemActive(currentTabIndex);
+  }
   const items = tabs.map((item, index) => (
     <NavLink
       key={item.label}
