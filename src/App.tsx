@@ -3,8 +3,8 @@ import React, { ReactNode, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
-import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
+import { Login } from './pages/auth/login/login';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')

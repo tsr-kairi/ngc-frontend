@@ -12,9 +12,10 @@ import {
   createStyles,
 } from '@mantine/core';
 
-import Logo from '@/components/common/logo/LogoDark';
 import { zLoginValidation } from '@/types/login-type';
 import { useForm, zodResolver } from '@mantine/form';
+import ToggleThemeBtn from '@/components/ui/Buttons/ToggleThemeBtn';
+import Logo from '@/components/common/logo/LogoDark';
 import { Link } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
@@ -37,7 +38,10 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     height: '100vh',
     width: `100%`,
-    backgroundColor: theme.colors.brand[9],
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[7]
+        : theme.colors.gray[0],
 
     [theme.fn.smallerThan('xl')]: {
       width: '100%',
@@ -61,7 +65,10 @@ const useStyles = createStyles((theme) => ({
     width: '40%',
     margin: '0 auto',
     padding: 80,
-    backgroundColor: theme.colors.gray[0],
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[6]
+        : theme.colors.gray[1],
     marginTop: '140px',
 
     [theme.fn.smallerThan('xl')]: {
@@ -85,28 +92,22 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
-    color: theme.colors.gray[9],
     fontFamily: theme.fontFamily,
     fontSize: '1.4rem',
   },
   password: {
-    color: theme.colors.accent[6],
+    color: theme.colors.brand[6],
     fontWeight: 700,
-  },
-  userIdInput: {
-    '::-ms-input-placeholder': {
-      backgroundColor: theme.colors.blue[9],
-    },
   },
   forgotPage: {
     textDecoration: 'none',
-    color: theme.colors.blue[9],
+    color: theme.colors.brand[9],
   },
 
   pointer: {
     cursor: 'pointer',
     ':hover': {
-      color: theme.colors.blue[8],
+      color: theme.colors.brand[8],
     },
   },
 }));
@@ -134,14 +135,17 @@ export function Login() {
     <div className={classes.wrapper}>
       <Paper className={classes.formMain} radius={0} p={30} px={80}>
         <form>
-          <Link to="/">
-            <Logo />
-          </Link>
           <Paper className={classes.formInner} radius={10}>
+            <Group position="center">
+              <Link to="/">
+                <Logo />
+              </Link>
+              <ToggleThemeBtn />
+            </Group>
             <Title
               order={6}
               className={classes.title}
-              align="left"
+              align="center"
               mt="md"
               mb={50}
             >
@@ -150,7 +154,6 @@ export function Login() {
             </Title>
 
             <TextInput
-              className={classes.userIdInput}
               label="Email"
               placeholder="Enter your email"
               size="md"
@@ -182,21 +185,11 @@ export function Login() {
                 href="/forgot-password"
                 target="_blank"
                 weight={700}
-                color="#04334c"
               >
                 Forgot Password
               </Anchor>
             </Group>
-            <MantineProvider
-              inherit
-              theme={{
-                defaultGradient: {
-                  from: '#F7CD5C',
-                  to: '#F6C745',
-                  deg: 45,
-                },
-              }}
-            >
+            <MantineProvider inherit>
               <Button
                 type="submit"
                 variant="gradient"
