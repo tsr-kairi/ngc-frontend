@@ -30,16 +30,6 @@ const Skills = [
   { value: 'blitz', label: 'Blitz.js' },
 ];
 
-const categories = [
-  {
-    title: 'Programming Languages',
-    skills: 'uwhsib w',
-  },
-  {
-    title: 'Programming Languages',
-    skills: 'uwhsib w',
-  },
-];
 function ProfileInfo() {
   const form = useForm({
     initialValues: {
