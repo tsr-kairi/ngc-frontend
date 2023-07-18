@@ -1,8 +1,8 @@
 import { Box, Button, Drawer, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import DrawerContent from './drawer';
 import { ItimeLineProps } from './experienceTypes';
 import TimeLine from './timline';
-import DrawerContent from './drawer';
 
 const data: ItimeLineProps[] = [
   {
@@ -50,7 +50,7 @@ function ProfileExperience() {
         >
           <DrawerContent />
         </Drawer>
-        <Button radius="md" color="teal" onClick={open}>
+        <Button radius="md" onClick={open}>
           Add Experience
         </Button>
       </>
