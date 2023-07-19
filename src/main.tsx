@@ -2,6 +2,7 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
+  Text,
 } from '@mantine/core';
 
 import { useColorScheme, useLocalStorage } from '@mantine/hooks';
@@ -10,6 +11,7 @@ import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import theme from './configs/theme';
+import ErrorBoundary from './errorBoundary';
 
 export default function AppConfig() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
@@ -40,7 +42,15 @@ export default function AppConfig() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <App />
+        <ErrorBoundary
+          fallback={
+            <Text mt="xl" align="center">
+              Something went wrong
+            </Text>
+          }
+        >
+          <App />
+        </ErrorBoundary>
       </MantineProvider>
     </ColorSchemeProvider>
   );

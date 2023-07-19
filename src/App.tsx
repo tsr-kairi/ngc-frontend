@@ -7,6 +7,7 @@ import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import ProfileTabs from './pages/profile/profile';
 
+
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
 );

@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'mantine',
+    // 'mantine',
     'airbnb',
     'airbnb/hooks',
     'airbnb-typescript',
