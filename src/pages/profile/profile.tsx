@@ -71,7 +71,8 @@ function StyledTabs(props: TabsProps) {
         },
 
         tabsList: {
-          marginRight: theme.spacing.md,
+          marginRight: theme.spacing.lg,
+          marginLeft: theme.spacing.lg,
           borderRight: 0,
         },
         tabIcon: {

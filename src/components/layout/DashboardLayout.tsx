@@ -25,7 +25,6 @@ function DashboardLayout() {
           <Navbar opened={opened} setOpened={setOpened} />
         </div>
       }
-      // header={<DashboardHeader opened={opened} setOpened={setOpened} />}
     >
       {online ? (
         <div>

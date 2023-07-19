@@ -3,6 +3,7 @@
 import {
   Box,
   Button,
+  Container,
   createStyles,
   FileButton,
   Paper,
@@ -85,7 +86,7 @@ function Banking() {
     </Paper>
   ));
   return (
-    <Box className="">
+    <Container className="">
       <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]} mb="sm">
         <TextInput
           label="Account number"
@@ -124,7 +125,7 @@ function Banking() {
           Picked file: {file.name}
         </Text>
       )}
-    </Box>
+    </Container>
   );
 }
 export default Banking;
