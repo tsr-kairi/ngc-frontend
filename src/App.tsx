@@ -7,7 +7,6 @@ import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import ProfileTabs from './pages/profile/profile';
 
-
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
 );
@@ -33,75 +32,54 @@ function WrapSuspense({ children }: Props) {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Public Routes */}
-        <Route
-          path="/onboarding"
-          element={
-            <WrapSuspense>
-              <Onboarding />
-            </WrapSuspense>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <WrapSuspense>
-              <Login />
-            </WrapSuspense>
-          }
-        />
-        <Route
-          path="/forgot-password"
-          element={
-            <WrapSuspense>
-              <ForgotPassword />
-            </WrapSuspense>
-          }
-        />
-        <Route
-          path="/confirm-password"
-          element={
-            <WrapSuspense>
-              <ConfirmPassword />
-            </WrapSuspense>
-          }
-        />
-        {/* Protected Routes */}
-        <Route element={<DashboardLayout />}>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0',
+            }}
+          >
+            <Loader variant="oval" />
+          </div>
+        }
+      >
+        <Routes>
+          {/* Public Routes */}
           <Route
-            path="/"
+            path="/onboarding"
             element={
               <WrapSuspense>
-                <DashBoard />
+                <Onboarding />
               </WrapSuspense>
             }
           />
           <Route
-            path="/employee"
+            path="/login"
             element={
               <WrapSuspense>
-                <Employee />
+                <Login />
               </WrapSuspense>
             }
           />
           <Route
-            path="/timesheet"
+            path="/forgot-password"
             element={
               <WrapSuspense>
-                <Timesheet />
+                <ForgotPassword />
               </WrapSuspense>
             }
           />
           <Route
-            path="/employee-profile"
+            path="/confirm-password"
             element={
               <WrapSuspense>
-                <EmployeeUserProfile />
+                <ConfirmPassword />
               </WrapSuspense>
             }
           />
-
           {/* Protected Routes */}
           <Route element={<DashboardLayout />}>
             <Route
@@ -161,8 +139,9 @@ function App() {
                 </WrapSuspense>
               }
             /> */}
-        </Route>
-      </Routes>
+          </Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
