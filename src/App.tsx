@@ -41,20 +41,6 @@ function WrapSuspense({ children }: Props) {
 function App() {
   return (
     <BrowserRouter>
-      {/* <Suspense
-        fallback={
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0',
-            }}
-          >
-            <Loader variant="oval" />
-          </div>
-        }
-      > */}
       <Routes>
         {/* Public Routes */}
         <Route
@@ -247,7 +233,6 @@ function App() {
             /> */}
         </Route>
       </Routes>
-      {/* </Suspense> */}
     </BrowserRouter>
   );
 }
