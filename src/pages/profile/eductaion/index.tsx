@@ -43,7 +43,7 @@ function Education() {
         <Drawer
           opened={opened}
           onClose={close}
-          title="Add Experience"
+          title="Add Education"
           overlayProps={{ opacity: 0.5, blur: 4 }}
           position="right"
           scrollAreaComponent={ScrollArea.Autosize}
@@ -51,7 +51,7 @@ function Education() {
           <DrawerContent />
         </Drawer>
         <Button radius="md" color="teal" onClick={open}>
-          Add Experience
+          Add Education
         </Button>
       </>
     </Box>

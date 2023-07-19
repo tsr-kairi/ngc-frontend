@@ -1,11 +1,9 @@
 import {
   Box,
   Button,
-  Checkbox,
   Container,
   Flex,
   MultiSelect,
-  Select,
   Text,
   Textarea,
   TextInput,
@@ -41,7 +39,7 @@ function DrawerEducationContent() {
   });
 
   const openRef = useRef<() => void>(null);
-  const [checked, setChecked] = useState(false);
+  const [checked] = useState(false);
   return (
     <Container
       sx={{
@@ -65,7 +63,14 @@ function DrawerEducationContent() {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...form.getInputProps('CompanyName')}
       />
-      <Select
+      <TextInput
+        label="Field of Study"
+        placeholder="Google"
+        radius="md"
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...form.getInputProps('CompanyName')}
+      />
+      {/* <Select
         label="Field of Study"
         placeholder="Part Time"
         searchable
@@ -77,7 +82,7 @@ function DrawerEducationContent() {
           { value: 'freelance', label: 'Internship' },
           { value: 'contract', label: 'Contract' },
         ]}
-      />
+      /> */}
 
       {/* <Text size="sm">Start Date</Text> */}
       <Box
@@ -124,22 +129,21 @@ function DrawerEducationContent() {
           {...form.getInputProps('EndYear')}
         />
       </Box>
-      <Checkbox
+      {/* <Checkbox
         label="I am still working here"
         color="teal"
         radius="md"
         checked={checked}
         onClick={() => setChecked(!checked)}
-      />
+      /> */}
       <TextInput
-        label="Industry"
+        label="Grades"
         placeholder="Bangalore"
         radius="md"
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...form.getInputProps('Location')}
       />
       <Textarea
-        label="Description"
         placeholder="Description"
         radius="md"
         autosize

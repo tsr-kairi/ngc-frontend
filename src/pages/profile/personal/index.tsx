@@ -1,8 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
   ActionIcon,
+  Box,
   Button,
   Flex,
+  Modal,
   Select,
   SimpleGrid,
   Table,
@@ -10,8 +12,10 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
 import { IconEdit } from '@tabler/icons-react';
 import { useState } from 'react';
+import ModalForm from './modalForm';
 
 const elements = [
   { name: 6, relationship: 12.011, phone: 'C', email: 'Carbon' },
@@ -42,6 +46,7 @@ function ProfileInfo() {
   ));
 
   const [edit, setEdit] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <div style={{ width: 'full' }}>
@@ -171,10 +176,20 @@ function ProfileInfo() {
         </Button>
         <Button size="md"> Confirm</Button>
       </Group> */}
+      <Flex sx={{ alignItems: 'start', justifyContent: 'space-between' }}>
+        <Text fz="lg" mt="md" mb="md" weight={600}>
+          Emergency Contact Details
+        </Text>
+        <Modal opened={opened} onClose={close} title="Add your Contact Details">
+          <Box>
+            <ModalForm />
+          </Box>
+        </Modal>
 
-      <Text fz="lg" mt="md" weight={600}>
-        Emergency Contact Details
-      </Text>
+        <Button onClick={open} size="xs" mt="20px">
+          +
+        </Button>
+      </Flex>
       <Table>
         <thead>
           <tr>
