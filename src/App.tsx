@@ -14,6 +14,7 @@ import ProfileExperience from './pages/profile/experience';
 import ProfilePassword from './pages/profile/password';
 import ProfileInfo from './pages/profile/personal';
 import ProfileSkills from './pages/profile/skills';
+import ProfileTabs from './pages/profile/profile';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -228,6 +229,14 @@ function App() {
                   >
                     <Dofiles />
                   </ProfileLayout>
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <WrapSuspense>
+                  <ProfileTabs />
                 </WrapSuspense>
               }
             />

@@ -14,7 +14,7 @@ function ModalForm() {
         label="Phone"
         placeholder="Enter your phone"
         required
-      />{' '}
+      />
       <TextInput
         mb="sm"
         label="Email"
