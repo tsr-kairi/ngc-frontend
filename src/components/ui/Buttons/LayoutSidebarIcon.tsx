@@ -1,16 +1,27 @@
-import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import { ActionIcon } from '@mantine/core';
 import { IconLayoutSidebar, IconLayoutSidebarRight } from '@tabler/icons-react';
+import React from 'react';
 
-function LayoutSidebarIcon() {
+interface LayoutSidebarIconProps {
+  collapsed: boolean;
+  onClick: () => void;
+}
+
+// eslint-disable-next-line react/function-component-definition
+const LayoutSidebarIcon: React.FC<LayoutSidebarIconProps> = ({
+  collapsed,
+  onClick,
+}) => {
+  // const { classes } = useStyles();
   return (
     <ActionIcon
       variant="transparent"
-      title={`${!IsMobileScreen() ? 'Expend' : 'collapse'}`}
+      title={`${collapsed ? 'Expand' : 'Collapse'}`}
+      onClick={onClick}
     >
-      {!IsMobileScreen() ? <IconLayoutSidebar /> : <IconLayoutSidebarRight />}
+      {collapsed ? <IconLayoutSidebar /> : <IconLayoutSidebarRight />}
     </ActionIcon>
   );
-}
+};
 
 export default LayoutSidebarIcon;

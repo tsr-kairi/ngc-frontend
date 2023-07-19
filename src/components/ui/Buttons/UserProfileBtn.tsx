@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import {
   Avatar,
   createStyles,
@@ -8,6 +9,11 @@ import {
 } from '@mantine/core';
 import { IconLogout, IconSettings, IconUser } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
+
+interface UserProfileBtnProps {
+  text: string;
+  description: string;
+}
 
 const useStyles = createStyles((theme) => ({
   profile: {
@@ -30,7 +36,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function UserProfileBtn() {
+// eslint-disable-next-line react/function-component-definition
+const UserProfileBtn: React.FC<UserProfileBtnProps> = ({
+  // eslint-disable-next-line react/prop-types
+  text,
+  // eslint-disable-next-line react/prop-types
+  description,
+}) => {
   const { classes } = useStyles();
 
   return (
@@ -47,11 +59,11 @@ function UserProfileBtn() {
             />
             <div style={{ flex: 1 }}>
               <Text size="sm" color="dimmed" weight={500}>
-                Aryan
+                {text}
               </Text>
 
               <Text color="dimmed" size="xs">
-                @gmail.com
+                {description}
               </Text>
             </div>
             <IconLogout style={{ color: 'blue' }} stroke={1.5} />
@@ -87,5 +99,5 @@ function UserProfileBtn() {
       </Menu.Dropdown>
     </Menu>
   );
-}
+};
 export default UserProfileBtn;
