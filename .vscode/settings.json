@@ -14,7 +14,8 @@
     "tabler",
     "tanstack",
     "Timesheet",
-    "Trep"
+    "Trep",
+    "usenavigate"
   ],
 
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",

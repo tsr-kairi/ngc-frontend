@@ -26,10 +26,10 @@ import {
   IconUserPlus,
 } from '@tabler/icons-react';
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ToggleThemeBtn from '../Buttons/ToggleThemeBtn';
 import UserProfileBtn from '../Buttons/UserProfileBtn';
+import LayoutSidebarIcon from '../Buttons/LayoutSidebarIcon';
 
 interface HeaderProps {
   opened: boolean;
@@ -50,6 +50,7 @@ const useStyles = createStyles((theme) => ({
     marginTop: theme.spacing.md,
   },
 }));
+
 const data = [
   {
     icon: IconGauge,
@@ -90,61 +91,57 @@ const smallData = [
 ];
 
 export default function Navbar({ opened, setOpened }: HeaderProps) {
-  const [itemActive, setItemActive] = useState(0);
-  const [subItemActive, setSubItemActive] = useState(0);
+  const location = useLocation();
 
   // color schema
   const { classes } = useStyles();
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const items = data.map((item, index) => (
+  const items = data.map((item) => (
     <NavLink
       key={item.label}
-      active={index === itemActive}
+      component={Link}
+      to={item?.href || ''}
+      active={location.pathname === `${item.href}`}
       label={item.label}
-      href={item.href}
-      component="a"
       rightSection={item.rightSection}
       icon={
         <ActionIcon variant="light">
           <item.icon size="1rem" stroke={1.5} />
         </ActionIcon>
       }
-      onClick={() => setItemActive(index)}
     >
       {item?.links?.map((subItem) => (
         <NavLink
           key={subItem.label}
-          active={index === subItemActive}
+          active={location.pathname === `${subItem.href}`}
           label={subItem.label}
-          href={subItem.href}
+          component={Link}
+          to={subItem?.href || ''}
           icon={
             <ActionIcon variant="light">
               <subItem.icon size="1rem" stroke={1.5} />
             </ActionIcon>
           }
-          component="a"
-          onClick={() => setSubItemActive(index)}
           mt="4px"
         />
       ))}
     </NavLink>
   ));
 
-  const item2 = smallData.map((item, index) => (
+  const item2 = smallData.map((item) => (
     <NavLink
       key={item.label}
-      active={index === itemActive}
+      active={location.pathname === `${item.href}`}
       label={item.label}
-      href={item.href}
-      component="a"
+      component={Link}
+      to={item?.href || ''}
       icon={
         <ActionIcon variant="light">
           <item.icon size="1rem" stroke={1.5} />
         </ActionIcon>
       }
-      onClick={() => setItemActive(index)}
     />
   ));
 
@@ -179,8 +176,10 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
           <Link to="/">
             {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
           </Link>
-          {/* <LayoutSidebarIcon /> */}
-          <ToggleThemeBtn />
+          <Group>
+            <ToggleThemeBtn />
+            <LayoutSidebarIcon />
+          </Group>
         </Group>
         <TextInput
           placeholder="Search"
