@@ -1,4 +1,4 @@
-import { Box, Group, Progress, Text } from '@mantine/core';
+import { Container, Group, Progress, Text } from '@mantine/core';
 
 function ProfileTopBar({
   title,
@@ -10,7 +10,7 @@ function ProfileTopBar({
   progress: number;
 }) {
   return (
-    <Box
+    <Container
       sx={{
         width: '100%',
       }}
@@ -30,7 +30,7 @@ function ProfileTopBar({
         </Text>
         <Text fz="md">{subTitle}</Text>
       </div>
-    </Box>
+    </Container>
   );
 }
 

@@ -11,7 +11,7 @@ function AvatarBox() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: '10px',
+        marginBottom: '40px',
       }}
     >
       <Avatar

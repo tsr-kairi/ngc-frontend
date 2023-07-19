@@ -1,19 +1,10 @@
 import { Loader } from '@mantine/core';
 import React, { ReactNode, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ProfileLayout from './components/layout/ProfileLayout';
 import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
-import Address from './pages/profile/address';
-import Banking from './pages/profile/banking';
-import Dofiles from './pages/profile/dofiles';
-import Education from './pages/profile/eductaion';
-import ProfileExperience from './pages/profile/experience';
-import ProfilePassword from './pages/profile/password';
-import ProfileInfo from './pages/profile/personal';
-import ProfileSkills from './pages/profile/skills';
 import ProfileTabs from './pages/profile/profile';
 
 const DashboardLayout = React.lazy(
@@ -131,107 +122,7 @@ function App() {
                 </WrapSuspense>
               }
             />
-            <Route
-              path="/profile/password"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout title="Password" subTitle="Set New Password">
-                    <ProfilePassword />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/experience"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Experience"
-                    subTitle="Add Your Experience Here"
-                  >
-                    <ProfileExperience />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/address"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Address"
-                    subTitle="Add your address here"
-                  >
-                    <Address />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/personal"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Perosnal Information"
-                    subTitle="This is the personal information section"
-                  >
-                    <ProfileInfo />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/banking"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Banking"
-                    subTitle="This is the personal information section"
-                  >
-                    <Banking />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/education"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Education"
-                    subTitle="You cam add your work experience here"
-                  >
-                    <Education />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/skills"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Skills"
-                    subTitle="You cam add your skills here"
-                  >
-                    <ProfileSkills />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/documents"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Documents"
-                    subTitle="You cam add your work experience here"
-                  >
-                    <Dofiles />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
+
             <Route
               path="/profile"
               element={

@@ -3,6 +3,7 @@ import {
   ActionIcon,
   Box,
   Button,
+  Container,
   Flex,
   Modal,
   Select,
@@ -49,7 +50,7 @@ function ProfileInfo() {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <div style={{ width: 'full' }}>
+    <Container style={{ width: 'full' }}>
       <Flex sx={{ alignItems: 'right', justifyContent: 'end' }}>
         <ActionIcon onClick={() => setEdit(!edit)} variant="subtle">
           <IconEdit size="3rem" />
@@ -201,7 +202,7 @@ function ProfileInfo() {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-    </div>
+    </Container>
   );
 }
 
