@@ -4,10 +4,14 @@ import {
   IconPhoto,
   IconSettings,
 } from '@tabler/icons-react';
+import Address from './address';
 import AvatarBox from './avatar';
-import ProfileInfo from './personal';
-import Education from './eductaion';
 import Banking from './banking';
+import Dofiles from './dofiles';
+import Education from './eductaion';
+import ProfileExperience from './experience';
+import ProfileInfo from './personal';
+import ProfileSkills from './skills';
 
 function StyledTabs(props: TabsProps) {
   return (
@@ -89,11 +93,23 @@ export default function ProfileTabs() {
         <Tabs.Tab value="personal" icon={<IconSettings size="1rem" />}>
           Personal Details
         </Tabs.Tab>
+        <Tabs.Tab value="skills" icon={<IconPhoto size="1rem" />}>
+          Skills
+        </Tabs.Tab>
         <Tabs.Tab value="education" icon={<IconMessageCircle size="1rem" />}>
           Education
         </Tabs.Tab>
+        <Tabs.Tab value="experience" icon={<IconPhoto size="1rem" />}>
+          Experience
+        </Tabs.Tab>
         <Tabs.Tab value="banking" icon={<IconPhoto size="1rem" />}>
           Banking
+        </Tabs.Tab>
+        <Tabs.Tab value="address" icon={<IconPhoto size="1rem" />}>
+          Address
+        </Tabs.Tab>
+        <Tabs.Tab value="documents" icon={<IconPhoto size="1rem" />}>
+          documents
         </Tabs.Tab>
       </Tabs.List>
       <Progress value={50} />
@@ -105,6 +121,18 @@ export default function ProfileTabs() {
       </Tabs.Panel>
       <Tabs.Panel value="banking">
         <Banking />
+      </Tabs.Panel>
+      <Tabs.Panel value="experience">
+        <ProfileExperience />
+      </Tabs.Panel>
+      <Tabs.Panel value="documents">
+        <Dofiles />
+      </Tabs.Panel>
+      <Tabs.Panel value="address">
+        <Address />
+      </Tabs.Panel>
+      <Tabs.Panel value="skills">
+        <ProfileSkills />
       </Tabs.Panel>
     </StyledTabs>
   );

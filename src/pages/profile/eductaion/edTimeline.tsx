@@ -4,9 +4,12 @@ import { Iprops, ItimeLineProps } from './educationTypes';
 
 export default function TimeLine({ data }: Iprops) {
   return (
-    <Timeline active={data.length} bulletSize={20} color="teal" lineWidth={2}>
+    <Timeline active={data.length} bulletSize={20} lineWidth={2}>
       {data.map((item: ItimeLineProps) => (
-        <Timeline.Item key={item.id} bullet={<IconCircleFilled size={15} />}>
+        <Timeline.Item
+          key={item.id}
+          bullet={<IconCircleFilled color="blue" size={15} />}
+        >
           <Text size="md" weight={700}>
             {item.title}
           </Text>
