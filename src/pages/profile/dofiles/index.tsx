@@ -3,6 +3,7 @@
 import {
   Box,
   Button,
+  Container,
   createStyles,
   FileButton,
   Paper,
@@ -69,7 +70,7 @@ function Dofiles() {
     </Paper>
   ));
   return (
-    <Box>
+    <Container>
       {items}
       <FileButton onChange={setFile} accept="image/png,image/jpeg">
         {(props) => (
@@ -83,7 +84,7 @@ function Dofiles() {
           Picked file: {file.name}
         </Text>
       )}
-    </Box>
+    </Container>
   );
 }
 export default Dofiles;

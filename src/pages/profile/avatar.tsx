@@ -12,6 +12,7 @@ function AvatarBox() {
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: '40px',
+        marginTop: '18px',
       }}
     >
       <Avatar

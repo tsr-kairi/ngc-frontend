@@ -1,8 +1,8 @@
-import { Box, Button, Drawer, ScrollArea } from '@mantine/core';
+import { Button, Container, Drawer, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import DrawerContent from './drawerEd';
-import { ItimeLineProps } from './educationTypes';
 import TimeLine from './edTimeline';
+import { ItimeLineProps } from './educationTypes';
 
 const data: ItimeLineProps[] = [
   {
@@ -35,7 +35,7 @@ function Education() {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Box sx={{ padding: '50px', display: 'flex' }}>
+    <Container sx={{ padding: '50px', display: 'flex' }}>
       <div>
         <TimeLine data={data} />
       </div>
@@ -54,7 +54,7 @@ function Education() {
           Add Education
         </Button>
       </>
-    </Box>
+    </Container>
   );
 }
 

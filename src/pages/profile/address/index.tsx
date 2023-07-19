@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
-  Box,
   Checkbox,
+  Container,
   Select,
   SimpleGrid,
   Text,
@@ -22,7 +22,7 @@ export default function Address() {
   });
 
   return (
-    <Box>
+    <Container>
       {/* <Text fz="lg" weight={700}>
         Address
       </Text>
@@ -129,6 +129,6 @@ export default function Address() {
           {...form.getInputProps('pinCode')}
         />
       </SimpleGrid>
-    </Box>
+    </Container>
   );
 }
