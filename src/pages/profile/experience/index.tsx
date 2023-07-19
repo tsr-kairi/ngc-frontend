@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, ScrollArea } from '@mantine/core';
+import { Button, Container, Drawer, ScrollArea } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import DrawerContent from './drawer';
 import { ItimeLineProps } from './experienceTypes';
@@ -29,7 +29,7 @@ function ProfileExperience() {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Box
+    <Container
       sx={{
         padding: '50px',
         display: 'flex',
@@ -55,7 +55,7 @@ function ProfileExperience() {
           Add Experience
         </Button>
       </>
-    </Box>
+    </Container>
   );
 }
 
