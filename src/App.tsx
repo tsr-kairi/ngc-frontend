@@ -41,7 +41,7 @@ function WrapSuspense({ children }: Props) {
 function App() {
   return (
     <BrowserRouter>
-      <Suspense
+      {/* <Suspense
         fallback={
           <div
             style={{
@@ -54,193 +54,190 @@ function App() {
             <Loader variant="oval" />
           </div>
         }
-      >
-        <Routes>
-          {/* Public Routes */}
+      > */}
+      <Routes>
+        {/* Public Routes */}
+        <Route
+          path="/onboarding"
+          element={
+            <WrapSuspense>
+              <Onboarding />
+            </WrapSuspense>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <WrapSuspense>
+              <Login />
+            </WrapSuspense>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <WrapSuspense>
+              <ForgotPassword />
+            </WrapSuspense>
+          }
+        />
+        <Route
+          path="/confirm-password"
+          element={
+            <WrapSuspense>
+              <ConfirmPassword />
+            </WrapSuspense>
+          }
+        />
+        {/* Protected Routes */}
+        <Route element={<DashboardLayout />}>
           <Route
-            path="/onboarding"
+            path="/"
             element={
               <WrapSuspense>
-                <Onboarding />
+                <DashBoard />
               </WrapSuspense>
             }
           />
           <Route
-            path="/login"
+            path="/employee"
             element={
               <WrapSuspense>
-                <Login />
+                <Employee />
               </WrapSuspense>
             }
           />
           <Route
-            path="/forgot-password"
+            path="/timesheet"
             element={
               <WrapSuspense>
-                <ForgotPassword />
+                <Timesheet />
               </WrapSuspense>
             }
           />
           <Route
-            path="/confirm-password"
+            path="/employee-profile"
             element={
               <WrapSuspense>
-                <ConfirmPassword />
+                <EmployeeUserProfile />
               </WrapSuspense>
             }
           />
-          {/* Protected Routes */}
-          <Route element={<DashboardLayout />}>
-            <Route
-              path="/"
-              element={
-                <WrapSuspense>
-                  <DashBoard />
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/employee"
-              element={
-                <WrapSuspense>
-                  <Employee />
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/timesheet"
-              element={
-                <WrapSuspense>
-                  <Timesheet />
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/employee-profile"
-              element={
-                <WrapSuspense>
-                  <EmployeeUserProfile />
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/emponboard"
-              element={
-                <WrapSuspense>
-                  <EmployeeOnboard />
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/password"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout title="Password" subTitle="Set New Password">
-                    <ProfilePassword />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/experience"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Experience"
-                    subTitle="Add Your Experience Here"
-                  >
-                    <ProfileExperience />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/address"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Address"
-                    subTitle="Add your address here"
-                  >
-                    <Address />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/personal"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Perosnal Information"
-                    subTitle="This is the personal information section"
-                  >
-                    <ProfileInfo />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/banking"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Banking"
-                    subTitle="This is the personal information section"
-                  >
-                    <Banking />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/education"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Education"
-                    subTitle="You cam add your work experience here"
-                  >
-                    <Education />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/skills"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Skills"
-                    subTitle="You cam add your skills here"
-                  >
-                    <ProfileSkills />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile/documents"
-              element={
-                <WrapSuspense>
-                  <ProfileLayout
-                    title="Documents"
-                    subTitle="You cam add your work experience here"
-                  >
-                    <Dofiles />
-                  </ProfileLayout>
-                </WrapSuspense>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <WrapSuspense>
-                  <ProfileTabs />
-                </WrapSuspense>
-              }
-            />
-            {/* <Route
+          <Route
+            path="/emponboard"
+            element={
+              <WrapSuspense>
+                <EmployeeOnboard />
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile/password"
+            element={
+              <WrapSuspense>
+                <ProfileLayout title="Password" subTitle="Set New Password">
+                  <ProfilePassword />
+                </ProfileLayout>
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile/experience"
+            element={
+              <WrapSuspense>
+                <ProfileLayout
+                  title="Experience"
+                  subTitle="Add Your Experience Here"
+                >
+                  <ProfileExperience />
+                </ProfileLayout>
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile/address"
+            element={
+              <WrapSuspense>
+                <ProfileLayout title="Address" subTitle="Add your address here">
+                  <Address />
+                </ProfileLayout>
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile/personal"
+            element={
+              <WrapSuspense>
+                <ProfileLayout
+                  title="Perosnal Information"
+                  subTitle="This is the personal information section"
+                >
+                  <ProfileInfo />
+                </ProfileLayout>
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile/banking"
+            element={
+              <WrapSuspense>
+                <ProfileLayout
+                  title="Banking"
+                  subTitle="This is the personal information section"
+                >
+                  <Banking />
+                </ProfileLayout>
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile/education"
+            element={
+              <WrapSuspense>
+                <ProfileLayout
+                  title="Education"
+                  subTitle="You cam add your work experience here"
+                >
+                  <Education />
+                </ProfileLayout>
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile/skills"
+            element={
+              <WrapSuspense>
+                <ProfileLayout
+                  title="Skills"
+                  subTitle="You cam add your skills here"
+                >
+                  <ProfileSkills />
+                </ProfileLayout>
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile/documents"
+            element={
+              <WrapSuspense>
+                <ProfileLayout
+                  title="Documents"
+                  subTitle="You cam add your work experience here"
+                >
+                  <Dofiles />
+                </ProfileLayout>
+              </WrapSuspense>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <WrapSuspense>
+                <ProfileTabs />
+              </WrapSuspense>
+            }
+          />
+          {/* <Route
               path="/blog"
               element={
                 <WrapSuspense>
@@ -248,9 +245,9 @@ function App() {
                 </WrapSuspense>
               }
             /> */}
-          </Route>
-        </Routes>
-      </Suspense>
+        </Route>
+      </Routes>
+      {/* </Suspense> */}
     </BrowserRouter>
   );
 }
