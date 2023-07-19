@@ -14,8 +14,6 @@ import {
 import { IconSearch } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import ToggleThemeBtn from '../Buttons/ToggleThemeBtn';
-import UserProfileBtn from '../Buttons/UserProfileBtn';
-import LayoutSidebarIcon from '../Buttons/LayoutSidebarIcon';
 
 const useStyles = createStyles(() => ({
   header: {
@@ -68,7 +66,10 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
           <Link to="/">
             {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
           </Link>
-          <LayoutSidebarIcon />
+          {/* <LayoutSidebarIcon
+            collapsed={sidebarCollapsed}
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          /> */}
           {!IsMobileScreen() && (
             <TextInput
               placeholder="Search by any field"
@@ -91,7 +92,7 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
       >
         <ToggleThemeBtn />
         <Divider orientation="vertical" />
-        <UserProfileBtn />
+        {/* <UserProfileBtn text={`${sidebarCollapsed ? '' : 'Aryan'}`} description={`${sidebarCollapsed ? '' : 'aryan@gmail.com'}`} /> */}
       </Box>
     </Header>
   );

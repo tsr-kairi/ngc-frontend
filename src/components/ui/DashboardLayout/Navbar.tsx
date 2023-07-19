@@ -21,15 +21,16 @@ import {
   IconChevronRight,
   IconGauge,
   IconSearch,
-  IconSwitchHorizontal,
   IconUser,
+  IconUserCircle,
   IconUserPlus,
 } from '@tabler/icons-react';
 
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import LayoutSidebarIcon from '../Buttons/LayoutSidebarIcon';
 import ToggleThemeBtn from '../Buttons/ToggleThemeBtn';
 import UserProfileBtn from '../Buttons/UserProfileBtn';
-import LayoutSidebarIcon from '../Buttons/LayoutSidebarIcon';
 
 interface HeaderProps {
   opened: boolean;
@@ -48,6 +49,9 @@ const useStyles = createStyles((theme) => ({
   second: {
     paddingTop: theme.spacing.md,
     marginTop: theme.spacing.md,
+  },
+  logo: {
+    marginLeft: '8px',
   },
 }));
 
@@ -84,13 +88,14 @@ const data = [
 
 const smallData = [
   {
-    icon: IconSwitchHorizontal,
+    icon: IconUserCircle,
     label: 'Profile',
     href: '/profile',
   },
 ];
 
 export default function Navbar({ opened, setOpened }: HeaderProps) {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // Step 1: State to control sidebar visibility
   const location = useLocation();
 
   // color schema
@@ -104,11 +109,17 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
       component={Link}
       to={item?.href || ''}
       active={location.pathname === `${item.href}`}
-      label={item.label}
-      rightSection={item.rightSection}
+      label={sidebarCollapsed ? '' : item.label} // Show label only when the sidebar is expanded
+      rightSection={sidebarCollapsed ? item.rightSection : null}
       icon={
-        <ActionIcon variant="light">
-          <item.icon size="1rem" stroke={1.5} />
+        <ActionIcon
+          variant="light"
+          title={`${sidebarCollapsed ? item.label : null}`}
+        >
+          <item.icon
+            size={sidebarCollapsed ? '1.6rem' : '1rem'} // Increase the icon size when the sidebar is collapsed
+            stroke={1.5}
+          />
         </ActionIcon>
       }
     >
@@ -116,12 +127,16 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
         <NavLink
           key={subItem.label}
           active={location.pathname === `${subItem.href}`}
-          label={subItem.label}
+          label={sidebarCollapsed ? '' : subItem.label} // Show label only when the sidebar is expanded
           component={Link}
           to={subItem?.href || ''}
+          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           icon={
             <ActionIcon variant="light">
-              <subItem.icon size="1rem" stroke={1.5} />
+              <subItem.icon
+                size={sidebarCollapsed ? '1.6rem' : '1rem'} // Increase the icon size when the sidebar is collapsed
+                stroke={1.5}
+              />
             </ActionIcon>
           }
           mt="4px"
@@ -134,12 +149,18 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
     <NavLink
       key={item.label}
       active={location.pathname === `${item.href}`}
-      label={item.label}
+      label={sidebarCollapsed ? '' : item.label} // Show label only when the sidebar is expanded
       component={Link}
       to={item?.href || ''}
       icon={
-        <ActionIcon variant="light">
-          <item.icon size="1rem" stroke={1.5} />
+        <ActionIcon
+          variant="light"
+          title={`${sidebarCollapsed ? item.label : null}`}
+        >
+          <item.icon
+            size={sidebarCollapsed ? '1.6rem' : '1rem'} // Increase the icon size when the sidebar is collapsed
+            stroke={1.5}
+          />
         </ActionIcon>
       }
     />
@@ -147,7 +168,7 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
 
   return (
     <Box
-      w={300}
+      w={sidebarCollapsed ? 85 : 300} // Set the width based on the sidebar state
       px="md"
       py="lg"
       sx={{
@@ -173,14 +194,25 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
               mr="md"
             />
           </MediaQuery>
-          <Link to="/">
+          <Link to="/" className={`${sidebarCollapsed ? classes.logo : null}`}>
             {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
           </Link>
           <Group>
-            <ToggleThemeBtn />
-            <LayoutSidebarIcon />
+            {sidebarCollapsed ? null : <ToggleThemeBtn />}
+            {/* Step 3: Add button/icon to toggle the sidebar */}
+            <div
+              style={{
+                marginLeft: `${sidebarCollapsed ? '12px' : '0px'}`,
+              }}
+            >
+              <LayoutSidebarIcon
+                collapsed={sidebarCollapsed}
+                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              />
+            </div>
           </Group>
         </Group>
+        {/* Search field */}
         <TextInput
           placeholder="Search"
           size="xs"
@@ -188,6 +220,9 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
           rightSectionWidth={70}
           styles={{ rightSection: { pointerEvents: 'none' } }}
           mb="sm"
+          sx={{
+            display: `${sidebarCollapsed ? 'none' : 'block'}`,
+          }}
         />
         <Group>{items}</Group>
       </Box>
@@ -199,8 +234,14 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
         }}
       >
         <Group>{item2}</Group>
-        <Box className={classes.footer}>
-          <UserProfileBtn />
+        <Box
+          className={classes.footer}
+          sx={{ paddingLeft: `${sidebarCollapsed ? '10px' : '0px'}` }}
+        >
+          <UserProfileBtn
+            text={`${!sidebarCollapsed ? 'Aryan' : ''}`}
+            description={`${!sidebarCollapsed ? 'aryan@gmail.com' : ''}`}
+          />
         </Box>
       </Box>
     </Box>
