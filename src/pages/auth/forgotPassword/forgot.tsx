@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Button,
   Group,
   MantineProvider,
@@ -12,6 +13,7 @@ import {
 import Logo from '@/components/common/logo/LogoDark';
 import { useForm } from '@mantine/form';
 import { Link } from 'react-router-dom';
+import ToggleThemeBtn from '@/components/ui/Buttons/ToggleThemeBtn';
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -33,7 +35,10 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     height: '100vh',
     width: `100%`,
-    backgroundColor: theme.colors.brand[9],
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[7]
+        : theme.colors.gray[0],
 
     [theme.fn.smallerThan('xl')]: {
       width: '100%',
@@ -57,7 +62,10 @@ const useStyles = createStyles((theme) => ({
     width: '40%',
     margin: '0 auto',
     padding: 80,
-    backgroundColor: theme.colors.gray[0],
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[6]
+        : theme.colors.gray[1],
     marginTop: '140px',
 
     [theme.fn.smallerThan('xl')]: {
@@ -81,20 +89,16 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
-    color: theme.colors.gray[9],
     fontFamily: theme.fontFamily,
     fontSize: '1.4rem',
   },
   password: {
-    color: theme.colors.accent[6],
+    color: theme.colors.brand[6],
     fontWeight: 700,
   },
   backPage: {
     textDecoration: 'none',
-    color: '#04334c',
-    ':hover': {
-      color: 'blue',
-    },
+    color: theme.colors.brand[9],
   },
 }));
 type IForgotRequest = {
@@ -114,21 +118,24 @@ export function ForgotPassword() {
   return (
     <div className={classes.wrapper}>
       <Paper className={classes.formMain} radius={0} p={30} px={80}>
-        <Link to="/">
-          <Logo />
-        </Link>
         <form>
           <Paper className={classes.formInner} radius={10}>
+            <Group position="center">
+              <Link to="/">
+                <Logo />
+              </Link>
+              <ToggleThemeBtn />
+            </Group>
             <Title
               order={1}
               className={classes.title}
-              align="left"
+              align="center"
               mt="md"
               mb={10}
             >
               Forgot your <span className={classes.password}>Password</span>
             </Title>
-            <Text align="left" mb={40} color="grey">
+            <Text align="center" mb={40} color="grey">
               Please enter your email to get a reset link.
             </Text>
 
@@ -143,18 +150,10 @@ export function ForgotPassword() {
               {...form.getInputProps('email')}
             />
             <Group grow mt={20} position="apart">
-              <Link className={classes.backPage} to="/login">
+              <Anchor className={classes.backPage} href="/login">
                 Back to login page
-              </Link>
-              <MantineProvider
-                theme={{
-                  defaultGradient: {
-                    from: '#F7CD5C',
-                    to: '#F6C745',
-                    deg: 45,
-                  },
-                }}
-              >
+              </Anchor>
+              <MantineProvider inherit>
                 <Button variant="gradient" type="submit" size="md">
                   Reset Password
                 </Button>

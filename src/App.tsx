@@ -13,8 +13,8 @@ import Education from './pages/profile/eductaion';
 import ProfileExperience from './pages/profile/experience';
 import ProfilePassword from './pages/profile/password';
 import ProfileInfo from './pages/profile/personal';
-import ProfileSkills from './pages/profile/skills';
 import ProfileTabs from './pages/profile/profile';
+import ProfileSkills from './pages/profile/skills';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
