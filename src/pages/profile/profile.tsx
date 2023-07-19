@@ -1,9 +1,10 @@
-import { Progress, Tabs, TabsProps, rem } from '@mantine/core';
+import { Tabs, TabsProps, rem } from '@mantine/core';
 import {
   IconMessageCircle,
   IconPhoto,
   IconSettings,
 } from '@tabler/icons-react';
+import { useState } from 'react';
 import Address from './address';
 import AvatarBox from './avatar';
 import Banking from './banking';
@@ -12,11 +13,11 @@ import Education from './eductaion';
 import ProfileExperience from './experience';
 import ProfileInfo from './personal';
 import ProfileSkills from './skills';
+import ProfileTopBar from './topBar';
 
 function StyledTabs(props: TabsProps) {
   return (
     <Tabs
-      orientation="vertical"
       styles={(theme) => ({
         tab: {
           ...theme.fn.focusStyles(),
@@ -86,8 +87,9 @@ function StyledTabs(props: TabsProps) {
 }
 
 export default function ProfileTabs() {
+  const [Progress] = useState(80);
   return (
-    <StyledTabs defaultValue="personal">
+    <StyledTabs defaultValue="personal" orientation="vertical">
       <Tabs.List>
         <AvatarBox />
         <Tabs.Tab value="personal" icon={<IconSettings size="1rem" />}>
@@ -112,26 +114,60 @@ export default function ProfileTabs() {
           documents
         </Tabs.Tab>
       </Tabs.List>
-      <Progress value={50} />
       <Tabs.Panel value="personal">
+        <ProfileTopBar
+          progress={Progress}
+          title="Personal Information"
+          subTitle="Add your personal Information over here"
+        />
         <ProfileInfo />
       </Tabs.Panel>
       <Tabs.Panel value="education">
+        <ProfileTopBar
+          progress={Progress}
+          title="Education"
+          subTitle="Your Education, try adding your important education information here"
+        />
         <Education />
       </Tabs.Panel>
       <Tabs.Panel value="banking">
+        <ProfileTopBar
+          progress={Progress}
+          title="Banking"
+          subTitle="Please add your company banking details, for any neccessary payments"
+        />
         <Banking />
       </Tabs.Panel>
       <Tabs.Panel value="experience">
+        <ProfileTopBar
+          progress={Progress}
+          title="Experience"
+          subTitle="Add your work experience here"
+        />
         <ProfileExperience />
       </Tabs.Panel>
       <Tabs.Panel value="documents">
+        <ProfileTopBar
+          progress={Progress}
+          title="Documents"
+          subTitle="Important documents that are neccessary for the company"
+        />
         <Dofiles />
       </Tabs.Panel>
       <Tabs.Panel value="address">
+        <ProfileTopBar
+          progress={Progress}
+          title="Address"
+          subTitle="Add your address here"
+        />
         <Address />
       </Tabs.Panel>
       <Tabs.Panel value="skills">
+        <ProfileTopBar
+          progress={Progress}
+          title="Skills"
+          subTitle="Add can add all your skills here and also get certified for them"
+        />
         <ProfileSkills />
       </Tabs.Panel>
     </StyledTabs>

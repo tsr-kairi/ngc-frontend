@@ -22,11 +22,7 @@ function ProfileLayout({ children, title, subTitle }: ProfileLayoutProps) {
           </Text>
         </Group>
         <Progress value={62} mt={5} />
-        <div
-          style={{
-            paddingTop: '20px',
-          }}
-        >
+        <div style={{ paddingTop: '20px' }}>
           <Text fz="xl" weight={900}>
             {title}
           </Text>
