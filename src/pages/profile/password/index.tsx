@@ -1,4 +1,4 @@
-import { Box, PasswordInput } from '@mantine/core';
+import { Box, Container, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 function ProfilePassword() {
@@ -10,7 +10,7 @@ function ProfilePassword() {
     },
   });
   return (
-    <Box
+    <Container
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -52,7 +52,7 @@ function ProfilePassword() {
           {...form.getInputProps('confirmPassword')}
         />
       </Box>
-    </Box>
+    </Container>
   );
 }
 
