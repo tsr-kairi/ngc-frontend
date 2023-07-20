@@ -1,5 +1,3 @@
-import NexGLogoDarkCRM from '@/components/common/logo/LogoDark';
-import NexGLogoLightCRM from '@/components/common/logo/LogoLight';
 import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import {
   ActionIcon,
@@ -10,8 +8,6 @@ import {
   MediaQuery,
   NavLink,
   rem,
-  TextInput,
-  useMantineColorScheme,
 } from '@mantine/core';
 
 import {
@@ -20,21 +16,19 @@ import {
   IconCalendarTime,
   IconChevronRight,
   IconGauge,
-  IconSearch,
   IconUser,
   IconUserCircle,
   IconUserPlus,
 } from '@tabler/icons-react';
 
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import LayoutSidebarIcon from '../Buttons/LayoutSidebarIcon';
-import ToggleThemeBtn from '../Buttons/ToggleThemeBtn';
 import UserProfileBtn from '../Buttons/UserProfileBtn';
 
 interface HeaderProps {
   opened: boolean;
   setOpened: (val: boolean) => void;
+  sidebarCollapsed: boolean;
+  setSidebarCollapsed: (val: boolean) => void;
 }
 
 const useStyles = createStyles((theme) => ({
@@ -94,14 +88,19 @@ const smallData = [
   },
 ];
 
-export default function Navbar({ opened, setOpened }: HeaderProps) {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // Step 1: State to control sidebar visibility
+export default function Navbar({
+  opened,
+  setOpened,
+  sidebarCollapsed,
+  setSidebarCollapsed,
+}: HeaderProps) {
+  // const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // Step 1: State to control sidebar visibility
   const location = useLocation();
 
   // color schema
   const { classes } = useStyles();
-  const { colorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
+  // const { colorScheme } = useMantineColorScheme();
+  // const dark = colorScheme === 'dark';
 
   const items = data.map((item) => (
     <NavLink
@@ -176,12 +175,14 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: '100%',
+        zIndex: 100,
       }}
     >
       <Box>
         <Group
           sx={{
             gap: `${!IsMobileScreen() ? '32px' : '0px'}`,
+            marginTop: '40px',
           }}
           position="apart"
           mb="md"
@@ -194,12 +195,17 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
               mr="md"
             />
           </MediaQuery>
-          <Link to="/" className={`${sidebarCollapsed ? classes.logo : null}`}>
+          {/* <Link to="/" className={`${sidebarCollapsed ? classes.logo : null}`}>
             {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
-          </Link>
-          <Group>
-            {sidebarCollapsed ? null : <ToggleThemeBtn />}
-            {/* Step 3: Add button/icon to toggle the sidebar */}
+          </Link> */}
+          {/* <Group
+            sx={{
+              position: 'absolute',
+              left: '260px',
+              top: '13px',
+              zIndex: 100,
+            }}
+          >
             <div
               style={{
                 marginLeft: `${sidebarCollapsed ? '12px' : '0px'}`,
@@ -210,10 +216,10 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
                 onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
               />
             </div>
-          </Group>
+          </Group> */}
         </Group>
         {/* Search field */}
-        <TextInput
+        {/* <TextInput
           placeholder="Search"
           size="xs"
           icon={<IconSearch size="0.8rem" stroke={1.5} />}
@@ -223,7 +229,7 @@ export default function Navbar({ opened, setOpened }: HeaderProps) {
           sx={{
             display: `${sidebarCollapsed ? 'none' : 'block'}`,
           }}
-        />
+        /> */}
         <Group>{items}</Group>
       </Box>
       <Box

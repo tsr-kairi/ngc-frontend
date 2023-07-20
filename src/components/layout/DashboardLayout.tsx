@@ -3,10 +3,12 @@ import { useNetwork } from '@mantine/hooks';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 // import DashboardHeader from '../ui/DashboardLayout/Header';
+import DashboardHeader from '../ui/DashboardLayout/Header';
 import Navbar from '../ui/DashboardLayout/Navbar';
 
 function DashboardLayout() {
   const [opened, setOpened] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { online } = useNetwork();
   return (
     <AppShell
@@ -22,7 +24,22 @@ function DashboardLayout() {
       asideOffsetBreakpoint="sm"
       navbar={
         <div hidden={opened}>
-          <Navbar opened={opened} setOpened={setOpened} />
+          <Navbar
+            opened={opened}
+            setOpened={setOpened}
+            setSidebarCollapsed={setSidebarCollapsed}
+            sidebarCollapsed={sidebarCollapsed}
+          />
+        </div>
+      }
+      header={
+        <div hidden={opened}>
+          <DashboardHeader
+            opened={opened}
+            setOpened={setOpened}
+            sidebarCollapsed={sidebarCollapsed}
+            setSidebarCollapsed={setSidebarCollapsed}
+          />
         </div>
       }
     >

@@ -13,6 +13,7 @@ import {
 } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
+import LayoutSidebarIcon from '../Buttons/LayoutSidebarIcon';
 import ToggleThemeBtn from '../Buttons/ToggleThemeBtn';
 
 const useStyles = createStyles(() => ({
@@ -30,15 +31,22 @@ const useStyles = createStyles(() => ({
 interface HeaderProps {
   opened: boolean;
   setOpened: (val: boolean) => void;
+  sidebarCollapsed: boolean;
+  setSidebarCollapsed: (val: boolean) => void;
 }
 
-function DashboardHeader({ opened, setOpened }: HeaderProps) {
+function DashboardHeader({
+  opened,
+  setOpened,
+  setSidebarCollapsed,
+  sidebarCollapsed,
+}: HeaderProps) {
   const { classes } = useStyles();
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
   return (
-    <Header height={60} p="xl" className={classes.header}>
+    <Header height={60} px="md" py="xl" className={classes.header}>
       <Box
         sx={{
           display: 'flex',
@@ -52,6 +60,11 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
             display: 'flex',
             alignItems: 'center',
             height: '100%',
+            width: `${!sidebarCollapsed && '300px'}`,
+            paddingRight: `30px`,
+            justifyContent: `${
+              sidebarCollapsed ? 'flex-start' : 'space-between'
+            }`,
             gap: `${!IsMobileScreen() ? '32px' : '0px'}`,
           }}
         >
@@ -66,19 +79,19 @@ function DashboardHeader({ opened, setOpened }: HeaderProps) {
           <Link to="/">
             {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
           </Link>
-          {/* <LayoutSidebarIcon
+          <LayoutSidebarIcon
             collapsed={sidebarCollapsed}
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          /> */}
-          {!IsMobileScreen() && (
-            <TextInput
-              placeholder="Search by any field"
-              icon={<IconSearch size={14} stroke={1.5} />}
-              radius="xs"
-              className={classes.searchField}
-            />
-          )}
+          />
         </Box>
+        {!IsMobileScreen() && (
+          <TextInput
+            placeholder="Search by any field"
+            icon={<IconSearch size={14} stroke={1.5} />}
+            radius="xs"
+            className={classes.searchField}
+          />
+        )}
       </Box>
 
       <Box
