@@ -29,7 +29,7 @@ import {
 } from '@tabler/icons-react';
 
 // Mock Data
-import TimesheetForm from '@/components/form/timesheet/createForm';
+import CalendarForm from '@/components/form/timesheet/form/calendarForm';
 import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import data from './mokdata';
 
@@ -174,13 +174,13 @@ function Timesheet() {
               <Drawer
                 opened={opened}
                 onClose={() => setOpened(false)}
-                title="Add new timesheet"
+                title="Timesheet"
                 padding="md"
                 size={IsMobileScreen() ? 'xl' : 'xl'}
                 position="right"
                 className={classes.drawer}
               >
-                <TimesheetForm setOpened={setOpened} />
+                <CalendarForm />
               </Drawer>
             </div>
           );
