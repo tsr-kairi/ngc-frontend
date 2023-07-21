@@ -1,5 +1,6 @@
-import { Box, Button, Modal, TextInput } from '@mantine/core';
+import { Box, Button, Group, Modal, TextInput } from '@mantine/core';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 export interface Event {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -24,18 +25,32 @@ function TimeBlock({ start, end, title }: Event) {
   const height = (endPercentage - startPercentage) * timelineHeight;
 
   return (
-    <div
-      style={{
+    <Box
+      sx={(theme) => ({
+        backgroundColor:
+          theme.colorScheme === 'dark'
+            ? `${theme.colors.brand[7]}`
+            : `${theme.colors.brand[7]}`,
+        color:
+          theme.colorScheme === 'dark'
+            ? `${theme.colors.gray[3]}`
+            : `${theme.colors.gray[1]}`,
         position: 'absolute',
         top: `${top}px`,
+        right: '1px',
         height: `${height}px`,
-        backgroundColor: 'blue', // or any color
-        width: '100%',
+        width: '84.75%',
         zIndex: 10,
-      }}
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '10px',
+      })}
     >
-      {title}
-    </div>
+      <span>
+        {start} - {end}
+      </span>
+      <span>{title}</span>
+    </Box>
   );
 }
 
@@ -44,26 +59,32 @@ function HourMarker({
   onAddEvent,
 }: {
   hour: number;
-  onAddEvent: () => void;
+  onAddEvent: (hour: number) => void;
 }) {
   return (
     <Box
       sx={{
         position: 'relative',
-        width: '100%',
+        width: '85%',
         height: `${100 / 24}%`,
-        backgroundColor: '#f9f9f9',
+        // backgroundColor: '#f9f9f9',
         border: '1px solid #ccc',
         boxSizing: 'border-box',
+        transition: 'box-shadow 0.2s ease',
+        '&:hover': {
+          boxShadow:
+            '2px 2px 4px rgba(0, 57, 78, 0.2), -1px -1px 4px rgba(0, 57, 78, 0.3)',
+          cursor: 'pointer',
+        },
       }}
-      onClick={onAddEvent}
+      onClick={() => onAddEvent(hour)} // Pass the hour here
     >
       <span
         style={{
           position: 'absolute',
-          left: '5px',
-          top: '50%',
-          transform: 'translateY(-50%)',
+          left: '-50px',
+          top: '40%',
+          transform: 'translateY(-80%)',
         }}
       >
         {hour}:00
@@ -85,7 +106,17 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
     title: '',
   });
 
-  const handleAddEvent = () => {
+  const handleAddEvent = (hour: number) => {
+    const endHour = (hour + 1) % 24;
+    const endTime = `${endHour.toString().padStart(2, '0')}:30`;
+
+    // Set the new event with the calculated start and end times
+    setNewEvent({
+      id: 0,
+      start: `${hour.toString().padStart(2, '0')}:00`,
+      end: endTime,
+      title: '',
+    });
     setShowModal(true);
   };
 
@@ -106,6 +137,7 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
     // Close the modal after handling the record
     setShowModal(false);
     // Reset newEvent state for the next entry
+    toast.success(`${newEvent.title} has been Added`);
     setNewEvent({ id: 0, start: '', end: '', title: '' });
   };
 
@@ -114,10 +146,14 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
       style={{
         position: 'relative',
         width: '100%',
-        height: '800px', // Adjust the height of the timeline as needed
-        marginRight: '30px', // Adjust the margin as needed
-        border: '1px solid #ccc',
-        overflow: 'hidden', // Ensure the time blocks don't overflow horizontally
+        height: '1500px', // Adjust the height of the timeline as needed
+        marginRight: '100px', // Adjust the margin as needed
+        // border: '1px solid #ccc',
+        display: 'flex',
+        flexDirection: 'column',
+        // overflow: 'hidden',
+        justifyContent: 'end',
+        alignItems: 'flex-end', // Ensure the time blocks don't overflow horizontally
       }}
     >
       <Modal
@@ -133,13 +169,7 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
           label="Event Title"
           required
         />
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
+        <Group grow>
           <TextInput
             value={newEvent.start}
             onChange={(event) =>
@@ -156,9 +186,9 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
             label="End Time"
             required
           />
-        </div>
+        </Group>
         <Button style={{ marginTop: 10 }} onClick={handleModalSubmit}>
-          Add
+          Add Event
         </Button>
       </Modal>
       {hours.map((hour) => (
