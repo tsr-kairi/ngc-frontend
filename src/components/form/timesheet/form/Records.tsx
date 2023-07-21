@@ -25,18 +25,32 @@ function TimeBlock({ start, end, title }: Event) {
   const height = (endPercentage - startPercentage) * timelineHeight;
 
   return (
-    <div
-      style={{
+    <Box
+      sx={(theme) => ({
+        backgroundColor:
+          theme.colorScheme === 'dark'
+            ? `${theme.colors.brand[7]}`
+            : `${theme.colors.brand[7]}`,
+        color:
+          theme.colorScheme === 'dark'
+            ? `${theme.colors.gray[3]}`
+            : `${theme.colors.gray[1]}`,
         position: 'absolute',
         top: `${top}px`,
+        right: '1px',
         height: `${height}px`,
-        backgroundColor: 'blue', // or any color
-        width: '85%',
+        width: '84.75%',
         zIndex: 10,
-      }}
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '10px',
+      })}
     >
-      {title}
-    </div>
+      <span>
+        {start} - {end}
+      </span>
+      <span>{title}</span>
+    </Box>
   );
 }
 
@@ -45,7 +59,7 @@ function HourMarker({
   onAddEvent,
 }: {
   hour: number;
-  onAddEvent: () => void;
+  onAddEvent: (hour: number) => void;
 }) {
   return (
     <Box
@@ -53,11 +67,17 @@ function HourMarker({
         position: 'relative',
         width: '85%',
         height: `${100 / 24}%`,
-        backgroundColor: '#f9f9f9',
+        // backgroundColor: '#f9f9f9',
         border: '1px solid #ccc',
         boxSizing: 'border-box',
+        transition: 'box-shadow 0.2s ease',
+        '&:hover': {
+          boxShadow:
+            '2px 2px 4px rgba(0, 57, 78, 0.2), -1px -1px 4px rgba(0, 57, 78, 0.3)',
+          cursor: 'pointer',
+        },
       }}
-      onClick={onAddEvent}
+      onClick={() => onAddEvent(hour)} // Pass the hour here
     >
       <span
         style={{
@@ -86,7 +106,17 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
     title: '',
   });
 
-  const handleAddEvent = () => {
+  const handleAddEvent = (hour: number) => {
+    const endHour = (hour + 1) % 24;
+    const endTime = `${endHour.toString().padStart(2, '0')}:30`;
+
+    // Set the new event with the calculated start and end times
+    setNewEvent({
+      id: 0,
+      start: `${hour.toString().padStart(2, '0')}:00`,
+      end: endTime,
+      title: '',
+    });
     setShowModal(true);
   };
 
