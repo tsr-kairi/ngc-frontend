@@ -33,7 +33,14 @@ export default function CalendarForm() {
         <Button color="green">Approve All</Button>
       </Flex>
       {/* <DayView /> */}
-      <Timeline events={initialEvents} />
+      <Box
+        sx={{
+          height: '800px', // Adjust the height of the timeline as needed
+          overflow: 'scroll',
+        }}
+      >
+        <Timeline events={initialEvents} />
+      </Box>
     </Box>
   );
 }
