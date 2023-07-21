@@ -1,18 +1,20 @@
-import { Avatar, Box, Text } from '@mantine/core';
+import { Avatar, Paper, Text } from '@mantine/core';
 
 function AvatarBox() {
   return (
-    <Box
+    <Paper
+      pl="sm"
+      pr="sm"
+      mt="sm"
+      mb="lg"
       sx={{
         height: '250px',
         width: '100%',
-        backgroundColor: 'white',
+
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: '40px',
-        marginTop: '18px',
       }}
     >
       <Avatar
@@ -30,7 +32,7 @@ function AvatarBox() {
       <Text size="sm" color="dimmed">
         UI/UX Designer
       </Text>
-    </Box>
+    </Paper>
   );
 }
 

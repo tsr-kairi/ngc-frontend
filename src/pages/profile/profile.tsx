@@ -1,4 +1,4 @@
-import { Tabs, TabsProps, rem } from '@mantine/core';
+import { Tabs, TabsProps } from '@mantine/core';
 import {
   IconMessageCircle,
   IconPhoto,
@@ -27,11 +27,6 @@ function StyledTabs(props: TabsProps) {
             theme.colorScheme === 'dark'
               ? theme.colors.dark[0]
               : theme.colors.gray[9],
-          border: `${rem(1)} solid ${
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[6]
-              : theme.colors.gray[4]
-          }`,
           padding: `${theme.spacing.xs} ${theme.spacing.md}`,
           cursor: 'pointer',
           fontSize: theme.fontSizes.sm,
@@ -47,6 +42,7 @@ function StyledTabs(props: TabsProps) {
             width: '250px',
             height: '50px',
             borderRadius: 0,
+            border: 'none', // Remove border
           },
 
           '&:first-of-type': {
@@ -60,7 +56,6 @@ function StyledTabs(props: TabsProps) {
           '&:last-of-type': {
             borderBottomLeftRadius: theme.radius.sm,
             borderBottomRightRadius: theme.radius.sm,
-            // width: '250px',
           },
 
           '&[data-active]': {

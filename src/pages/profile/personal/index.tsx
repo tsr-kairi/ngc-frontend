@@ -11,10 +11,11 @@ import {
   Table,
   Text,
   TextInput,
+  Tooltip,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
-import { IconEdit } from '@tabler/icons-react';
+import { IconEdit, IconSquarePlus } from '@tabler/icons-react';
 import { useState } from 'react';
 import ModalForm from './modalForm';
 
@@ -178,7 +179,7 @@ function ProfileInfo() {
         <Button size="md"> Confirm</Button>
       </Group> */}
       <Flex sx={{ alignItems: 'start', justifyContent: 'space-between' }}>
-        <Text fz="lg" mt="md" mb="md" weight={600}>
+        <Text fz="lg" mt="sm" mb="md" weight={600}>
           Emergency Contact Details
         </Text>
         <Modal opened={opened} onClose={close} title="Add your Contact Details">
@@ -187,9 +188,11 @@ function ProfileInfo() {
           </Box>
         </Modal>
 
-        <Button onClick={open} size="xs" mt="20px">
-          +
-        </Button>
+        <ActionIcon onClick={open} mt="15px">
+          <Tooltip label="add contact">
+            <IconSquarePlus />
+          </Tooltip>
+        </ActionIcon>
       </Flex>
       <Table>
         <thead>

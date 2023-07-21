@@ -1,4 +1,4 @@
-import { Container, Text } from '@mantine/core';
+import { Container, Flex, Text } from '@mantine/core';
 import Skill, { SkillProps } from './skills';
 
 interface CategoryProps {
@@ -12,14 +12,23 @@ export default function Category({ title, skills }: CategoryProps) {
       <Text size="xl" weight={700}>
         {title}
       </Text>
-      {skills.map((skill) => (
-        <Skill
-          key={skill.title}
-          title={skill.title}
-          logo={skill.logo}
-          certified={skill.certified}
-        />
-      ))}
+      <Flex
+        mih={50}
+        gap="md"
+        justify="flex-start"
+        align="flex-start"
+        direction="row"
+        wrap="wrap"
+      >
+        {skills.map((skill) => (
+          <Skill
+            key={skill.title}
+            title={skill.title}
+            logo={skill.logo}
+            certified={skill.certified}
+          />
+        ))}
+      </Flex>
     </Container>
   );
 }
