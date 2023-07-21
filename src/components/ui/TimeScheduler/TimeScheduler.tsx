@@ -12,6 +12,10 @@ function TimeScheduler() {
       clockIn: '11:00',
       clockOut: '14:55',
     },
+    // {
+    //   clockIn: '15:00',
+    //   clockOut: '17:55',
+    // },
   ]);
   const hours = Array.from({ length: 48 }, (_, i) => i * 0.5);
 

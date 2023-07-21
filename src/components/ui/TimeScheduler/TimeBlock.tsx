@@ -44,14 +44,19 @@ function TimeBlock({ records }: { records: RecordsType[] }) {
                       timelineWidth
                     }%`,
                     right: `${
-                      timelineWidth -
-                      ((parseInt(record.clockOut.split(':')[0], 10) +
-                        parseInt(record.clockOut.split(':')[1], 10) / 60) /
-                        24) *
-                        timelineWidth
+                      records.length === 1
+                        ? timelineWidth -
+                          ((parseInt(record.clockOut.split(':')[0], 10) +
+                            parseInt(record.clockOut.split(':')[1], 10) / 60) /
+                            24) *
+                            timelineWidth
+                        : '0'
                     }%`,
-                    background:
-                      'linear-gradient(90deg, rgba(250,0,0,1) 0%, rgba(248,248,248,1) 100%)',
+                    background: `${
+                      records.length !== 1
+                        ? 'linear-gradient(90deg, rgba(250,0,0,1) 0%, rgba(248,248,248,1) 100%)'
+                        : '#CA312D'
+                    }`,
                     height: '100%',
                     display: 'flex',
                     justifyContent: 'center',
