@@ -6,9 +6,14 @@ import {
   Group,
   Modal,
   MultiSelect,
-  SimpleGrid,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import {
+  IconBrandAngular,
+  IconBrandJavascript,
+  IconBrandPython,
+  IconBrandReact,
+} from '@tabler/icons-react';
 import Category from './category';
 
 const Skills = [
@@ -25,15 +30,17 @@ const categories = [
   {
     title: 'Programming Languages',
     skills: [
-      { title: 'JavaScript', logo: '/skills/js.jpeg', certified: true },
-      { title: 'Python', logo: '/skills/py.jpeg', certified: false },
+      { title: 'JavaScript', logo: <IconBrandJavascript />, certified: true },
+      { title: 'Python', logo: <IconBrandPython />, certified: false },
+      { title: 'Python', logo: <IconBrandPython />, certified: false },
     ],
   },
   {
     title: 'Frameworks',
     skills: [
-      { title: 'React', logo: '/skills/rct.jpeg', certified: true },
-      { title: 'Angular', logo: '/skills/ang.jpeg', certified: false },
+      { title: 'React', logo: <IconBrandReact />, certified: true },
+      { title: 'Angular', logo: <IconBrandAngular />, certified: false },
+      { title: 'Angular', logo: <IconBrandAngular />, certified: false },
     ],
   },
 ];
@@ -58,11 +65,7 @@ function ProfileSkills() {
             <Button>Add Skill</Button>
           </Box>
         </Modal>
-        <SimpleGrid
-          cols={2}
-          breakpoints={[{ maxWidth: 'sm', cols: 1 }]}
-          mb="sm"
-        >
+        <Box>
           {categories.map((category) => (
             <Category
               key={category.title}
@@ -70,9 +73,10 @@ function ProfileSkills() {
               skills={category.skills}
             />
           ))}
-        </SimpleGrid>
+        </Box>
+
         <Group position="center">
-          <Button onClick={open}>Open modal</Button>
+          <Button onClick={open}>Add skill</Button>
         </Group>
       </Flex>
     </Container>
