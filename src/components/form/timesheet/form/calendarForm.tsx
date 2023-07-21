@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Text } from '@mantine/core';
+import { useEffect, useRef } from 'react';
 import Timeline from './Records';
 
 const formatDate = (date: Date): string => {
@@ -18,6 +19,16 @@ const initialEvents = [
 
 export default function CalendarForm() {
   const currentDate = new Date();
+  const timelineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (timelineRef.current) {
+      // Set the initial scroll position to center the timeline
+      timelineRef.current.scrollTop =
+        timelineRef.current.scrollHeight / 2 -
+        timelineRef.current.clientHeight / 2;
+    }
+  }, []);
 
   return (
     <Box
@@ -38,6 +49,7 @@ export default function CalendarForm() {
           height: '800px', // Adjust the height of the timeline as needed
           overflow: 'scroll',
         }}
+        ref={timelineRef}
       >
         <Timeline events={initialEvents} />
       </Box>
