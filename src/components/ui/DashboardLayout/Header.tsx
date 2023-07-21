@@ -5,16 +5,26 @@ import {
   Box,
   Burger,
   Divider,
+  Group,
   Header,
   MediaQuery,
+  Menu,
   TextInput,
+  UnstyledButton,
   createStyles,
+  rem,
   useMantineColorScheme,
 } from '@mantine/core';
-import { IconSearch } from '@tabler/icons-react';
+import {
+  IconChevronDown,
+  IconClockFilled,
+  IconSearch,
+} from '@tabler/icons-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LayoutSidebarIcon from '../Buttons/LayoutSidebarIcon';
 import ToggleThemeBtn from '../Buttons/ToggleThemeBtn';
+import TimeScheduler from '../TimeScheduler/TimeScheduler';
 
 const useStyles = createStyles(() => ({
   header: {
@@ -44,6 +54,10 @@ function DashboardHeader({
   const { classes } = useStyles();
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
+
+  // const [opened, { toggle }] = useDisclosure(false);
+
+  const [, setUserMenuOpened] = useState(false);
 
   return (
     <Header height={60} px="md" py="xl" className={classes.header}>
@@ -105,6 +119,35 @@ function DashboardHeader({
       >
         <ToggleThemeBtn />
         <Divider orientation="vertical" />
+
+        {/*  Time Schedular */}
+        <Menu
+          width={360}
+          position="bottom-end"
+          transitionProps={{ transition: 'pop-top-right' }}
+          onClose={() => setUserMenuOpened(false)}
+          onOpen={() => setUserMenuOpened(true)}
+          withinPortal
+        >
+          <Menu.Target>
+            <UnstyledButton>
+              <Group spacing={7}>
+                <IconClockFilled size={20} stroke={1.5} />
+                <IconChevronDown size={rem(12)} stroke={1.5} />
+              </Group>
+            </UnstyledButton>
+          </Menu.Target>
+          <Menu.Dropdown
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <TimeScheduler />
+          </Menu.Dropdown>
+        </Menu>
+
         {/* <UserProfileBtn text={`${sidebarCollapsed ? '' : 'Aryan'}`} description={`${sidebarCollapsed ? '' : 'aryan@gmail.com'}`} /> */}
       </Box>
     </Header>
