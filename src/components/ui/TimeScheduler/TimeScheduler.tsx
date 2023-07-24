@@ -10,7 +10,7 @@ function TimeScheduler() {
   const [records, setRecords] = useState<RecordsType[]>([
     {
       clockIn: '11:00',
-      clockOut: '14:55',
+      clockOut: '',
     },
     // {
     //   clockIn: '15:00',
