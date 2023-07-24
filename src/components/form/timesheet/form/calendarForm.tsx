@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Text } from '@mantine/core';
 import { IconAlarmFilled } from '@tabler/icons-react';
 import { useEffect, useRef } from 'react';
-import Timeline from './Records';
+import Timeline, { type Event } from './Records';
 
 const formatDate = (date: Date): string => {
   const options: Intl.DateTimeFormatOptions = {
@@ -11,10 +11,34 @@ const formatDate = (date: Date): string => {
   };
   return new Date(date).toLocaleDateString(undefined, options);
 };
-
-const initialEvents = [
-  { id: 1, start: '08:15', end: '12:45', title: 'Event 1' },
-  { id: 2, start: '13:30', end: '18:00', title: 'Event 2' },
+const initialEvents: Event[] = [
+  {
+    id: 1,
+    start: '08:15',
+    end: '11:45',
+    accepted: true,
+    tasks: [
+      { id: 1, description: 'asda' },
+      { id: 2, description: 'asfas' },
+    ],
+  },
+  {
+    id: 2,
+    start: '12:15',
+    end: '13:45',
+    accepted: false,
+    tasks: [
+      { id: 1, description: '123' },
+      { id: 2, description: 'asfsdffas' },
+    ],
+  },
+  {
+    id: 3,
+    start: '14:30',
+    end: '17:00',
+    accepted: null,
+    tasks: [{ id: 1, description: 'asd' }],
+  },
   // Add more initial events as needed
 ];
 
