@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { ActionIcon, Button } from '@mantine/core';
 import { IconCheck, IconSquareRoundedX } from '@tabler/icons-react';
 import { MantineReactTable, type MRT_ColumnDef } from 'mantine-react-table';
@@ -13,9 +14,9 @@ export type TimesheetProps = {
   pendingHours: string;
   rejectedHours: string;
   slots: number;
-  task: any;
+  task: string;
   approval: 'approved' | 'rejected' | null;
-  edit: any;
+  edit: string;
 };
 
 function TimeCard() {
@@ -65,8 +66,9 @@ function TimeCard() {
       {
         accessorKey: 'approval',
         header: 'Approval',
+        // eslint-disable-next-line react/no-unstable-nested-components
         Cell: ({ cell }) => {
-          const approval = cell.getValue();
+          const approval = cell.getValue() as string;
 
           if (approval === 'approved') {
             return (

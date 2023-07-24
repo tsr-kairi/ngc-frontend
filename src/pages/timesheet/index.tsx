@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import TimeCard from "@/components/form/timesheet/timecard";
-import { Box, Button, Group, rem, Tabs, TabsProps, Text } from "@mantine/core";
+import TimeCard from '@/components/form/timesheet/timecard';
+import { Box, Button, Group, rem, Tabs, TabsProps, Text } from '@mantine/core';
 
 function StyledTabs(props: TabsProps) {
   return (
@@ -10,9 +10,17 @@ function StyledTabs(props: TabsProps) {
       styles={(theme) => ({
         tab: {
           ...theme.fn.focusStyles(),
-          backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
-          color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[9],
-          border: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[4]}`,
+          backgroundColor:
+            theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
+          color:
+            theme.colorScheme === 'dark'
+              ? theme.colors.dark[0]
+              : theme.colors.gray[9],
+          border: `${rem(1)} solid ${
+            theme.colorScheme === 'dark'
+              ? theme.colors.dark[6]
+              : theme.colors.gray[4]
+          }`,
           padding: `${theme.spacing.xs} ${theme.spacing.md}`,
           cursor: 'pointer',
           fontSize: theme.fontSizes.sm,
@@ -63,11 +71,19 @@ function StyledTabs(props: TabsProps) {
 function Timesheet1() {
   return (
     <div className="">
-      <Text size='lg' weight={400} pl='md'>Time and Attendance</Text>
+      <Text size="lg" weight={400} pl="md">
+        Time and Attendance
+      </Text>
 
-
-      <StyledTabs defaultValue='Timecard'>
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '20px' }}>
+      <StyledTabs defaultValue="Timecard">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding: '20px',
+          }}
+        >
           <Group>
             <Button>Calendar</Button>
             <Button>Calendar</Button>
@@ -85,23 +101,7 @@ function Timesheet1() {
           <TimeCard />
         </Tabs.Panel>
       </StyledTabs>
-
-              {/* Timesheet Create Drawer */}
-              <Drawer
-                opened={opened}
-                onClose={() => setOpened(false)}
-                padding="md"
-                size={IsMobileScreen() ? 'xl' : 'xl'}
-                position="right"
-                className={classes.drawer}
-              >
-                <CalendarForm />
-              </Drawer>
-            </div>
-          );
-        }}
-      />
-    </Suspense>
+    </div>
   );
 }
 

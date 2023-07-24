@@ -13,7 +13,7 @@ const DashboardLayout = React.lazy(
 );
 const DashBoard = React.lazy(() => import('./pages/dashboard'));
 const Employee = React.lazy(() => import('./pages/employee'));
-const Timesheet = React.lazy(() => import('./pages/timesheet'));
+// const Timesheet = React.lazy(() => import('./pages/timesheet'));
 // const Blog = React.lazy(() => import('./pages/blog'));
 const EmployeeUserProfile = React.lazy(
   () => import('./pages/employee/employeeProfile')
@@ -103,7 +103,7 @@ function App() {
               path="/timesheet"
               element={
                 <WrapSuspense>
-                  <Timesheet1/>
+                  <Timesheet1 />
                 </WrapSuspense>
               }
             />
