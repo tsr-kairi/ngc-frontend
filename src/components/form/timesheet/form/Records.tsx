@@ -1,17 +1,48 @@
-import { Box, Button, Group, Modal, TextInput } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Flex,
+  Modal,
+  Text,
+  TextInput,
+} from '@mantine/core';
+import {
+  IconCircleCheckFilled,
+  IconSquareRoundedXFilled,
+} from '@tabler/icons-react';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
+
+export interface Task {
+  id: number;
+  description: string;
+}
 
 export interface Event {
   // eslint-disable-next-line react/no-unused-prop-types
   id: number;
   start: string;
   end: string;
-  title: string;
+  accepted: boolean | null; // Updated type to include null for the initial state
+  tasks: Task[];
+}
+
+interface TimeBlockProps extends Event {
+  onEdit: (eventId: number) => void;
+  setAccepted: (eventId: number, accepted: boolean) => void;
 }
 
 // TimeBlock Component
-function TimeBlock({ start, end, title }: Event) {
+function TimeBlock({
+  id,
+  start,
+  end,
+  tasks,
+  onEdit,
+  accepted,
+  setAccepted,
+}: TimeBlockProps) {
   const timelineHeight = 800; // Adjust the height of the timeline as needed
   const startPercentage =
     (parseInt(start.split(':')[0], 10) +
@@ -24,13 +55,32 @@ function TimeBlock({ start, end, title }: Event) {
   const top = startPercentage * timelineHeight;
   const height = (endPercentage - startPercentage) * timelineHeight;
 
+  const handleTickClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.stopPropagation(); // Prevent the click event from propagating to the div
+    setAccepted(id, true);
+    toast.success('Accepted'); // Set accepted to true when tick is clicked
+  };
+
+  const handleCrossClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    event.stopPropagation(); // Prevent the click event from propagating to the div
+    setAccepted(id, false); // Set accepted to false when cross is clicked
+    toast.error('Not Accepted');
+  };
+
   return (
     <Box
       sx={(theme) => ({
         backgroundColor:
-          theme.colorScheme === 'dark'
-            ? `${theme.colors.brand[7]}`
-            : `${theme.colors.brand[7]}`,
+          // eslint-disable-next-line no-nested-ternary
+          accepted === true
+            ? `${theme.colors.green[7]}` // Green for accepted
+            : accepted === false
+            ? `${theme.colors.red[7]}` // Red for not accepted
+            : `${theme.colors.brand[6]}`, // Blue for null
         color:
           theme.colorScheme === 'dark'
             ? `${theme.colors.gray[3]}`
@@ -44,23 +94,41 @@ function TimeBlock({ start, end, title }: Event) {
         display: 'flex',
         flexDirection: 'column',
         padding: '10px',
+        overflow: 'scroll',
+        cursor: 'pointer', // Make the time block clickable
       })}
+      onClick={() => onEdit(id)}
     >
       <span>
         {start} - {end}
       </span>
-      <span>{title}</span>
+      {tasks.map((task) => (
+        <div key={task.id}>
+          <span>{task.description}</span>
+        </div>
+      ))}
+      {accepted === null && (
+        <Box
+          sx={{
+            position: 'absolute',
+            right: '10px',
+            top: '10px',
+            zIndex: 30,
+          }}
+        >
+          <ActionIcon color="green" onClick={handleTickClick}>
+            <IconCircleCheckFilled size="1.5rem" />
+          </ActionIcon>
+          <ActionIcon color="red" onClick={handleCrossClick}>
+            <IconSquareRoundedXFilled size="1.5rem" />
+          </ActionIcon>
+        </Box>
+      )}
     </Box>
   );
 }
 
-function HourMarker({
-  hour,
-  onAddEvent,
-}: {
-  hour: number;
-  onAddEvent: (hour: number) => void;
-}) {
+function HourMarker({ hour }: { hour: number }) {
   return (
     <Box
       sx={{
@@ -71,13 +139,7 @@ function HourMarker({
         border: '1px solid #ccc',
         boxSizing: 'border-box',
         transition: 'box-shadow 0.2s ease',
-        '&:hover': {
-          boxShadow:
-            '2px 2px 4px rgba(0, 57, 78, 0.2), -1px -1px 4px rgba(0, 57, 78, 0.3)',
-          cursor: 'pointer',
-        },
       }}
-      onClick={() => onAddEvent(hour)} // Pass the hour here
     >
       <span
         style={{
@@ -99,46 +161,49 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
 
   const [showModal, setShowModal] = useState(false);
   const [events, setEvents] = useState<Event[]>(initialEvents);
-  const [newEvent, setNewEvent] = useState<Event>({
-    id: 0,
-    start: '',
-    end: '',
-    title: '',
-  });
+  const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
 
-  const handleAddEvent = (hour: number) => {
-    const endHour = (hour + 1) % 24;
-    const endTime = `${endHour.toString().padStart(2, '0')}:30`;
+  const handleEdit = (eventId: number) => {
+    // Find the event with the given id from the list of events
+    const eventToEdit = events.find((event) => event.id === eventId);
 
-    // Set the new event with the calculated start and end times
-    setNewEvent({
-      id: 0,
-      start: `${hour.toString().padStart(2, '0')}:00`,
-      end: endTime,
-      title: '',
-    });
-    setShowModal(true);
+    if (eventToEdit) {
+      // Set the currentEvent state to the event that needs to be edited
+      setCurrentEvent(eventToEdit);
+      setShowModal(true);
+    }
   };
 
   const handleModalClose = () => {
     setShowModal(false);
+    setCurrentEvent(null);
   };
 
   const handleModalSubmit = () => {
-    // Generate a unique id for the new event
-    const newId = Math.max(...events.map((event) => event.id)) + 1;
-    const updatedNewEvent = { ...newEvent, id: newId };
+    if (!currentEvent) return;
 
-    // Add the new event to the existing events
-    setEvents([...events, updatedNewEvent]);
-    // console.log('New Event:', updatedNewEvent);
-    // console.log('All Events:', events);
+    // If the current event is a new event (id: 0), add it to the events list
+    if (currentEvent.id === 0) {
+      // Generate a unique id for the new event
+      const newId = Math.max(...events.map((event) => event.id)) + 1;
+      const updatedNewEvent = { ...currentEvent, id: newId };
+
+      // Add the new event to the existing events
+      const updatedEvents = [...events, updatedNewEvent];
+      setEvents(updatedEvents);
+      toast.success(`Event has been Updated`);
+    } else {
+      // If the current event is an existing event, update its details
+      const updatedEvents = events.map((event) =>
+        event.id === currentEvent.id ? currentEvent : event
+      );
+      setEvents(updatedEvents);
+      toast.success('Event details updated');
+    }
 
     // Close the modal after handling the record
     setShowModal(false);
-    // Reset newEvent state for the next entry
-    toast.success(`${newEvent.title} has been Added`);
-    setNewEvent({ id: 0, start: '', end: '', title: '' });
+    setCurrentEvent(null);
   };
 
   return (
@@ -148,56 +213,156 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
         width: '100%',
         height: '1500px', // Adjust the height of the timeline as needed
         marginRight: '100px', // Adjust the margin as needed
-        // border: '1px solid #ccc',
         display: 'flex',
         flexDirection: 'column',
-        // overflow: 'hidden',
         justifyContent: 'end',
-        alignItems: 'flex-end', // Ensure the time blocks don't overflow horizontally
+        alignItems: 'flex-end',
       }}
     >
       <Modal
         opened={showModal}
         onClose={handleModalClose}
-        title="Add New Event"
+        title={currentEvent?.id === 0 ? 'Add New Event' : 'Edit Event'}
       >
-        <TextInput
-          value={newEvent.title}
-          onChange={(event) =>
-            setNewEvent({ ...newEvent, title: event.currentTarget.value })
-          }
-          label="Event Title"
-          required
-        />
-        <Group grow>
-          <TextInput
-            value={newEvent.start}
-            onChange={(event) =>
-              setNewEvent({ ...newEvent, start: event.currentTarget.value })
-            }
-            label="Start Time"
-            required
-          />
-          <TextInput
-            value={newEvent.end}
-            onChange={(event) =>
-              setNewEvent({ ...newEvent, end: event.currentTarget.value })
-            }
-            label="End Time"
-            required
-          />
-        </Group>
-        <Button style={{ marginTop: 10 }} onClick={handleModalSubmit}>
-          Add Event
-        </Button>
+        {currentEvent && (
+          <>
+            <Flex
+              sx={{
+                marginBottom: '30px',
+              }}
+              justify="space-between"
+            >
+              <Text weight="bold">
+                Total Hours
+                <Text
+                  component="span"
+                  sx={{
+                    marginLeft: '10px',
+                  }}
+                  color="brand"
+                >
+                  4:30
+                </Text>
+              </Text>
+              <Text weight="bold">
+                Task Hours
+                <Text
+                  component="span"
+                  sx={{
+                    marginLeft: '10px',
+                  }}
+                  color="brand"
+                >
+                  4:00
+                </Text>
+              </Text>
+            </Flex>
+            {/* <Group
+              grow
+              sx={{
+                marginBottom: '15px',
+              }}
+            >
+              <TextInput
+                value={currentEvent?.start || ''}
+                onChange={(event) =>
+                  setCurrentEvent({
+                    ...currentEvent,
+                    start: event.currentTarget.value,
+                  })
+                }
+                // label="Start Time"
+                required
+              />
+              <TextInput
+                value={currentEvent?.end || ''}
+                onChange={(event) =>
+                  setCurrentEvent({
+                    ...currentEvent,
+                    end: event.currentTarget.value,
+                  })
+                }
+                // label="End Time"
+                required
+              />
+            </Group> */}
+            {/* Render the list of tasks as TextInput elements */}
+            {currentEvent?.tasks.map((task) => (
+              <TextInput
+                key={task.id}
+                value={task.description}
+                sx={{
+                  marginBottom: '10px',
+                }}
+                onChange={(event) => {
+                  const updatedTasks = currentEvent?.tasks.map((t) =>
+                    t.id === task.id
+                      ? { ...t, description: event.currentTarget.value }
+                      : t
+                  );
+                  setCurrentEvent({
+                    ...currentEvent,
+                    tasks: updatedTasks || [],
+                  });
+                }}
+                placeholder="add new task"
+                // label="Task"
+                required
+              />
+            ))}
+            <Flex justify="end">
+              <Button
+                size="xs"
+                onClick={() =>
+                  setCurrentEvent({
+                    ...currentEvent,
+                    tasks: [
+                      ...(currentEvent?.tasks || []),
+                      { id: Date.now(), description: '' },
+                    ],
+                  })
+                }
+              >
+                Add New
+              </Button>
+            </Flex>
+            <Flex
+              sx={{
+                marginTop: '25px',
+              }}
+              justify="end"
+              gap="5px"
+            >
+              <Button variant="outline" onClick={handleModalClose}>
+                cancel
+              </Button>
+              <Button onClick={handleModalSubmit}>
+                {currentEvent?.id === 0 ? 'Add Event' : 'Save'}
+              </Button>
+            </Flex>
+          </>
+        )}
       </Modal>
       {hours.map((hour) => (
         <React.Fragment key={hour}>
-          <HourMarker hour={hour} onAddEvent={handleAddEvent} />
+          {/* Removed onAddEvent prop */}
+          <HourMarker hour={hour} />
           {events.map((event) =>
             parseInt(event.start.split(':')[0], 10) === hour ? (
-              // eslint-disable-next-line react/no-array-index-key, react/jsx-props-no-spreading
-              <TimeBlock key={event.id} {...event} />
+              // Pass onEdit function to TimeBlock component
+              <TimeBlock
+                key={event.id}
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                {...event}
+                onEdit={() => handleEdit(event.id)}
+                setAccepted={(eventId, accepted) =>
+                  setEvents((prevEvents) =>
+                    prevEvents.map((ev) =>
+                      ev.id === eventId ? { ...ev, accepted } : ev
+                    )
+                  )
+                }
+              />
             ) : null
           )}
         </React.Fragment>

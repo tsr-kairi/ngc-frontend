@@ -174,7 +174,6 @@ function Timesheet() {
               <Drawer
                 opened={opened}
                 onClose={() => setOpened(false)}
-                title="Timesheet"
                 padding="md"
                 size={IsMobileScreen() ? 'xl' : 'xl'}
                 position="right"

@@ -3,10 +3,10 @@
 
 
 # Restrict push to `main` branch
-if [ $(git rev-parse --abbrev-ref HEAD) != "main" ]; then
-  echo "Pushing to non-main branch is not allowed"
-  exit 1
-fi
+# if [ $(git rev-parse --abbrev-ref HEAD) != "main" ]; then
+#   echo "Pushing to non-main branch is not allowed"
+#   exit 1
+# fi
 
 pnpm lint
 pnpm build
