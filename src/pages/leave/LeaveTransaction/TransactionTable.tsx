@@ -25,10 +25,26 @@ function TransactionTable() {
                   border: '2px solid green',
                   borderRadius: '25px',
                   width: '100px',
-                  paddingLeft: '20px',
+                  padding: '5px',
+                  paddingLeft: '22px',
                 }}
               >
                 Granted
+              </Box>
+            );
+          }
+          if (grant === 'Availed') {
+            return (
+              <Box
+                sx={{
+                  border: '2px solid red',
+                  borderRadius: '25px',
+                  width: '100px',
+                  padding: '5px',
+                  paddingLeft: '22px',
+                }}
+              >
+                Availed
               </Box>
             );
           }
@@ -42,6 +58,55 @@ function TransactionTable() {
       {
         accessorKey: 'leaveType',
         header: 'Leave Type',
+        Cell: ({ cell }) => {
+          const leave = cell.getValue() as string;
+          if (leave === 'Earned') {
+            return (
+              <Box
+                sx={{
+                  border: '2px solid green',
+                  borderRadius: '25px',
+                  width: '100px',
+                  padding: '5px',
+                  paddingLeft: '25px',
+                }}
+              >
+                Earned
+              </Box>
+            );
+          }
+          if (leave === 'Sick') {
+            return (
+              <Box
+                sx={{
+                  border: '2px solid black',
+                  borderRadius: '25px',
+                  width: '100px',
+                  padding: '3px',
+                  paddingLeft: '30px',
+                }}
+              >
+                Sick
+              </Box>
+            );
+          }
+          if (leave === 'Casual') {
+            return (
+              <Box
+                sx={{
+                  border: '2px solid red',
+                  borderRadius: '25px',
+                  width: '100px',
+                  padding: '5px',
+                  paddingLeft: '25px',
+                }}
+              >
+                Casual
+              </Box>
+            );
+          }
+          return null;
+        },
       },
       {
         accessorKey: 'fromDate',
@@ -75,9 +140,9 @@ function TransactionTable() {
     },
   });
   return (
-    <Box>
+    <Box mt="40px" sx={{ overflow: 'auto', maxWidth: '76vw' }}>
       <Text fz="lg" weight={700} mb="md">
-        Leave Transaction
+        Leave Transaction History
       </Text>
       <MRT_Table table={table} />;
     </Box>
