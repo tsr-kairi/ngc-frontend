@@ -3,7 +3,7 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 
 export interface SkillProps {
   title: string;
-  logo: any;
+  logo: React.ReactNode;
   certified: boolean;
 }
 

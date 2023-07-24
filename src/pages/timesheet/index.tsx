@@ -1,174 +1,90 @@
-// lorem20
-import { Suspense, useEffect, useMemo, useState } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
 
-// MRT Imports
-import {
-  MantineReactTable,
-  MRT_ColumnDef,
-  MRT_SortingState,
-} from 'mantine-react-table';
+import TimeCard from "@/components/form/timesheet/timecard";
+import { Box, Button, Group, rem, Tabs, TabsProps, Text } from "@mantine/core";
 
-// Mantine Imports
-import {
-  ActionIcon,
-  Button,
-  createStyles,
-  Drawer,
-  Loader,
-  Menu,
-  Text,
-  Tooltip,
-} from '@mantine/core';
-
-// Icons Imports
-import {
-  IconEdit,
-  IconPlus,
-  IconTrash,
-  IconUserCircle,
-} from '@tabler/icons-react';
-
-// Mock Data
-import CalendarForm from '@/components/form/timesheet/form/calendarForm';
-import IsMobileScreen from '@/hooks/useIsMobileScreen';
-import data from './mokdata';
-
-// createStyles import
-const useStyles = createStyles(() => ({
-  drawer: {
-    overflowY: 'scroll',
-    '&::-webkit-scrollbar': {
-      display: 'none',
-    },
-  },
-}));
-
-export type TimesheetProps = {
-  date: string;
-  hours: string;
-  task: string;
-};
-
-function Timesheet() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [sorting, setSorting] = useState<MRT_SortingState>([]);
-  const [opened, setOpened] = useState(false);
-
-  const {
-    theme: {
-      breakpoints: { xs: xsBreakpoint },
-    },
-    classes,
-  } = useStyles();
-  const aboveXsMediaQuery = `(min-width: ${xsBreakpoint})`;
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsLoading(false);
-    }
-  }, []);
-
-  const columns = useMemo<MRT_ColumnDef<TimesheetProps>[]>(
-    () => [
-      {
-        accessorFn: (row) => new Date(row.date),
-        id: 'date',
-        header: 'Date',
-        filterFn: 'lessThanOrEqualTo',
-        sortingFn: 'datetime',
-        visibleMediaQuery: aboveXsMediaQuery,
-        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(),
-      },
-      {
-        accessorKey: 'hours',
-        header: 'Hours',
-        visibleMediaQuery: aboveXsMediaQuery,
-      },
-      {
-        accessorKey: 'task',
-        header: 'Task',
-        visibleMediaQuery: aboveXsMediaQuery,
-      },
-    ],
-    [aboveXsMediaQuery]
-  );
-
+function StyledTabs(props: TabsProps) {
   return (
-    <Suspense fallback={<Loader variant="dots" />}>
-      <MantineReactTable
-        columns={columns}
-        data={data}
-        enableColumnFilterModes
-        enableBottomToolbar
-        enableColumnOrdering
-        enablePagination
-        enableGrouping
-        enablePinning
-        enableRowVirtualization
-        onSortingChange={setSorting}
-        state={{ isLoading, sorting }}
-        enableRowActions
-        enableRowNumbers
-        enableRowSelection
-        enableEditing
-        enableStickyHeader
-        memoMode="cells"
-        initialState={{ showColumnFilters: false }}
-        positionToolbarAlertBanner="bottom"
-        renderRowActionMenuItems={() => (
-          <>
-            <Menu.Item icon={<IconUserCircle />}>View Profile</Menu.Item>
-            <Menu.Item icon={<IconEdit />}>Edit Timesheet</Menu.Item>
-            <Menu.Item icon={<IconTrash />}>Delete Timesheet</Menu.Item>
-          </>
-        )}
-        renderTopToolbarCustomActions={({ table }) => {
-          const handleDeactivate = () => {
-            // eslint-disable-next-line array-callback-return
-            table.getSelectedRowModel().flatRows.map((row) => {
-              // eslint-disable-next-line no-alert
-              alert(`deactivating ${row.getValue('name')}`);
-            });
-          };
+    <Tabs
+      unstyled
+      styles={(theme) => ({
+        tab: {
+          ...theme.fn.focusStyles(),
+          backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
+          color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[9],
+          border: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[4]}`,
+          padding: `${theme.spacing.xs} ${theme.spacing.md}`,
+          cursor: 'pointer',
+          fontSize: theme.fontSizes.sm,
+          display: 'flex',
+          alignItems: 'center',
 
-          const handleActivate = () => {
-            // eslint-disable-next-line array-callback-return
-            table.getSelectedRowModel().flatRows.map((row) => {
-              // eslint-disable-next-line no-alert
-              alert(`activating ${row.getValue('name')}`);
-            });
-          };
+          '&:disabled': {
+            opacity: 0.5,
+            cursor: 'not-allowed',
+          },
 
-          return (
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <Text size={20} weight={500}>
-                Timesheet
-              </Text>
-              <Tooltip position="right" withArrow label="Add new timesheet">
-                <ActionIcon variant="subtle" onClick={() => setOpened(true)}>
-                  <IconPlus size="2rem" />
-                </ActionIcon>
-              </Tooltip>
-              <Button
-                color="red"
-                size="xs"
-                disabled={!table.getIsSomeRowsSelected()}
-                onClick={handleDeactivate}
-                variant="filled"
-                sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
-              >
-                Deactivate
-              </Button>
-              <Button
-                color="green"
-                size="xs"
-                disabled={!table.getIsSomeRowsSelected()}
-                onClick={handleActivate}
-                variant="filled"
-                sx={{ display: IsMobileScreen() ? 'none' : 'block' }}
-              >
-                Activate
-              </Button>
+          '&:not(:first-of-type)': {
+            borderLeft: 0,
+          },
+
+          '&:first-of-type': {
+            borderTopLeftRadius: theme.radius.md,
+            borderBottomLeftRadius: theme.radius.md,
+          },
+
+          '&:last-of-type': {
+            borderTopRightRadius: theme.radius.md,
+            borderBottomRightRadius: theme.radius.md,
+          },
+
+          '&[data-active]': {
+            backgroundColor: theme.colors.blue[7],
+            borderColor: theme.colors.blue[7],
+            color: theme.white,
+          },
+        },
+
+        tabIcon: {
+          marginRight: theme.spacing.xs,
+          display: 'flex',
+          alignItems: 'center',
+        },
+
+        tabsList: {
+          display: 'flex',
+        },
+      })}
+      {...props}
+    />
+  );
+}
+
+function Timesheet1() {
+  return (
+    <div className="">
+      <Text size='lg' weight={400} pl='md'>Time and Attendance</Text>
+
+
+      <StyledTabs defaultValue='Timecard'>
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '20px' }}>
+          <Group>
+            <Button>Calendar</Button>
+            <Button>Calendar</Button>
+          </Group>
+          <Tabs.List>
+            <Tabs.Tab value="Timeline">Timeline</Tabs.Tab>
+            <Tabs.Tab value="Timecard">Timecard</Tabs.Tab>
+          </Tabs.List>
+        </Box>
+        <Tabs.Panel value="Timeline" pt="xs">
+          Timeline
+        </Tabs.Panel>
+
+        <Tabs.Panel value="Timecard" pt="xs">
+          <TimeCard />
+        </Tabs.Panel>
+      </StyledTabs>
 
               {/* Timesheet Create Drawer */}
               <Drawer
@@ -189,4 +105,4 @@ function Timesheet() {
   );
 }
 
-export default Timesheet;
+export default Timesheet1;

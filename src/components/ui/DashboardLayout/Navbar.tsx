@@ -7,7 +7,7 @@ import {
   Group,
   MediaQuery,
   NavLink,
-  rem,
+  rem
 } from '@mantine/core';
 
 import {
@@ -18,7 +18,7 @@ import {
   IconGauge,
   IconUser,
   IconUserCircle,
-  IconUserPlus,
+  IconUserPlus
 } from '@tabler/icons-react';
 
 import { Link, useLocation } from 'react-router-dom';
@@ -35,9 +35,8 @@ const useStyles = createStyles((theme) => ({
   footer: {
     paddingTop: theme.spacing.md,
     marginTop: theme.spacing.md,
-    borderTop: `${rem(1)} solid ${
-      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
+    borderTop: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+      }`,
   },
 
   second: {
@@ -78,6 +77,7 @@ const data = [
     rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
   },
   { icon: IconCalendarTime, label: 'Timesheet', href: '/timesheet' },
+
 ];
 
 const smallData = [

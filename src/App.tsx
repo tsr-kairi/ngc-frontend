@@ -6,6 +6,7 @@ import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import ProfileTabs from './pages/profile/profile';
+import Timesheet1 from './pages/timesheet';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -102,7 +103,7 @@ function App() {
               path="/timesheet"
               element={
                 <WrapSuspense>
-                  <Timesheet />
+                  <Timesheet1/>
                 </WrapSuspense>
               }
             />
