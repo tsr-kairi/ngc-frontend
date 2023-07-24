@@ -45,8 +45,16 @@ const useStyles = createStyles(() => ({
 
 export type TimesheetProps = {
   date: string;
-  hours: string;
-  task: string;
+  checkin: string;
+  checkout: string;
+  workHours: string;
+  approvedHours: string;
+  pendingHours: string;
+  rejectedHours: string;
+  slots: number;
+  task: number | string;
+  approval: 'approved' | 'rejected' | null;
+  edit: number;
 };
 
 function OldTimesheet() {

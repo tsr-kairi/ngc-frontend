@@ -14,9 +14,9 @@ export type TimesheetProps = {
   pendingHours: string;
   rejectedHours: string;
   slots: number;
-  task: string;
+  task: number | string;
   approval: 'approved' | 'rejected' | null;
-  edit: string;
+  edit: number;
 };
 
 function TimeCard() {

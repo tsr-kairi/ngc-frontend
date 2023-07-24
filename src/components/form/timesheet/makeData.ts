@@ -8,7 +8,7 @@ export type TimesheetProps = {
   pendingHours: string;
   rejectedHours: string;
   slots: number;
-  task: number;
+  task: number | string;
   approval: 'approved' | 'rejected' | null;
   edit: number;
 };
