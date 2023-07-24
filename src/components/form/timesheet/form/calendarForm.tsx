@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Text } from '@mantine/core';
-import { IconAlarmFilled } from '@tabler/icons-react';
+import { IconAlarmFilled, IconCalendarEvent } from '@tabler/icons-react';
 import { useEffect, useRef } from 'react';
 import Timeline, { type Event } from './Records';
 
@@ -61,18 +61,14 @@ export default function CalendarForm() {
         display: 'flex',
         flexDirection: 'column',
         gap: '30px',
+        height: '90vh',
+        justifyContent: 'space-between',
       }}
     >
-      <Text size="xl">Edit Timesheet for: {formatDate(currentDate)}</Text>
-      <Flex gap={10} justify="end">
-        <Button variant="outline" color="red">
-          Reject All
-        </Button>
-        <Button variant="outline" color="green">
-          Approve All
-        </Button>
+      <Flex align="center" gap="sm">
+        <IconCalendarEvent color="blue" />
+        <Text size="xl">Timesheet for {formatDate(currentDate)}</Text>
       </Flex>
-      {/* <DayView /> */}
       <Box
         sx={{
           height: '700px', // Adjust the height of the timeline as needed
@@ -84,22 +80,42 @@ export default function CalendarForm() {
         <Timeline events={initialEvents} />
       </Box>
       <Flex px="lg" justify="space-between">
-        <Box>
-          <Text color="dark" weight={400} size={25}>
-            Total Hours
-          </Text>
-          <Text
-            weight={300}
-            size={20}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <IconAlarmFilled size={25} style={{ marginRight: '10px' }} />
-            08:12
-          </Text>
-        </Box>
+        <Flex gap="lg">
+          <Box>
+            <Text color="dark" weight={400} size={15}>
+              Total Hours
+            </Text>
+            <Text
+              weight={300}
+              size={20}
+              color="brand"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <IconAlarmFilled size={25} style={{ marginRight: '10px' }} />
+              08:12
+            </Text>
+          </Box>
+          <Box>
+            <Text color="dark" weight={400} size={15}>
+              Approved Hours
+            </Text>
+            <Text
+              weight={300}
+              size={20}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+              color="green"
+            >
+              <IconAlarmFilled size={25} style={{ marginRight: '10px' }} />
+              08:12
+            </Text>
+          </Box>
+        </Flex>
         <Flex gap={10}>
           <Button size="md" variant="outline">
             Cancel

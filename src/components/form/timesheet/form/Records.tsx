@@ -2,8 +2,9 @@ import {
   ActionIcon,
   Box,
   Button,
-  Group,
+  Flex,
   Modal,
+  Text,
   TextInput,
 } from '@mantine/core';
 import {
@@ -225,33 +226,74 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
       >
         {currentEvent && (
           <>
-            <TextInput
-              value={currentEvent?.start || ''}
-              onChange={(event) =>
-                setCurrentEvent({
-                  ...currentEvent,
-                  start: event.currentTarget.value,
-                })
-              }
-              label="Start Time"
-              required
-            />
-            <TextInput
-              value={currentEvent?.end || ''}
-              onChange={(event) =>
-                setCurrentEvent({
-                  ...currentEvent,
-                  end: event.currentTarget.value,
-                })
-              }
-              label="End Time"
-              required
-            />
+            <Flex
+              sx={{
+                marginBottom: '30px',
+              }}
+              justify="space-between"
+            >
+              <Text weight="bold">
+                Total Hours
+                <Text
+                  component="span"
+                  sx={{
+                    marginLeft: '10px',
+                  }}
+                  color="brand"
+                >
+                  4:30
+                </Text>
+              </Text>
+              <Text weight="bold">
+                Task Hours
+                <Text
+                  component="span"
+                  sx={{
+                    marginLeft: '10px',
+                  }}
+                  color="brand"
+                >
+                  4:00
+                </Text>
+              </Text>
+            </Flex>
+            {/* <Group
+              grow
+              sx={{
+                marginBottom: '15px',
+              }}
+            >
+              <TextInput
+                value={currentEvent?.start || ''}
+                onChange={(event) =>
+                  setCurrentEvent({
+                    ...currentEvent,
+                    start: event.currentTarget.value,
+                  })
+                }
+                // label="Start Time"
+                required
+              />
+              <TextInput
+                value={currentEvent?.end || ''}
+                onChange={(event) =>
+                  setCurrentEvent({
+                    ...currentEvent,
+                    end: event.currentTarget.value,
+                  })
+                }
+                // label="End Time"
+                required
+              />
+            </Group> */}
             {/* Render the list of tasks as TextInput elements */}
             {currentEvent?.tasks.map((task) => (
               <TextInput
                 key={task.id}
                 value={task.description}
+                sx={{
+                  marginBottom: '10px',
+                }}
                 onChange={(event) => {
                   const updatedTasks = currentEvent?.tasks.map((t) =>
                     t.id === task.id
@@ -263,12 +305,14 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
                     tasks: updatedTasks || [],
                   });
                 }}
-                label="Task"
+                placeholder="add new task"
+                // label="Task"
                 required
               />
             ))}
-            <Group grow>
+            <Flex justify="end">
               <Button
+                size="xs"
                 onClick={() =>
                   setCurrentEvent({
                     ...currentEvent,
@@ -279,12 +323,23 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
                   })
                 }
               >
-                Add New Task
+                Add New
               </Button>
-              <Button style={{ marginTop: 10 }} onClick={handleModalSubmit}>
+            </Flex>
+            <Flex
+              sx={{
+                marginTop: '25px',
+              }}
+              justify="end"
+              gap="5px"
+            >
+              <Button variant="outline" onClick={handleModalClose}>
+                cancel
+              </Button>
+              <Button onClick={handleModalSubmit}>
                 {currentEvent?.id === 0 ? 'Add Event' : 'Save'}
               </Button>
-            </Group>
+            </Flex>
           </>
         )}
       </Modal>
