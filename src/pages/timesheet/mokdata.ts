@@ -1,16 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 export type TimesheetProps = {
   date: string;
-  checkin: string;
-  checkout: string;
-  workHours: string;
-  approvedHours: string;
-  pendingHours: string;
-  rejectedHours: string;
-  slots: number;
-  task: number | string;
-  approval: 'approved' | 'rejected' | null;
-  edit: number;
+  hours: string;
+  task: string;
 };
 
 const data: TimesheetProps[] = [
