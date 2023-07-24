@@ -44,7 +44,10 @@ function TimeBlock({ records }: { records: RecordsType[] }) {
                       timelineWidth
                     }%`,
                     right: `${
-                      records.length === 1
+                      // eslint-disable-next-line no-nested-ternary
+                      records.length === 1 && records[0].clockOut === ''
+                        ? '0'
+                        : records.length === 1
                         ? timelineWidth -
                           ((parseInt(record.clockOut.split(':')[0], 10) +
                             parseInt(record.clockOut.split(':')[1], 10) / 60) /
@@ -53,7 +56,10 @@ function TimeBlock({ records }: { records: RecordsType[] }) {
                         : '0'
                     }%`,
                     background: `${
-                      records.length !== 1
+                      // eslint-disable-next-line no-nested-ternary
+                      records.length === 1 && records[0].clockOut === ''
+                        ? 'linear-gradient(90deg, rgba(250,0,0,1) 0%, rgba(248,248,248,1) 100%)'
+                        : records.length !== 1
                         ? 'linear-gradient(90deg, rgba(250,0,0,1) 0%, rgba(248,248,248,1) 100%)'
                         : '#CA312D'
                     }`,
