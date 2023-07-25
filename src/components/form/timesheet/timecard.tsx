@@ -1,27 +1,65 @@
 /* eslint-disable react/prop-types */
-import { ActionIcon, Button } from '@mantine/core';
+import { Badge, Group } from '@mantine/core';
 import { IconCheck, IconSquareRoundedX } from '@tabler/icons-react';
 import { MantineReactTable, type MRT_ColumnDef } from 'mantine-react-table';
-import { useMemo } from 'react';
-import data from './makeData';
-
-export type TimesheetProps = {
-  date: string;
-  checkin: string;
-  checkout: string;
-  workHours: string;
-  approvedHours: string;
-  pendingHours: string;
-  rejectedHours: string;
-  slots: number;
-  task: number | string;
-  approval: 'approved' | 'rejected' | null;
-  edit: number;
-};
+import { useMemo, useState } from 'react';
+import data, { ApprovalType, TimesheetProps } from './makeData';
 
 function TimeCard() {
+  // const [approvalBtn, setApprovalBtn] = useState<ApprovalType>(null);
+  const [approvalData, setApprovalData] = useState([...data]); // Replace `[...]` with your actual data array
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleApproval = (rowIndex: number, approval: ApprovalType) => {
+    const newData = [...approvalData];
+    newData[rowIndex].approval = approval;
+    setApprovalData(newData);
+  };
+
   const columns = useMemo<MRT_ColumnDef<TimesheetProps>[]>(
     () => [
+      {
+        accessorKey: 'task',
+        header: 'Task',
+      },
+      {
+        accessorKey: 'approval',
+        header: 'Approval',
+        // eslint-disable-next-line react/no-unstable-nested-components
+        Cell: ({ cell, row }) => {
+          const approval = cell.getValue() as string;
+
+          return (
+            <>
+              {approval === 'Approved' && <Badge color="green">Approved</Badge>}
+              {approval === 'Rejected' && <Badge color="red">Rejected</Badge>}
+              {approval === null && (
+                <Group>
+                  <IconCheck
+                    color="green"
+                    style={{
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => handleApproval(row.index, 'Approved')}
+                  />
+
+                  <IconSquareRoundedX
+                    color="red"
+                    style={{
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => handleApproval(row.index, 'Rejected')}
+                  />
+                </Group>
+              )}
+            </>
+          );
+        },
+      },
+      {
+        accessorKey: 'slots',
+        header: 'Slots',
+      },
       {
         accessorFn: (row) => new Date(row.date),
         id: 'date',
@@ -55,67 +93,24 @@ function TimeCard() {
         accessorKey: 'rejectedHours',
         header: 'Rejected Hours',
       },
-      {
-        accessorKey: 'slots',
-        header: 'Slots',
-      },
-      {
-        accessorKey: 'task',
-        header: 'Task',
-      },
-      {
-        accessorKey: 'approval',
-        header: 'Approval',
-        // eslint-disable-next-line react/no-unstable-nested-components
-        Cell: ({ cell }) => {
-          const approval = cell.getValue() as string;
-
-          if (approval === 'approved') {
-            return (
-              <div>
-                <Button color="greem">Approved</Button>
-              </div>
-            );
-          }
-          if (approval === 'rejected') {
-            return (
-              <div>
-                <Button color="red">Rejected</Button>
-              </div>
-            );
-          }
-          return (
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <ActionIcon mr="md" ml="sm">
-                <IconCheck color="green" />
-              </ActionIcon>
-              <IconSquareRoundedX color="red" />
-            </div>
-          );
-        },
-      },
     ],
-    []
+    [handleApproval]
   );
 
-  // using MRT_Table instead of MantineReactTable if we do not want any of the toolbar features
   return (
-    <div style={{ overflow: 'auto', maxWidth: '75vw' }}>
-      <MantineReactTable
-        columns={columns}
-        data={data}
-        enableColumnActions={false}
-        enableEditing
-        enableColumnFilters={false}
-        enablePagination={false}
-        enableSorting={false}
-        positionActionsColumn="last"
-        mantineTableProps={{
-          highlightOnHover: false,
-          withColumnBorders: false,
-        }}
-      />
-    </div>
+    <MantineReactTable
+      columns={columns}
+      data={approvalData}
+      enableColumnFilterModes
+      enableBottomToolbar
+      enableColumnOrdering
+      enablePagination
+      enableGrouping
+      enablePinning
+      enableRowVirtualization
+      enableExpanding
+      enableExpandAll
+    />
   );
 }
 

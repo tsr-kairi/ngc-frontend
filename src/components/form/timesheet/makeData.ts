@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 export type TimesheetProps = {
+  uuid: string;
   date: string;
   checkin: string;
   checkout: string;
@@ -9,12 +10,16 @@ export type TimesheetProps = {
   rejectedHours: string;
   slots: number;
   task: number | string;
-  approval: 'approved' | 'rejected' | null;
+  approval: ApprovalType;
   edit: number;
+  subRows?: TimesheetProps[];
 };
+
+export type ApprovalType = 'Approved' | 'Rejected' | null;
 
 const data: TimesheetProps[] = [
   {
+    uuid: '1',
     date: '2023-01-04T08:03:36.832Z',
     checkin: '3.7',
     checkout: 'Customer Directives Architect',
@@ -24,10 +29,27 @@ const data: TimesheetProps[] = [
     rejectedHours: '09:00',
     slots: 4,
     task: 0,
-    approval: 'approved',
+    approval: null,
     edit: 4,
+    subRows: [
+      {
+        uuid: '1',
+        date: '2023-01-04T08:03:36.832Z',
+        checkin: '3.7',
+        checkout: 'Test ',
+        workHours: '09:00',
+        approvedHours: '09:00',
+        pendingHours: '09:00',
+        rejectedHours: '09:00',
+        slots: 4,
+        task: 0,
+        approval: null,
+        edit: 4,
+      },
+    ],
   },
   {
+    uuid: '2',
     date: '2023-01-04T08:03:36.832Z',
     checkin: '3.7',
     checkout: 'Customer Directives Architect',
@@ -41,6 +63,7 @@ const data: TimesheetProps[] = [
     edit: 4,
   },
   {
+    uuid: '3',
     date: '2023-01-04T08:03:36.832Z',
     checkin: '3.7',
     checkout: 'Customer Directives Architect',
@@ -54,6 +77,7 @@ const data: TimesheetProps[] = [
     edit: 4,
   },
   {
+    uuid: '4',
     date: '2023-01-04T08:03:36.832Z',
     checkin: '3.7',
     checkout: 'Customer Directives Architect',
@@ -63,10 +87,11 @@ const data: TimesheetProps[] = [
     rejectedHours: '09:00',
     slots: 4,
     task: 4,
-    approval: 'rejected',
+    approval: null,
     edit: 4,
   },
   {
+    uuid: '5',
     date: '2023-01-04T08:03:36.832Z',
     checkin: '3.7',
     checkout: 'Customer Directives Architect',
@@ -76,7 +101,7 @@ const data: TimesheetProps[] = [
     rejectedHours: '09:00',
     slots: 4,
     task: 4,
-    approval: 'approved',
+    approval: null,
     edit: 4,
   },
 ];
