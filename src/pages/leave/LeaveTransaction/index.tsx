@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Progress, SimpleGrid, Text } from '@mantine/core';
-import LeaveCard from './LeaveCard';
+import LeaveCard from '../LeaveCard';
 import TransactionTable from './TransactionTable';
 
 export default function TransactionPage() {

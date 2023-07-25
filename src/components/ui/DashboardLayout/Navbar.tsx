@@ -15,6 +15,7 @@ import {
   IconBrandBlogger,
   IconCalendarTime,
   IconChevronRight,
+  IconFlag2Filled,
   IconGauge,
   IconUser,
   IconUserCircle,
@@ -78,6 +79,23 @@ const data = [
     rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
   },
   { icon: IconCalendarTime, label: 'Timesheet', href: '/timesheet' },
+  {
+    icon: IconFlag2Filled,
+    label: 'Leave',
+    links: [
+      {
+        icon: IconUserPlus,
+        label: 'Leave Management',
+        href: '/leave-management',
+      },
+      {
+        icon: IconBrandBlogger,
+        label: 'Leave Transaction',
+        href: '/leave-transaction',
+      },
+    ],
+    rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
+  },
 ];
 
 const smallData = [
