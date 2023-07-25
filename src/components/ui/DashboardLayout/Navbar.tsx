@@ -15,6 +15,7 @@ import {
   IconBrandBlogger,
   IconCalendarTime,
   IconChevronRight,
+  IconFlag2Filled,
   IconGauge,
   IconUser,
   IconUserCircle,
@@ -78,6 +79,23 @@ const data = [
     rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
   },
   { icon: IconCalendarTime, label: 'Timesheet', href: '/timesheet' },
+  {
+    icon: IconFlag2Filled,
+    label: 'Leave',
+    links: [
+      {
+        icon: IconUserPlus,
+        label: 'Leave Management',
+        href: '/leave-management',
+      },
+      {
+        icon: IconBrandBlogger,
+        label: 'Leave Transaction',
+        href: '/leave-transaction',
+      },
+    ],
+    rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
+  },
 ];
 
 const smallData = [
@@ -129,7 +147,7 @@ export default function Navbar({
           label={sidebarCollapsed ? '' : subItem.label} // Show label only when the sidebar is expanded
           component={Link}
           to={subItem?.href || ''}
-          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          onClick={() => setSidebarCollapsed(false)}
           icon={
             <ActionIcon variant="light">
               <subItem.icon

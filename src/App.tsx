@@ -7,6 +7,8 @@ import { Login } from './pages/auth/login/login';
 import Onboarding from './pages/onboarding';
 import ProfileTabs from './pages/profile/profile';
 import Timesheet1 from './pages/timesheet';
+import TransactionPage from './pages/leave/LeaveTransaction';
+import LeaveManagement from './pages/leave/LeaveManagement';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -129,6 +131,23 @@ function App() {
               element={
                 <WrapSuspense>
                   <ProfileTabs />
+                </WrapSuspense>
+              }
+            />
+
+            <Route
+              path="/leave-transaction"
+              element={
+                <WrapSuspense>
+                  <TransactionPage />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/leave-management"
+              element={
+                <WrapSuspense>
+                  <LeaveManagement />
                 </WrapSuspense>
               }
             />

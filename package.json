@@ -27,6 +27,7 @@
     "@tanstack/react-query": "^4.29.19",
     "@tanstack/react-query-devtools": "^4.29.19",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
     "embla-carousel-react": "^8.0.0-rc11",
     "json-server": "^0.17.3",
