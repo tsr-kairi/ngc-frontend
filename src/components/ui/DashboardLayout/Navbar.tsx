@@ -147,7 +147,7 @@ export default function Navbar({
           label={sidebarCollapsed ? '' : subItem.label} // Show label only when the sidebar is expanded
           component={Link}
           to={subItem?.href || ''}
-          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          onClick={() => setSidebarCollapsed(false)}
           icon={
             <ActionIcon variant="light">
               <subItem.icon
