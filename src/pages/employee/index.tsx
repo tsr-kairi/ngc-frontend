@@ -116,6 +116,51 @@ function Employee() {
         header: 'Roles',
         visibleMediaQuery: aboveXsMediaQuery,
       },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Phone',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'roles',
+        header: 'Roles',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Phone',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'roles',
+        header: 'Roles',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Phone',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
+      {
+        accessorKey: 'roles',
+        header: 'Roles',
+        visibleMediaQuery: aboveXsMediaQuery,
+      },
     ],
     [aboveXsMediaQuery]
   );

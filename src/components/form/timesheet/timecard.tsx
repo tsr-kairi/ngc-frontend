@@ -100,7 +100,7 @@ function TimeCard() {
 
   // using MRT_Table instead of MantineReactTable if we do not want any of the toolbar features
   return (
-    <div style={{ overflow: 'auto', maxWidth: '75vw' }}>
+    <div>
       <MantineReactTable
         columns={columns}
         data={data}

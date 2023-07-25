@@ -2,6 +2,7 @@
 
 import TimeCard from '@/components/form/timesheet/timecard';
 import { Box, Button, Group, rem, Tabs, TabsProps, Text } from '@mantine/core';
+import Employee from '../employee';
 
 function StyledTabs(props: TabsProps) {
   return (
@@ -94,7 +95,7 @@ function Timesheet1() {
           </Tabs.List>
         </Box>
         <Tabs.Panel value="Timeline" pt="xs">
-          Timeline
+          <Employee />
         </Tabs.Panel>
 
         <Tabs.Panel value="Timecard" pt="xs">
