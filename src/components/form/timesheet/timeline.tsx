@@ -1,7 +1,7 @@
 import { Entry, TimeAttendanceType } from '@/types/TimeAttendanceType';
 import { Box } from '@mantine/core';
 
-function TimeLine() {
+function TimeCard() {
   const elements: TimeAttendanceType = [
     [
       {
@@ -200,4 +200,4 @@ function TimeLine() {
   );
 }
 
-export default TimeLine;
+export default TimeCard;

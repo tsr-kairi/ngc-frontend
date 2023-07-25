@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Badge, Group } from '@mantine/core';
+import { Badge, Group, Text } from '@mantine/core';
 import { IconCheck, IconSquareRoundedX } from '@tabler/icons-react';
 import { MantineReactTable, type MRT_ColumnDef } from 'mantine-react-table';
 import { useMemo, useState } from 'react';
 import data, { ApprovalType, TimesheetProps } from './makeData';
 
-function TimeCard() {
+function TimeLine() {
   // const [approvalBtn, setApprovalBtn] = useState<ApprovalType>(null);
   const [approvalData, setApprovalData] = useState([...data]); // Replace `[...]` with your actual data array
 
@@ -101,7 +101,7 @@ function TimeCard() {
     <div>
       <MantineReactTable
         columns={columns}
-        data={data}
+        data={approvalData}
         enableColumnActions={false}
         enableEditing
         enableColumnFilters={false}
@@ -112,9 +112,20 @@ function TimeCard() {
           highlightOnHover: false,
           withColumnBorders: false,
         }}
+        enableExpanding
+        enableExpandAll
+        renderTopToolbarCustomActions={() => {
+          return (
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <Text size={20} weight={500}>
+                Time Line
+              </Text>
+            </div>
+          );
+        }}
       />
     </div>
   );
 }
 
-export default TimeCard;
+export default TimeLine;

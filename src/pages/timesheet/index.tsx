@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import TimeCard from '@/components/form/timesheet/timecard';
-import TimeLine from '@/components/form/timesheet/timeline';
+import TimeLine from '@/components/form/timesheet/timecard';
+import TimeCard from '@/components/form/timesheet/timeline';
 import { Box, Button, Group, rem, Tabs, TabsProps, Text } from '@mantine/core';
 
 function StyledTabs(props: TabsProps) {
@@ -95,11 +95,11 @@ function Timesheet1() {
           </Tabs.List>
         </Box>
         <Tabs.Panel value="Timeline" pt="xs">
-          <TimeCard />
+          <TimeLine />
         </Tabs.Panel>
 
         <Tabs.Panel value="Timecard" pt="xs">
-          <TimeLine />
+          <TimeCard />
         </Tabs.Panel>
       </StyledTabs>
     </>
