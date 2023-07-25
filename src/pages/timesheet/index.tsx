@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import TimeCard from '@/components/form/timesheet/timecard';
+import TimeLine from '@/components/form/timesheet/timeline';
 import { Box, Button, Group, rem, Tabs, TabsProps, Text } from '@mantine/core';
 import Employee from '../employee';
 
@@ -71,12 +71,12 @@ function StyledTabs(props: TabsProps) {
 
 function Timesheet1() {
   return (
-    <div className="">
+    <>
       <Text size="lg" weight={400} pl="md">
         Time and Attendance
       </Text>
 
-      <StyledTabs defaultValue="Timecard">
+      <StyledTabs defaultValue="Timeline">
         <Box
           sx={{
             display: 'flex',
@@ -99,10 +99,10 @@ function Timesheet1() {
         </Tabs.Panel>
 
         <Tabs.Panel value="Timecard" pt="xs">
-          <TimeCard />
+          <TimeLine />
         </Tabs.Panel>
       </StyledTabs>
-    </div>
+    </>
   );
 }
 
