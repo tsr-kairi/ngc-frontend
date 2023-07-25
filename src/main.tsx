@@ -12,7 +12,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import theme from './configs/theme';
 import ErrorBoundary from './errorBoundary';
-import { Toaster } from 'react-hot-toast';
+// import { Toaster } from 'react-hot-toast';
 
 export default function AppConfig() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
@@ -50,7 +50,7 @@ export default function AppConfig() {
             </Text>
           }
         >
-          <Toaster position="top-left" reverseOrder={false} />
+          {/* <Toaster position="top-left" reverseOrder={false} /> */}
           <App />
         </ErrorBoundary>
       </MantineProvider>

@@ -1,6 +1,6 @@
 import { RecordsType } from '@/types/RecordType';
 import { Box, Text, Tooltip } from '@mantine/core';
-import { IconCalendarFilled } from '@tabler/icons-react';
+import { IconCalendarEvent } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import HourMarker from './HourMarker';
 import TimeLine from './TimeLine';
@@ -69,14 +69,16 @@ function TimeScheduler() {
       <Box
         onClick={() => handleTimer()}
         sx={(theme) => ({
-          border: '1px solid #ccc',
+          border: `1px solid ${
+            clockIn ? theme.colors.error[6] : theme.colors.error[5]
+          }`,
           padding: '10px',
           borderRadius: '5px',
           cursor: 'pointer',
           backgroundColor: clockIn
-            ? theme.colors.green[7]
-            : theme.colors.pink[1],
-          color: clockIn ? '#fff' : '#333',
+            ? theme.colors.error[6]
+            : theme.colors.error[5],
+          color: clockIn ? '#fff' : '#fff',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -98,7 +100,7 @@ function TimeScheduler() {
               fontWeight: 600,
             })}
           >
-            IT ({start} - {end})
+            ({start} - {end})
           </Text>
         }
         color="#dbdbdb"
@@ -114,7 +116,7 @@ function TimeScheduler() {
             marginBottom: '10px',
           }}
         >
-          <IconCalendarFilled
+          <IconCalendarEvent
             style={{
               color: '#ccc',
             }}

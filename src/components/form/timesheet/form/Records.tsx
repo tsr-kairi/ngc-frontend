@@ -12,7 +12,7 @@ import {
   IconSquareRoundedXFilled,
 } from '@tabler/icons-react';
 import React, { useState } from 'react';
-import { toast } from 'react-hot-toast';
+// import { toast } from 'react-hot-toast';
 
 export interface Task {
   id: number;
@@ -60,7 +60,7 @@ function TimeBlock({
   ) => {
     event.stopPropagation(); // Prevent the click event from propagating to the div
     setAccepted(id, true);
-    toast.success('Accepted'); // Set accepted to true when tick is clicked
+    // toast.success('Accepted'); // Set accepted to true when tick is clicked
   };
 
   const handleCrossClick = (
@@ -68,7 +68,7 @@ function TimeBlock({
   ) => {
     event.stopPropagation(); // Prevent the click event from propagating to the div
     setAccepted(id, false); // Set accepted to false when cross is clicked
-    toast.error('Not Accepted');
+    // toast.error('Not Accepted');
   };
 
   return (
@@ -191,14 +191,14 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
       // Add the new event to the existing events
       const updatedEvents = [...events, updatedNewEvent];
       setEvents(updatedEvents);
-      toast.success(`Event has been Updated`);
+      // toast.success(`Event has been Updated`);
     } else {
       // If the current event is an existing event, update its details
       const updatedEvents = events.map((event) =>
         event.id === currentEvent.id ? currentEvent : event
       );
       setEvents(updatedEvents);
-      toast.success('Event details updated');
+      // toast.success('Event details updated');
     }
 
     // Close the modal after handling the record

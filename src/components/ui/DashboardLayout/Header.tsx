@@ -122,6 +122,7 @@ function DashboardHeader({
 
         {/*  Time Schedular */}
         <Menu
+          offset={19}
           width={360}
           position="bottom-end"
           transitionProps={{ transition: 'pop-top-right' }}
