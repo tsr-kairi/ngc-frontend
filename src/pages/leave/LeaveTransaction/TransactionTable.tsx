@@ -140,11 +140,11 @@ function TransactionTable() {
     },
   });
   return (
-    <Box mt="40px" sx={{ overflow: 'auto', maxWidth: '76vw' }}>
+    <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
       <Text fz="lg" weight={700} mb="md">
         Leave Transaction History
       </Text>
-      <MRT_Table table={table} />;
+      <MRT_Table table={table} />
     </Box>
   );
 }

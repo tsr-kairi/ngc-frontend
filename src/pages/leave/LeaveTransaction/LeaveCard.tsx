@@ -1,4 +1,5 @@
-import { Box, Flex, Progress, Text } from '@mantine/core';
+import { ActionIcon, Box, Flex, Progress, Text } from '@mantine/core';
+import { IconExternalLink } from '@tabler/icons-react';
 
 export default function LeaveCard({
   type,
@@ -56,26 +57,33 @@ export default function LeaveCard({
         sx={{
           width: '100%',
           flex: 1,
+          marginTop: '15px',
+          marginRight: '13px',
+          marginBottom: '12px',
         }}
       >
         <Text size={25} weight={600} color={colorDark}>
           {`${type} leave`}
         </Text>
-        <Text color="brand" component="a" href={details}>
-          view details
+        <Text display="flex" color="brand.9" size={13} weight={700}>
+          View Details
+          <ActionIcon component="a" href={details} color="brand.9" size={18}>
+            <IconExternalLink />
+          </ActionIcon>
         </Text>
         <Box>
           <Flex
             sx={{
               marginBottom: '5px',
+              marginTop: '15px',
             }}
             justify="space-between"
           >
             <Text size={15} weight={300}>
-              Availed: {availed}
+              Availed: <b>{availed}</b>
             </Text>
-            <Text size={15} weight={300}>
-              Granted: {granted}
+            <Text size={15} weight={400}>
+              Granted: <b>{granted}</b>
             </Text>
           </Flex>
           <Progress
