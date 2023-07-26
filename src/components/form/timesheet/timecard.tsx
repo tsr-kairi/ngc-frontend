@@ -98,7 +98,12 @@ function TimeLine() {
   );
 
   return (
-    <div>
+    <div
+      style={{
+        width: '100%',
+        overflow: 'auto',
+      }}
+    >
       <MantineReactTable
         columns={columns}
         data={approvalData}

@@ -44,7 +44,12 @@ function DashboardLayout() {
       }
     >
       {online ? (
-        <div>
+        <div
+          style={{
+            flex: 1,
+            maxWidth: 'calc(100vw - 350px)',
+          }}
+        >
           <Outlet />
         </div>
       ) : (

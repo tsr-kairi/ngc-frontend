@@ -166,116 +166,122 @@ function Employee() {
   );
 
   return (
-    <MantineReactTable
-      columns={columns}
-      data={data}
-      enableColumnFilterModes
-      enableBottomToolbar
-      enableColumnOrdering
-      enablePagination
-      enableGrouping
-      enablePinning
-      enableRowVirtualization
-      onSortingChange={setSorting}
-      state={{ isLoading, sorting }}
-      enableRowActions
-      enableRowNumbers
-      enableDensityToggle={false}
-      initialState={{ showColumnFilters: false }}
-      positionToolbarAlertBanner="bottom"
-      enableStickyHeader
-      mantineSearchTextInputProps={{
-        placeholder: `Search ${data.length} rows`,
-        sx: { minWidth: '290px', paddingLeft: '10px' },
-        variant: 'filled',
+    <div
+      style={{
+        width: '100%',
       }}
-      renderRowActionMenuItems={() => (
-        <>
-          <Menu.Item
-            icon={<IconUserCircle />}
-            component={Link}
-            to="/employee-profile"
-          >
-            View Profile
-          </Menu.Item>
-          <Menu.Item
-            onClick={() => setOpenedOffBoard(true)}
-            icon={<IconAddressBookOff />}
-          >
-            OffBoard Employee
-          </Menu.Item>
-          <Menu.Item icon={<IconEdit />}>Edit Employee</Menu.Item>
-          <Menu.Item icon={<IconTrash />}>Delete Employee</Menu.Item>
-        </>
-      )}
-      renderTopToolbarCustomActions={() => {
-        return (
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <Text size={20} weight={500}>
-              Employee
-            </Text>
-            <Tooltip position="right" withArrow label="Onboard Employee">
-              <ActionIcon
-                variant="subtle"
-                onClick={() => setOpenedOnBoard(true)}
-              >
-                <IconPlus size="2rem" />
-              </ActionIcon>
-            </Tooltip>
-            {!IsMobileScreen() && (
-              <Tab onClose={() => setTabModalOpen(false)} />
-            )}
-            {IsMobileScreen() && (
-              <>
-                <Tooltip
-                  position="right"
-                  withArrow
-                  label="Change Employee Type"
+    >
+      <MantineReactTable
+        columns={columns}
+        data={data}
+        enableColumnFilterModes
+        enableBottomToolbar
+        enableColumnOrdering
+        enablePagination
+        enableGrouping
+        enablePinning
+        enableRowVirtualization
+        onSortingChange={setSorting}
+        state={{ isLoading, sorting }}
+        enableRowActions
+        enableRowNumbers
+        enableDensityToggle={false}
+        initialState={{ showColumnFilters: false }}
+        positionToolbarAlertBanner="bottom"
+        enableStickyHeader
+        mantineSearchTextInputProps={{
+          placeholder: `Search ${data.length} rows`,
+          sx: { minWidth: '290px', paddingLeft: '10px' },
+          variant: 'filled',
+        }}
+        renderRowActionMenuItems={() => (
+          <>
+            <Menu.Item
+              icon={<IconUserCircle />}
+              component={Link}
+              to="/employee-profile"
+            >
+              View Profile
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => setOpenedOffBoard(true)}
+              icon={<IconAddressBookOff />}
+            >
+              OffBoard Employee
+            </Menu.Item>
+            <Menu.Item icon={<IconEdit />}>Edit Employee</Menu.Item>
+            <Menu.Item icon={<IconTrash />}>Delete Employee</Menu.Item>
+          </>
+        )}
+        renderTopToolbarCustomActions={() => {
+          return (
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <Text size={20} weight={500}>
+                Employee
+              </Text>
+              <Tooltip position="right" withArrow label="Onboard Employee">
+                <ActionIcon
+                  variant="subtle"
+                  onClick={() => setOpenedOnBoard(true)}
                 >
-                  <ActionIcon
-                    variant="subtle"
-                    onClick={() => setTabModalOpen(true)}
+                  <IconPlus size="2rem" />
+                </ActionIcon>
+              </Tooltip>
+              {!IsMobileScreen() && (
+                <Tab onClose={() => setTabModalOpen(false)} />
+              )}
+              {IsMobileScreen() && (
+                <>
+                  <Tooltip
+                    position="right"
+                    withArrow
+                    label="Change Employee Type"
                   >
-                    <IconUsersPlus cursor="pointer" />
-                  </ActionIcon>
-                </Tooltip>
-                <Modal
-                  title="Select Employee type"
-                  opened={tabModalOpen}
-                  onClose={() => setTabModalOpen(false)}
-                >
-                  <Tab onClose={() => setTabModalOpen(false)} />
-                </Modal>
-              </>
-            )}
-            {/* Onboard Employee Create Drawer */}
-            <Drawer
-              opened={openedOnBoard}
-              onClose={() => setOpenedOnBoard(false)}
-              title="Onboard Employee"
-              padding="md"
-              size={IsMobileScreen() ? 'xl' : 'xl'}
-              position="right"
-              className={classes.drawer}
-            >
-              <OnBoardNewEmployee setOpenedOnBoard={setOpenedOnBoard} />
-            </Drawer>
-            {/* OffBoard Employee Create Drawer */}
-            <Drawer
-              opened={openedOffBoard}
-              onClose={() => setOpenedOffBoard(false)}
-              title="OffBoard Employee"
-              padding="md"
-              size={IsMobileScreen() ? 'xl' : 'xl'}
-              position="right"
-              className={classes.drawer}
-            >
-              <OffBoardNewEmployee setOpenedOffBoard={setOpenedOffBoard} />
-            </Drawer>
-          </div>
-        );
-      }}
-    />
+                    <ActionIcon
+                      variant="subtle"
+                      onClick={() => setTabModalOpen(true)}
+                    >
+                      <IconUsersPlus cursor="pointer" />
+                    </ActionIcon>
+                  </Tooltip>
+                  <Modal
+                    title="Select Employee type"
+                    opened={tabModalOpen}
+                    onClose={() => setTabModalOpen(false)}
+                  >
+                    <Tab onClose={() => setTabModalOpen(false)} />
+                  </Modal>
+                </>
+              )}
+              {/* Onboard Employee Create Drawer */}
+              <Drawer
+                opened={openedOnBoard}
+                onClose={() => setOpenedOnBoard(false)}
+                title="Onboard Employee"
+                padding="md"
+                size={IsMobileScreen() ? 'xl' : 'xl'}
+                position="right"
+                className={classes.drawer}
+              >
+                <OnBoardNewEmployee setOpenedOnBoard={setOpenedOnBoard} />
+              </Drawer>
+              {/* OffBoard Employee Create Drawer */}
+              <Drawer
+                opened={openedOffBoard}
+                onClose={() => setOpenedOffBoard(false)}
+                title="OffBoard Employee"
+                padding="md"
+                size={IsMobileScreen() ? 'xl' : 'xl'}
+                position="right"
+                className={classes.drawer}
+              >
+                <OffBoardNewEmployee setOpenedOffBoard={setOpenedOffBoard} />
+              </Drawer>
+            </div>
+          );
+        }}
+      />
+    </div>
   );
 }
 
