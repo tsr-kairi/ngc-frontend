@@ -4,11 +4,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
+import LeaveManagement from './pages/leave/LeaveManagement';
+import TransactionPage from './pages/leave/LeaveTransaction';
 import Onboarding from './pages/onboarding';
 import ProfileTabs from './pages/profile/profile';
+import SalaryPaylisp from './pages/salary/payslip';
+import SalaryReview from './pages/salary/review';
 import Timesheet1 from './pages/timesheet';
-import TransactionPage from './pages/leave/LeaveTransaction';
-import LeaveManagement from './pages/leave/LeaveManagement';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -148,6 +150,22 @@ function App() {
               element={
                 <WrapSuspense>
                   <LeaveManagement />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/salary-payslip"
+              element={
+                <WrapSuspense>
+                  <SalaryPaylisp />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/salary-review"
+              element={
+                <WrapSuspense>
+                  <SalaryReview />
                 </WrapSuspense>
               }
             />
