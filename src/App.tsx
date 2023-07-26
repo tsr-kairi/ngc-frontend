@@ -10,7 +10,9 @@ import Onboarding from './pages/onboarding';
 import ProfileTabs from './pages/profile/profile';
 import SalaryPaylisp from './pages/salary/payslip';
 import SalaryReview from './pages/salary/review';
+import SalaryRevisionView from './pages/salary/revisionview';
 import Timesheet1 from './pages/timesheet';
+import SalaryLoan from './pages/salary/loan';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -162,10 +164,26 @@ function App() {
               }
             />
             <Route
-              path="/salary-review"
+              path="/salary-revision"
               element={
                 <WrapSuspense>
                   <SalaryReview />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/salary-revision-view"
+              element={
+                <WrapSuspense>
+                  <SalaryRevisionView />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/salary-loan"
+              element={
+                <WrapSuspense>
+                  <SalaryLoan />
                 </WrapSuspense>
               }
             />

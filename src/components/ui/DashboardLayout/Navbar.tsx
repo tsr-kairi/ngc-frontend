@@ -96,6 +96,33 @@ const data = [
     ],
     rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
   },
+  {
+    icon: IconFlag2Filled,
+    label: 'Salary',
+    links: [
+      {
+        icon: IconUserPlus,
+        label: 'Payslip',
+        href: '/salary-payslip',
+      },
+      {
+        icon: IconBrandBlogger,
+        label: 'Salary Revision',
+        href: '/salary-revision',
+      },
+      {
+        icon: IconBrandBlogger,
+        label: 'Salary Revision Details',
+        href: '/salary-revision-view',
+      },
+      {
+        icon: IconBrandBlogger,
+        label: 'Salary Loan',
+        href: '/salary-loan',
+      },
+    ],
+    rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
+  },
 ];
 
 const smallData = [
