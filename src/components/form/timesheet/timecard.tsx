@@ -1,8 +1,19 @@
 /* eslint-disable react/prop-types */
-import { Badge, Box, Group, Menu, Text } from '@mantine/core';
+import IsMobileScreen from '@/hooks/useIsMobileScreen';
+import {
+  ActionIcon,
+  Badge,
+  Box,
+  Drawer,
+  Group,
+  Menu,
+  Text,
+  createStyles,
+} from '@mantine/core';
 import {
   IconCheck,
   IconEdit,
+  IconListDetails,
   IconSquareRoundedX,
   IconTrash,
 } from '@tabler/icons-react';
@@ -12,12 +23,22 @@ import {
   type MRT_ColumnDef,
 } from 'mantine-react-table';
 import React, { useMemo, useState } from 'react';
+import CalendarForm from './form/calendarForm';
 import data, { ApprovalType, TimesheetProps } from './makeData';
 
+const useStyles = createStyles(() => ({
+  drawer: {
+    overflowY: 'scroll',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
+}));
 function Timecard() {
   // const [approvalBtn, setApprovalBtn] = useState<ApprovalType>(null);
   const [approvalData, setApprovalData] = useState([...data]); // Replace `[...]` with your actual data array
   const dividers = Array.from({ length: 9 }, (_, index) => index);
+  const [openedEvent, setOpenedEvent] = useState(false);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleApproval = (rowIndex: number, approval: ApprovalType) => {
@@ -32,16 +53,22 @@ function Timecard() {
         accessorKey: 'task',
         header: 'Task',
         // eslint-disable-next-line react/no-unstable-nested-components
-        // Cell: () => {
-        //   return (
-        //     <IconListDetails
-        //       color="lightgreen"
-        //       style={{
-        //         cursor: 'pointer',
-        //       }}
-        //     />
-        //   );
-        // },
+        Cell: ({ cell }) => {
+          const number = cell.getValue() as number;
+          return (
+            <Group>
+              <Text>{number}</Text>
+              <ActionIcon onClick={() => setOpenedEvent(true)}>
+                <IconListDetails
+                  color="lightgreen"
+                  style={{
+                    cursor: 'pointer',
+                  }}
+                />
+              </ActionIcon>
+            </Group>
+          );
+        },
       },
       {
         accessorKey: 'approval',
@@ -49,7 +76,6 @@ function Timecard() {
         // eslint-disable-next-line react/no-unstable-nested-components
         Cell: ({ cell, row }) => {
           const approval = cell.getValue() as string;
-
           return (
             <>
               {approval === 'Approved' && <Badge color="green">Approved</Badge>}
@@ -159,9 +185,21 @@ function Timecard() {
       </>
     ),
   });
+  const { classes } = useStyles();
   return (
     <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
       <MantineReactTable table={table} />
+      <Drawer
+        opened={openedEvent}
+        onClose={() => setOpenedEvent(false)}
+        title="Event board"
+        padding="md"
+        size={IsMobileScreen() ? 'xl' : 'xl'}
+        position="right"
+        className={classes.drawer}
+      >
+        <CalendarForm setOpenedEvent={setOpenedEvent} />
+      </Drawer>
     </Box>
   );
 }

@@ -83,6 +83,8 @@ function StyledTabs(props: TabsProps) {
 
 function Timesheet1() {
   const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
+  const [date, setDate] = useState<Date | null>(null);
+
   return (
     <>
       <Text size={30} weight={700}>
@@ -108,6 +110,10 @@ function Timesheet1() {
               onChange={setValue}
               mx="auto"
               maw={400}
+              disabled={date !== null}
+              onClick={() => {
+                setDate(null);
+              }}
             />
             <Divider orientation="vertical" my="5px" />
             <DatePickerInput
@@ -116,6 +122,12 @@ function Timesheet1() {
               placeholder="Pick date range"
               mx="auto"
               maw={400}
+              value={date}
+              onChange={setDate}
+              disabled={value[0] !== null}
+              onClick={() => {
+                setValue([null, null]);
+              }}
             />
           </Group>
           <Tabs.List>
