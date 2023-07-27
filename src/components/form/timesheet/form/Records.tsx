@@ -223,6 +223,11 @@ function Timeline({ events: initialEvents }: { events: Event[] }) {
         opened={showModal}
         onClose={handleModalClose}
         title={currentEvent?.id === 0 ? 'Add New Event' : 'Edit Event'}
+        transitionProps={{
+          transition: 'fade',
+          duration: 600,
+          timingFunction: 'linear',
+        }}
       >
         {currentEvent && (
           <>

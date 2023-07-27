@@ -12,7 +12,6 @@ function SalaryReview() {
           display: 'flex',
           flexDirection: 'row',
           border: '2px groove',
-          justifyContent: 'space-between',
         }}
         p="md"
       >
@@ -30,11 +29,13 @@ function SalaryReview() {
             10%
           </Text>
         </Stack>
+
         <Divider
           orientation="vertical"
           sx={{ height: '100p' }}
-          m="lg"
+          ml="10vw"
           size="sm"
+          mr="30px"
         />
         <Stack pr="lg" pt="md">
           <Text fz="20px" weight={400}>
