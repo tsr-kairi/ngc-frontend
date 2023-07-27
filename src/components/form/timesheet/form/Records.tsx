@@ -94,7 +94,7 @@ function TimeBlock({
         display: 'flex',
         flexDirection: 'column',
         padding: '10px',
-        overflow: 'scroll',
+        overflow: 'auto',
         cursor: 'pointer', // Make the time block clickable
       })}
       onClick={() => onEdit(id)}
