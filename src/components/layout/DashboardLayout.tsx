@@ -49,7 +49,6 @@ function DashboardLayout() {
           style={{
             flex: 1,
             maxWidth: 'calc(100vw - 350px)',
-            overflowX: 'scroll',
           }}
         >
           <Outlet />
