@@ -8,6 +8,7 @@ import {
   MediaQuery,
   NavLink,
   rem,
+  ScrollArea,
 } from '@mantine/core';
 
 import {
@@ -211,39 +212,48 @@ export default function Navbar({
   ));
 
   return (
-    <Box
-      w={sidebarCollapsed ? 85 : 300} // Set the width based on the sidebar state
-      px="md"
-      py="lg"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        height: '100%',
-        zIndex: 100,
-      }}
-    >
-      <Box>
-        <Group
+    <Box>
+      <ScrollArea
+        h="90vh"
+        offsetScrollbars
+        styles={() => ({
+          scrollbar: {
+            height: '100px',
+          },
+        })}
+      >
+        <Box
+          w={sidebarCollapsed ? 85 : 300} // Set the width based on the sidebar state
+          px="md"
+          py="lg"
           sx={{
-            gap: `${!IsMobileScreen() ? '32px' : '0px'}`,
-            marginTop: '40px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            zIndex: 100,
           }}
-          position="apart"
-          mb="md"
         >
-          <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
-            <Burger
-              opened={opened}
-              onClick={() => setOpened(!opened)}
-              size="sm"
-              mr="md"
-            />
-          </MediaQuery>
-          {/* <Link to="/" className={`${sidebarCollapsed ? classes.logo : null}`}>
+          <Box>
+            <Group
+              sx={{
+                gap: `${!IsMobileScreen() ? '32px' : '0px'}`,
+                marginTop: '40px',
+              }}
+              position="apart"
+              mb="md"
+            >
+              <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+                <Burger
+                  opened={opened}
+                  onClick={() => setOpened(!opened)}
+                  size="sm"
+                  mr="md"
+                />
+              </MediaQuery>
+              {/* <Link to="/" className={`${sidebarCollapsed ? classes.logo : null}`}>
             {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
           </Link> */}
-          {/* <Group
+              {/* <Group
             sx={{
               position: 'absolute',
               left: '260px',
@@ -262,9 +272,9 @@ export default function Navbar({
               />
             </div>
           </Group> */}
-        </Group>
-        {/* Search field */}
-        {/* <TextInput
+            </Group>
+            {/* Search field */}
+            {/* <TextInput
           placeholder="Search"
           size="xs"
           icon={<IconSearch size="0.8rem" stroke={1.5} />}
@@ -275,25 +285,27 @@ export default function Navbar({
             display: `${sidebarCollapsed ? 'none' : 'block'}`,
           }}
         /> */}
-        <Group>{items}</Group>
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          flexDirection: 'column',
-        }}
-      >
-        <Group>{item2}</Group>
-        <Box
-          className={classes.footer}
-          sx={{ paddingLeft: `${sidebarCollapsed ? '10px' : '0px'}` }}
-        >
-          <UserProfileBtn
-            text={`${!sidebarCollapsed ? 'Aryan' : ''}`}
-            description={`${!sidebarCollapsed ? 'aryan@gmail.com' : ''}`}
-          />
+            <Group>{items}</Group>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              flexDirection: 'column',
+            }}
+          >
+            <Group>{item2}</Group>
+          </Box>
         </Box>
+      </ScrollArea>
+      <Box
+        className={classes.footer}
+        sx={{ paddingLeft: `${sidebarCollapsed ? '10px' : '0px'}` }}
+      >
+        <UserProfileBtn
+          text={`${!sidebarCollapsed ? 'Aryan' : ''}`}
+          description={`${!sidebarCollapsed ? 'aryan@gmail.com' : ''}`}
+        />
       </Box>
     </Box>
   );
