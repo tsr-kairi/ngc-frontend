@@ -1,8 +1,17 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import TimeLine from '@/components/form/timesheet/timecard';
-import TimeCard from '@/components/form/timesheet/timeline';
-import { Box, Button, Group, rem, Tabs, TabsProps, Text } from '@mantine/core';
+import Timecard from '@/components/form/timesheet/timecard';
+import Timeline from '@/components/form/timesheet/timeline';
+import {
+  Box,
+  Divider,
+  Group,
+  rem,
+  Tabs,
+  TabsProps,
+  Text,
+  TextInput,
+} from '@mantine/core';
 
 function StyledTabs(props: TabsProps) {
   return (
@@ -72,34 +81,35 @@ function StyledTabs(props: TabsProps) {
 function Timesheet1() {
   return (
     <>
-      <Text size="lg" weight={400} pl="md">
+      <Text size={30} weight={700}>
         Time and Attendance
       </Text>
 
-      <StyledTabs defaultValue="Timeline">
+      <StyledTabs defaultValue="Timecard">
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
-            padding: '20px',
           }}
+          pt="20px"
         >
           <Group>
-            <Button>Calendar</Button>
-            <Button>Calendar</Button>
+            <TextInput placeholder="Picks date range" type="date" required />
+            <Divider orientation="vertical" my="5px" />
+            <TextInput placeholder="Picks date" type="date" required />
           </Group>
           <Tabs.List>
-            <Tabs.Tab value="Timeline">Timeline</Tabs.Tab>
             <Tabs.Tab value="Timecard">Timecard</Tabs.Tab>
+            <Tabs.Tab value="TimeLine">Timeline</Tabs.Tab>
           </Tabs.List>
         </Box>
-        <Tabs.Panel value="Timeline" pt="xs">
-          <TimeLine />
+        <Tabs.Panel value="Timecard" pt="xs">
+          <Timecard />
         </Tabs.Panel>
 
-        <Tabs.Panel value="Timecard" pt="xs">
-          <TimeCard />
+        <Tabs.Panel value="TimeLine" pt="xs">
+          <Timeline />
         </Tabs.Panel>
       </StyledTabs>
     </>

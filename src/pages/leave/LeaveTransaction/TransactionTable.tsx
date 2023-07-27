@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-pascal-case */
 /* eslint-disable react/prop-types */
-import { Box, Text } from '@mantine/core';
+import { Badge, Box, Text } from '@mantine/core';
 import {
   MRT_Table,
   useMantineReactTable,
@@ -20,32 +20,16 @@ function TransactionTable() {
           const grant = cell.getValue() as string;
           if (grant === 'Granted') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid green',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '22px',
-                }}
-              >
+              <Badge color="green" variant="outline" p="sm">
                 Granted
-              </Box>
+              </Badge>
             );
           }
           if (grant === 'Availed') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid red',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '22px',
-                }}
-              >
+              <Badge color="red" variant="outline" p="sm">
                 Availed
-              </Box>
+              </Badge>
             );
           }
           return null;
@@ -62,47 +46,23 @@ function TransactionTable() {
           const leave = cell.getValue() as string;
           if (leave === 'Earned') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid green',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '25px',
-                }}
-              >
+              <Badge color="green" variant="outline" p="sm">
                 Earned
-              </Box>
+              </Badge>
             );
           }
           if (leave === 'Sick') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid black',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '3px',
-                  paddingLeft: '30px',
-                }}
-              >
+              <Badge color="black" variant="outline" p="sm">
                 Sick
-              </Box>
+              </Badge>
             );
           }
           if (leave === 'Casual') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid red',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '25px',
-                }}
-              >
+              <Badge color="red" variant="outline" p="sm">
                 Casual
-              </Box>
+              </Badge>
             );
           }
           return null;
@@ -132,7 +92,7 @@ function TransactionTable() {
     data,
     enableColumnActions: false,
     enableColumnFilters: false,
-    enablePagination: false,
+    enablePagination: true,
     enableSorting: false,
     mantineTableProps: {
       highlightOnHover: false,

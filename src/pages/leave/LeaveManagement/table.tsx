@@ -3,7 +3,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-pascal-case */
-import { ActionIcon, Box, rem, Tabs, TabsProps, Text } from '@mantine/core';
+import {
+  ActionIcon,
+  Badge,
+  Box,
+  rem,
+  Tabs,
+  TabsProps,
+  Text,
+} from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
 import {
   MRT_Table,
@@ -104,53 +112,23 @@ function Table() {
           const leave = cell.getValue() as string;
           if (leave === 'Earned') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid ',
-                  borderColor: '#019923',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '25px',
-                  color: '#019923',
-                }}
-              >
+              <Badge color="green" variant="outline" p="sm">
                 Earned
-              </Box>
+              </Badge>
             );
           }
           if (leave === 'Sick') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid ',
-                  borderColor: '#D28B02',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '3px',
-                  paddingLeft: '30px',
-                  color: '#D28B02',
-                }}
-              >
+              <Badge color="yellow" variant="outline" p="sm">
                 Sick
-              </Box>
+              </Badge>
             );
           }
           if (leave === 'Casual') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid ',
-                  borderColor: '#B20000',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '25px',
-                  color: '#B20000',
-                }}
-              >
+              <Badge color="red" variant="outline" p="sm">
                 Casual
-              </Box>
+              </Badge>
             );
           }
           return null;
@@ -179,53 +157,23 @@ function Table() {
           const status = cell.getValue() as string;
           if (status === 'Approved') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid ',
-                  borderColor: '#019923',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '18px',
-                  color: '#019923',
-                }}
-              >
+              <Badge color="green" variant="outline" p="sm">
                 Approved
-              </Box>
+              </Badge>
             );
           }
           if (status === 'Pending') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid ',
-                  borderColor: '#D28B02',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '20px',
-                  color: '#D28B02',
-                }}
-              >
+              <Badge color="yellow" variant="outline" p="sm">
                 Pending
-              </Box>
+              </Badge>
             );
           }
           if (status === 'Rejected') {
             return (
-              <Box
-                sx={{
-                  border: '2px solid ',
-                  borderColor: '#B20000',
-                  borderRadius: '25px',
-                  width: '100px',
-                  padding: '5px',
-                  paddingLeft: '20px',
-                  color: '#B20000',
-                }}
-              >
+              <Badge color="red" variant="outline" p="sm">
                 Rejected
-              </Box>
+              </Badge>
             );
           }
           return null;
