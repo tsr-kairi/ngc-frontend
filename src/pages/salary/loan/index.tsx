@@ -1,15 +1,23 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
+  ActionIcon,
   Box,
+  Button,
   Divider,
+  Drawer,
   Flex,
   Group,
+  Slider,
   Stack,
   Tabs,
   TabsProps,
   Text,
+  Textarea,
   rem,
 } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { IconX } from '@tabler/icons-react';
+import { useState } from 'react';
 import LoanAppTable from './loanAppTable';
 import LoanHistTable from './loanHistTable';
 
@@ -80,16 +88,99 @@ function StyledTabs(props: TabsProps) {
   );
 }
 function SalaryLoan() {
+  const [opened, { open, close }] = useDisclosure(false);
+  const [value, setValue] = useState(2000);
   return (
-    <Box>
-      <Text fz="xl" weight={700} mb="md">
-        Loan
-      </Text>
+    <Box sx={{ width: '100%' }}>
+      <Drawer
+        opened={opened}
+        onClose={close}
+        position="right"
+        size="40%"
+        withCloseButton={false}
+        overlayProps={{ opacity: 0.5 }}
+      >
+        <Group position="apart" mb="lg">
+          <Text fz="25px" weight={400}>
+            Leave Application
+          </Text>
+          <ActionIcon onClick={close}>
+            <IconX size="40px" stroke={2} />
+          </ActionIcon>
+        </Group>
+        <Group position="apart" mt="30px" mx="20px" mb="50px">
+          <Text fz="20px" weight={400}>
+            Loan Amount
+            <Text fz="30px" weight={700} mr="md">
+              {value}
+            </Text>
+          </Text>
+          <Text fz="20px" weight={400}>
+            EMI Months
+            <Text fz="30px" weight={700} mr="md">
+              3
+            </Text>
+          </Text>
+        </Group>
+        <Group position="apart" ml="5px" mr="10px">
+          <Text fz="lg" weight={700}>
+            0
+          </Text>{' '}
+          <Text fz="lg" weight={700}>
+            10,000
+          </Text>
+        </Group>
+        <Slider
+          defaultValue={2000}
+          min={1000}
+          max={10000}
+          value={value}
+          onChange={setValue}
+          thumbSize={26}
+          styles={{
+            thumb: {
+              borderWidth: rem(8),
+              padding: rem(3),
+              height: rem(40),
+              width: rem(40),
+              color: ' #0A4377',
+            },
+            track: {
+              height: rem(20),
+              width: rem(600),
+            },
+          }}
+        />
+        <Box mt="40px" w="100%">
+          <Textarea placeholder="Write a description" minRows={10} />
+        </Box>
+        <Flex
+          justify="flex-end"
+          mt="30px"
+          sx={{
+            position: 'absolute',
+            bottom: '30px',
+            right: '20px',
+            width: '100%',
+          }}
+        >
+          <Button variant="outline" mr="10px" onClick={close}>
+            Cancel
+          </Button>
+          <Button>Apply</Button>
+        </Flex>
+      </Drawer>
+      <Group position="apart" mb="md" mr="lg">
+        <Text fz="xl" weight={700}>
+          Loan
+        </Text>
+        <Button onClick={open}>Apply Leave</Button>
+      </Group>
       <Flex gap="lg">
         <Box
           sx={{
             border: '2px groove',
-            width: '30vw',
+            width: '40%',
 
             padding: '5px',
           }}
@@ -141,7 +232,7 @@ function SalaryLoan() {
             </Group>
           </Stack>
         </Box>
-        <Box sx={{ border: '2px groove', width: '40vw' }}>
+        <Box sx={{ border: '2px groove', width: '56%' }}>
           <Flex justify="space-between" align="start">
             <Text fz="25px" weight={200} ml="20px">
               Total Credit Limit
@@ -173,10 +264,10 @@ function SalaryLoan() {
             Loan Application History
           </Tabs.Tab>
         </Tabs.List>
-        <Tabs.Panel value="Loan EMI History" pt="xs">
+        <Tabs.Panel value="Loan EMI History" pt="xs" pr="md">
           <LoanHistTable />
         </Tabs.Panel>
-        <Tabs.Panel value="Loan Application History" pt="xs">
+        <Tabs.Panel value="Loan Application History" pt="xs" pr="md">
           <LoanAppTable />
         </Tabs.Panel>
       </StyledTabs>
