@@ -48,7 +48,6 @@ function DashboardLayout() {
           style={{
             flex: 1,
             maxWidth: 'calc(100vw - 350px)',
-            maxHeight: 'calc(100vh - 80px)',
             overflow: 'scroll',
           }}
         >
