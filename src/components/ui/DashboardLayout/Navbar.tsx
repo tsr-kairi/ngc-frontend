@@ -218,7 +218,7 @@ export default function Navbar({
         offsetScrollbars
         styles={() => ({
           scrollbar: {
-            height: '100px',
+            height: '0px',
           },
         })}
       >
