@@ -1,9 +1,14 @@
 import { Box, Flex, Text } from '@mantine/core';
+import { MonthPickerInput } from '@mantine/dates';
+import { IconDownload } from '@tabler/icons-react';
+import { useState } from 'react';
 import EmployeeDetail from './employeeDetail';
 import PaymentDetail from './paymentDetail';
 import SalaryTable from './salaryTable';
 
 function SalaryPayslip() {
+  const [value, setValue] = useState<Date | null>(new Date());
+
   return (
     <Flex
       direction="column"
@@ -13,8 +18,10 @@ function SalaryPayslip() {
       }}
     >
       <Flex
+        justify="space-between"
         sx={{
           marginBottom: '20px',
+          width: '100%',
         }}
       >
         <Flex>
@@ -22,12 +29,31 @@ function SalaryPayslip() {
           <Text
             size={30}
             weight={600}
+            color="blue.9"
             sx={{
               marginLeft: '10px',
             }}
           >
-            Jul 2023
+            {value?.toLocaleString('default', {
+              month: 'long',
+              year: 'numeric',
+            })}
           </Text>
+        </Flex>
+        <Flex
+          gap="md"
+          align="center"
+          sx={{
+            minWidth: '300px',
+          }}
+        >
+          <IconDownload size={30} />
+          <MonthPickerInput
+            placeholder="Pick dates"
+            value={value}
+            onChange={setValue}
+            style={{ width: '100%' }}
+          />
         </Flex>
       </Flex>
       <Flex>

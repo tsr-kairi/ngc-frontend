@@ -10,6 +10,7 @@ function DashboardLayout() {
   const [opened, setOpened] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { online } = useNetwork();
+
   return (
     <AppShell
       styles={(theme) => ({
@@ -48,8 +49,6 @@ function DashboardLayout() {
           style={{
             flex: 1,
             maxWidth: 'calc(100vw - 350px)',
-            maxHeight: 'calc(100vh - 80px)',
-            overflow: 'scroll',
           }}
         >
           <Outlet />

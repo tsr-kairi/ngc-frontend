@@ -143,15 +143,15 @@ function DrawerContent() {
         </Flex>
         <Flex justify="space-between">
           <StyledTabs>
-            <Tabs.List>
-              <Tabs.Tab value="settings">First Half</Tabs.Tab>
-              <Tabs.Tab value="messages">Second Half</Tabs.Tab>
+            <Tabs.List defaultValue="first">
+              <Tabs.Tab value="first">First Half</Tabs.Tab>
+              <Tabs.Tab value="second">Second Half</Tabs.Tab>
             </Tabs.List>
           </StyledTabs>
-          <StyledTabs>
+          <StyledTabs defaultValue="second">
             <Tabs.List>
-              <Tabs.Tab value="settings">First Half</Tabs.Tab>
-              <Tabs.Tab value="messages">Second Half</Tabs.Tab>
+              <Tabs.Tab value="first">First Half</Tabs.Tab>
+              <Tabs.Tab value="second">Second Half</Tabs.Tab>
             </Tabs.List>
           </StyledTabs>
         </Flex>
