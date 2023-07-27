@@ -2,7 +2,16 @@
 
 import Timecard from '@/components/form/timesheet/timecard';
 import Timeline from '@/components/form/timesheet/timeline';
-import { Box, Divider, Group, rem, Tabs, TabsProps, Text } from '@mantine/core';
+import {
+  Box,
+  Divider,
+  Group,
+  Pagination,
+  rem,
+  Tabs,
+  TabsProps,
+  Text,
+} from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
 import { IconCalendar } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -120,6 +129,7 @@ function Timesheet1() {
 
         <Tabs.Panel value="TimeLine" pt="xs">
           <Timeline />
+          <Pagination position="right" total={5} mt="md" />
         </Tabs.Panel>
       </StyledTabs>
     </>
