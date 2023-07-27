@@ -1,13 +1,23 @@
 /* eslint-disable react/prop-types */
-import { Badge, Group, Text } from '@mantine/core';
-import { IconCheck, IconSquareRoundedX } from '@tabler/icons-react';
-import { MantineReactTable, type MRT_ColumnDef } from 'mantine-react-table';
-import { useMemo, useState } from 'react';
+import { Badge, Box, Group, Menu, Text } from '@mantine/core';
+import {
+  IconCheck,
+  IconEdit,
+  IconSquareRoundedX,
+  IconTrash,
+} from '@tabler/icons-react';
+import {
+  MantineReactTable,
+  useMantineReactTable,
+  type MRT_ColumnDef,
+} from 'mantine-react-table';
+import React, { useMemo, useState } from 'react';
 import data, { ApprovalType, TimesheetProps } from './makeData';
 
-function TimeLine() {
+function Timecard() {
   // const [approvalBtn, setApprovalBtn] = useState<ApprovalType>(null);
   const [approvalData, setApprovalData] = useState([...data]); // Replace `[...]` with your actual data array
+  const dividers = Array.from({ length: 9 }, (_, index) => index);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleApproval = (rowIndex: number, approval: ApprovalType) => {
@@ -21,6 +31,17 @@ function TimeLine() {
       {
         accessorKey: 'task',
         header: 'Task',
+        // eslint-disable-next-line react/no-unstable-nested-components
+        // Cell: () => {
+        //   return (
+        //     <IconListDetails
+        //       color="lightgreen"
+        //       style={{
+        //         cursor: 'pointer',
+        //       }}
+        //     />
+        //   );
+        // },
       },
       {
         accessorKey: 'approval',
@@ -55,10 +76,6 @@ function TimeLine() {
             </>
           );
         },
-      },
-      {
-        accessorKey: 'slots',
-        header: 'Slots',
       },
       {
         accessorFn: (row) => new Date(row.date),
@@ -97,40 +114,56 @@ function TimeLine() {
     [handleApproval]
   );
 
+  const table = useMantineReactTable({
+    columns,
+    data: approvalData,
+    enablePagination: true,
+    positionToolbarAlertBanner: 'bottom',
+    mantineTableProps: {
+      highlightOnHover: false,
+      withColumnBorders: false,
+    },
+    enableColumnFilterModes: true,
+    enableBottomToolbar: true,
+    enableColumnOrdering: true,
+    paginateExpandedRows: true,
+    enableGrouping: true,
+    enablePinning: true,
+    enableRowVirtualization: true,
+    enableRowActions: true,
+    enableStickyHeader: true,
+    enableExpanding: true,
+    enableExpandAll: true,
+    enableFullScreenToggle: false,
+    getSubRows: (originalRow) => originalRow.subRows,
+    renderDetailPanel: () => (
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '130px',
+          width: '100%',
+          marginLeft: '100px',
+        }}
+      >
+        {dividers.map((hour) => (
+          <React.Fragment key={hour}>
+            <Text>Address</Text>
+          </React.Fragment>
+        ))}
+      </Box>
+    ),
+    renderRowActionMenuItems: () => (
+      <>
+        <Menu.Item icon={<IconEdit />}>Edit Timecard</Menu.Item>
+        <Menu.Item icon={<IconTrash />}>Delete Timecard</Menu.Item>
+      </>
+    ),
+  });
   return (
-    <div
-      style={{
-        width: '100%',
-        overflow: 'auto',
-      }}
-    >
-      <MantineReactTable
-        columns={columns}
-        data={approvalData}
-        enableColumnActions={false}
-        enableEditing
-        enableColumnFilters={false}
-        enablePagination={false}
-        enableSorting={false}
-        positionActionsColumn="last"
-        mantineTableProps={{
-          highlightOnHover: false,
-          withColumnBorders: false,
-        }}
-        enableExpanding
-        enableExpandAll
-        renderTopToolbarCustomActions={() => {
-          return (
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              <Text size={20} weight={500}>
-                Time Line
-              </Text>
-            </div>
-          );
-        }}
-      />
-    </div>
+    <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
+      <MantineReactTable table={table} />
+    </Box>
   );
 }
 
-export default TimeLine;
+export default Timecard;

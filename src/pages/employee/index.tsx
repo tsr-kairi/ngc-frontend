@@ -178,17 +178,18 @@ function Employee() {
         enableBottomToolbar
         enableColumnOrdering
         enablePagination
+        paginateExpandedRows
         enableGrouping
         enablePinning
         enableRowVirtualization
         onSortingChange={setSorting}
         state={{ isLoading, sorting }}
-        enableRowActions
         enableRowNumbers
-        enableDensityToggle={false}
         initialState={{ showColumnFilters: false }}
-        positionToolbarAlertBanner="bottom"
+        enableDensityToggle={false}
+        enableRowActions
         enableStickyHeader
+        positionToolbarAlertBanner="bottom"
         mantineSearchTextInputProps={{
           placeholder: `Search ${data.length} rows`,
           sx: { minWidth: '290px', paddingLeft: '10px' },
