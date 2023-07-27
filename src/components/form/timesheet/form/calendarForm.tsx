@@ -42,7 +42,11 @@ const initialEvents: Event[] = [
   // Add more initial events as needed
 ];
 
-export default function CalendarForm() {
+export default function CalendarForm({
+  setOpenedEvent,
+}: {
+  setOpenedEvent: (value: boolean) => void;
+}) {
   const currentDate = new Date();
   const timelineRef = useRef<HTMLDivElement>(null);
 
@@ -117,7 +121,11 @@ export default function CalendarForm() {
           </Box>
         </Flex>
         <Flex gap={10}>
-          <Button size="md" variant="outline">
+          <Button
+            size="md"
+            variant="outline"
+            onClick={() => setOpenedEvent(false)}
+          >
             Cancel
           </Button>
           <Button size="md">Save</Button>

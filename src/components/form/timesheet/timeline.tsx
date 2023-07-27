@@ -1,9 +1,32 @@
+import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import { Entry, TimeAttendanceType } from '@/types/TimeAttendanceType';
-import { Box, Divider, Text } from '@mantine/core';
-import React from 'react';
+import {
+  Box,
+  Divider,
+  Drawer,
+  Text,
+  Tooltip,
+  createStyles,
+  useMantineTheme,
+} from '@mantine/core';
+import React, { useState } from 'react';
+import CalendarForm from './form/calendarForm';
+
+// createStyles import
+const useStyles = createStyles(() => ({
+  drawer: {
+    overflowY: 'scroll',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
+}));
 
 function Timeline() {
   const dividers = Array.from({ length: 24 }, (_, index) => index);
+  const [openedEvent, setOpenedEvent] = useState(false);
+  const theme = useMantineTheme();
+  const { classes } = useStyles();
   const elements: TimeAttendanceType = [
     [
       {
@@ -290,48 +313,70 @@ function Timeline() {
                       // backgroundColor: '#f6f6f6',
                     }}
                   >
-                    {/* <Divider orientation="vertical" /> */}
+                    {/* <Tooltip
+                      label="Event"
+                      color="blue"
+                      withArrow
+                      arrowPosition="center"
+                    > */}
                     {item.time.map(
                       (time: { clockIn: string; clockOut: string }) => {
                         return (
                           <>
-                            <Box key={time.clockIn}>
-                              <Box
-                                sx={(theme) => ({
-                                  position: 'absolute',
-                                  left: `${
-                                    ((parseInt(time.clockIn.split(':')[0], 10) +
-                                      parseInt(time.clockIn.split(':')[1], 10) /
-                                        60) /
-                                      24) *
-                                    timelineWidth
-                                  }%`,
-                                  right: `${
-                                    timelineWidth -
-                                    ((parseInt(
-                                      time.clockOut.split(':')[0],
-                                      10
-                                    ) +
-                                      parseInt(
-                                        time.clockOut.split(':')[1],
+                            <Box
+                              key={time.clockIn}
+                              onClick={() => setOpenedEvent(true)}
+                              sx={{ cursor: 'pointer' }}
+                            >
+                              <Tooltip
+                                label="Event"
+                                color="blue"
+                                withArrow
+                                arrowPosition="center"
+                              >
+                                <Box
+                                  sx={() => ({
+                                    position: 'absolute',
+                                    left: `${
+                                      ((parseInt(
+                                        time.clockIn.split(':')[0],
                                         10
-                                      ) /
-                                        60) /
-                                      24) *
+                                      ) +
+                                        parseInt(
+                                          time.clockIn.split(':')[1],
+                                          10
+                                        ) /
+                                          60) /
+                                        24) *
                                       timelineWidth
-                                  }%`,
-                                  background: theme.colors.brand[6],
+                                    }%`,
+                                    right: `${
+                                      timelineWidth -
+                                      ((parseInt(
+                                        time.clockOut.split(':')[0],
+                                        10
+                                      ) +
+                                        parseInt(
+                                          time.clockOut.split(':')[1],
+                                          10
+                                        ) /
+                                          60) /
+                                        24) *
+                                        timelineWidth
+                                    }%`,
+                                    background: theme.colors.brand[6],
 
-                                  height: '100%',
-                                  display: 'flex',
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  fontWeight: 600,
-                                  fontSize: '0.7rem',
-                                  color: theme.colors.gray[2],
-                                  zIndex: 10,
-                                })}
-                              />
+                                    height: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    fontWeight: 600,
+                                    fontSize: '0.7rem',
+                                    color: theme.colors.gray[2],
+                                    zIndex: 10,
+                                  })}
+                                />
+                              </Tooltip>
                             </Box>
                             {/* Divider */}
                             <Box
@@ -361,6 +406,18 @@ function Timeline() {
                         );
                       }
                     )}
+                    {/* </Tooltip> */}
+                    <Drawer
+                      opened={openedEvent}
+                      onClose={() => setOpenedEvent(false)}
+                      title="Event board"
+                      padding="md"
+                      size={IsMobileScreen() ? 'xl' : 'xl'}
+                      position="right"
+                      className={classes.drawer}
+                    >
+                      <CalendarForm setOpenedEvent={setOpenedEvent} />
+                    </Drawer>
                   </Box>
                 </Box>
                 <Divider orientation="horizontal" />

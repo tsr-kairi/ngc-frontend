@@ -2,17 +2,10 @@
 
 import Timecard from '@/components/form/timesheet/timecard';
 import Timeline from '@/components/form/timesheet/timeline';
-import {
-  Box,
-  Divider,
-  Group,
-  rem,
-  Tabs,
-  TabsProps,
-  Text,
-  TextInput,
-} from '@mantine/core';
+import { Box, Divider, Group, rem, Tabs, TabsProps, Text } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
+import { IconCalendar } from '@tabler/icons-react';
+import { useState } from 'react';
 
 function StyledTabs(props: TabsProps) {
   return (
@@ -80,6 +73,7 @@ function StyledTabs(props: TabsProps) {
 }
 
 function Timesheet1() {
+  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
   return (
     <>
       <Text size={30} weight={700}>
@@ -97,16 +91,23 @@ function Timesheet1() {
         >
           <Group>
             <DatePickerInput
+              icon={<IconCalendar size="1.1rem" stroke={1.5} />}
+              clearable
               type="range"
-              // label="Pick dates range"
               placeholder="Pick dates range"
-              // value={value}
-              // onChange={setValue}
+              value={value}
+              onChange={setValue}
               mx="auto"
               maw={400}
             />
             <Divider orientation="vertical" my="5px" />
-            <TextInput placeholder="Picks date" type="date" required />
+            <DatePickerInput
+              clearable
+              icon={<IconCalendar size="1.1rem" stroke={1.5} />}
+              placeholder="Pick date range"
+              mx="auto"
+              maw={400}
+            />
           </Group>
           <Tabs.List>
             <Tabs.Tab value="Timecard">Timecard</Tabs.Tab>
