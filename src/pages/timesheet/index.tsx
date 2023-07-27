@@ -12,6 +12,7 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
+import { DatePickerInput } from '@mantine/dates';
 
 function StyledTabs(props: TabsProps) {
   return (
@@ -95,7 +96,15 @@ function Timesheet1() {
           pt="20px"
         >
           <Group>
-            <TextInput placeholder="Picks date range" type="date" required />
+            <DatePickerInput
+              type="range"
+              // label="Pick dates range"
+              placeholder="Pick dates range"
+              // value={value}
+              // onChange={setValue}
+              mx="auto"
+              maw={400}
+            />
             <Divider orientation="vertical" my="5px" />
             <TextInput placeholder="Picks date" type="date" required />
           </Group>

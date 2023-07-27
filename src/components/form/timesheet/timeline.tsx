@@ -3,7 +3,7 @@ import { Box, Divider, Text } from '@mantine/core';
 import React from 'react';
 
 function Timeline() {
-  const dividers = Array.from({ length: 25 }, (_, index) => index);
+  const dividers = Array.from({ length: 24 }, (_, index) => index);
   const elements: TimeAttendanceType = [
     [
       {
@@ -249,7 +249,7 @@ function Timeline() {
             width: `${timelineWidth}%`,
           }}
         >
-          {Array.from({ length: 25 }, (_, i) => i).map((hour) => (
+          {Array.from({ length: 24 }, (_, i) => i).map((hour) => (
             <Box
               key={hour}
               style={{
