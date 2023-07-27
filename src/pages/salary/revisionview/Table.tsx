@@ -1,5 +1,33 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { Table } from '@mantine/core';
+import { Table, createStyles } from '@mantine/core';
+
+const useStyles = createStyles((theme) => ({
+  headerStyle: {
+    textTransform: 'uppercase',
+    fontSize: '40px',
+    height: '70px',
+    backgroundColor: `${
+      theme.colorScheme === 'dark'
+        ? `${theme.colors.gray[8]}`
+        : `${theme.colors.gray[0]}`
+    }`,
+  },
+  endStyle: {
+    textTransform: 'uppercase',
+    fontSize: '40px',
+    height: '70px',
+    color: `${
+      theme.colorScheme === 'dark'
+        ? `${theme.colors.white}`
+        : `${theme.colors.gray[9]}`
+    }`,
+    backgroundColor: `${
+      theme.colorScheme === 'dark'
+        ? `${theme.colors.blue[8]}`
+        : `${theme.colors.blue[4]}`
+    }`,
+  },
+}));
 
 export default function SalaryTable({
   salarys,
@@ -8,6 +36,7 @@ export default function SalaryTable({
   salarys: SalaryRevision[];
   deductions: SalaryRevision[];
 }) {
+  const { classes } = useStyles();
   const salaryRows = salarys.map((salary) => (
     <tr key={salary.SalaryComponent}>
       <td>{salary.SalaryComponent}</td>
@@ -17,6 +46,7 @@ export default function SalaryTable({
       <td>{salary.revisedAnnual}</td>
     </tr>
   ));
+
   const deductionRows = deductions.map((salary) => (
     <tr key={salary.SalaryComponent}>
       <td>{salary.SalaryComponent}</td>
@@ -60,20 +90,8 @@ export default function SalaryTable({
   return (
     <Table highlightOnHover withBorder withColumnBorders>
       <thead>
-        <tr
-          style={{
-            textTransform: 'uppercase',
-            fontSize: '40px',
-            height: '70px',
-            backgroundColor: '#ffffff',
-          }}
-        >
-          <th
-            style={{
-              borderTop: 'none !important',
-              borderLeft: 'none !important',
-            }}
-          />
+        <tr className={classes.headerStyle}>
+          <th />
           <th colSpan={2}>Current Amount (INR)</th>
           <th colSpan={2}>Revised Amount (INR)</th>
         </tr>
@@ -91,13 +109,7 @@ export default function SalaryTable({
       </thead>
       <tbody>
         {salaryRows}
-        <tr
-          style={{
-            height: '70px',
-            backgroundColor: '#ffffff',
-            fontWeight: 'bold',
-          }}
-        >
+        <tr className={classes.headerStyle}>
           <td
             style={{
               fontWeight: 'normal',
@@ -111,13 +123,7 @@ export default function SalaryTable({
           <td>{grossSalary.grossSalaryRevisedYear}</td>
         </tr>
         {deductionRows}
-        <tr
-          style={{
-            height: '70px',
-            backgroundColor: '#ffffff',
-            fontWeight: 'bold',
-          }}
-        >
+        <tr className={classes.headerStyle}>
           <td
             style={{
               fontWeight: 'normal',
@@ -130,13 +136,7 @@ export default function SalaryTable({
           <td>{grossDeductions.grossSalaryRevisedMonth}</td>
           <td>{grossDeductions.grossSalaryRevisedYear}</td>
         </tr>
-        <tr
-          style={{
-            height: '70px',
-            backgroundColor: '#B5D4FF',
-            fontWeight: 'bold',
-          }}
-        >
+        <tr className={classes.endStyle}>
           <td
             style={{
               fontWeight: 'normal',

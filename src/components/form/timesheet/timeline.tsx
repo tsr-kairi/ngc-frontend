@@ -407,17 +407,6 @@ function Timeline() {
                       }
                     )}
                     {/* </Tooltip> */}
-                    <Drawer
-                      opened={openedEvent}
-                      onClose={() => setOpenedEvent(false)}
-                      title="Event board"
-                      padding="md"
-                      size={IsMobileScreen() ? 'xl' : 'xl'}
-                      position="right"
-                      className={classes.drawer}
-                    >
-                      <CalendarForm setOpenedEvent={setOpenedEvent} />
-                    </Drawer>
                   </Box>
                 </Box>
                 <Divider orientation="horizontal" />
@@ -425,6 +414,17 @@ function Timeline() {
             );
           });
         })}
+        <Drawer
+          opened={openedEvent}
+          onClose={() => setOpenedEvent(false)}
+          title="Event board"
+          padding="md"
+          size={IsMobileScreen() ? 'xl' : 'xl'}
+          position="right"
+          className={classes.drawer}
+        >
+          <CalendarForm setOpenedEvent={setOpenedEvent} />
+        </Drawer>
       </Box>
       {/* </Box> */}
     </Box>
