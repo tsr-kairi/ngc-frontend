@@ -2,6 +2,7 @@
 import {
   Box,
   Divider,
+  Flex,
   Group,
   Stack,
   Tabs,
@@ -84,7 +85,7 @@ function SalaryLoan() {
       <Text fz="xl" weight={700} mb="md">
         Loan
       </Text>
-      <Group>
+      <Flex gap="lg">
         <Box
           sx={{
             border: '2px groove',
@@ -140,31 +141,31 @@ function SalaryLoan() {
             </Group>
           </Stack>
         </Box>
-        <Box sx={{ border: '2px groove', width: '40vw', height: '35vh' }}>
-          <Group position="apart">
+        <Box sx={{ border: '2px groove', width: '40vw' }}>
+          <Flex justify="space-between" align="start">
             <Text fz="25px" weight={200} ml="20px">
               Total Credit Limit
               <Text fz="40px" weight={600} color="blue" ml="20px">
                 $35,0000
               </Text>
             </Text>
-
-            <Text fz="25px" weight={200} mr="40px">
-              Total Credit Limit
-              <Text fz="40px" weight={600} color="red" ml="20px">
-                $35,0000
+            <Box>
+              <Text fz="25px" weight={200} mr="40px">
+                Total Credit Limit
+                <Text fz="40px" weight={600} color="red" ml="20px">
+                  $35,0000
+                </Text>
               </Text>
-            </Text>
-          </Group>
-
-          <Text fz="25px" weight={200} ml="24vw" mt="lg">
-            Total Credit Limit
-            <Text fz="40px" weight={600} color="red" ml="20px">
-              $35,0000
-            </Text>
-          </Text>
+              <Text fz="25px" weight={200} mt="lg">
+                Total Credit Limit
+                <Text fz="40px" weight={600} color="red" ml="20px">
+                  $35,0000
+                </Text>
+              </Text>
+            </Box>
+          </Flex>
         </Box>
-      </Group>
+      </Flex>
       <StyledTabs defaultValue="Loan EMI History" mt="lg">
         <Tabs.List>
           <Tabs.Tab value="Loan EMI History">Loan EMI History</Tabs.Tab>

@@ -34,7 +34,6 @@ function EmployeeDetail() {
       {employmentData.map((item) => (
         <Flex
           key={item.item1}
-          gap="50px"
           justify="space-between"
           sx={{
             padding: '10px 0px',
@@ -44,7 +43,7 @@ function EmployeeDetail() {
         >
           <Box
             sx={{
-              marginRight: '50px',
+              width: '50%',
             }}
           >
             <Text color="grey" fw={400}>
@@ -55,7 +54,7 @@ function EmployeeDetail() {
           <Box
             sx={{
               marginRight: '50px',
-              textAlign: 'right',
+              textAlign: 'left',
             }}
           >
             <Text color="grey">{item.item2}</Text>
