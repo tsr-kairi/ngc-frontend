@@ -48,7 +48,9 @@ function DashboardLayout() {
         <div
           style={{
             flex: 1,
-            maxWidth: 'calc(100vw - 350px)',
+            maxWidth: `${
+              sidebarCollapsed ? 'calc(100vw - 130px)' : 'calc(100vw - 350px)}'
+            }`,
           }}
         >
           <Outlet />
