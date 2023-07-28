@@ -13,14 +13,20 @@ import {
 
 import {
   IconActivity,
-  IconBrandBlogger,
+  IconTransferOut,
   IconCalendarTime,
-  IconChevronRight,
-  IconFlag2Filled,
+  IconDoorExit,
   IconGauge,
   IconUser,
   IconUserCircle,
+  IconSubtask,
+  IconWallet,
+  IconReceipt,
+  IconReceiptTax,
+  IconBuildingBank,
+  IconCoins,
   IconUserPlus,
+  IconBrandBlogger,
 } from '@tabler/icons-react';
 
 import { Link, useLocation } from 'react-router-dom';
@@ -77,52 +83,52 @@ const data = [
         href: '/blog',
       },
     ],
-    rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
+    // rightSection: <IconUser size="1rem" stroke={1.5} />,
   },
   { icon: IconCalendarTime, label: 'Timesheet', href: '/timesheet' },
   {
-    icon: IconFlag2Filled,
+    icon: IconDoorExit,
     label: 'Leave',
     links: [
       {
-        icon: IconUserPlus,
+        icon: IconSubtask,
         label: 'Leave Management',
         href: '/leave-management',
       },
       {
-        icon: IconBrandBlogger,
+        icon: IconTransferOut,
         label: 'Leave Transaction',
         href: '/leave-transaction',
       },
     ],
-    rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
+    // rightSection: <IconUser size="1rem" stroke={1.5} />,
   },
   {
-    icon: IconFlag2Filled,
+    icon: IconWallet,
     label: 'Salary',
     links: [
       {
-        icon: IconUserPlus,
+        icon: IconReceipt,
         label: 'Payslip',
         href: '/salary-payslip',
       },
       {
-        icon: IconBrandBlogger,
+        icon: IconCoins,
         label: 'Salary Revision',
         href: '/salary-revision',
       },
       {
-        icon: IconBrandBlogger,
+        icon: IconReceiptTax,
         label: 'Salary Revision Details',
         href: '/salary-revision-view',
       },
       {
-        icon: IconBrandBlogger,
+        icon: IconBuildingBank,
         label: 'Salary Loan',
         href: '/salary-loan',
       },
     ],
-    rightSection: <IconChevronRight size="1rem" stroke={1.5} />,
+    // rightSection: <IconUser size="1rem" stroke={1.5} />,
   },
 ];
 
@@ -155,7 +161,7 @@ export default function Navbar({
       to={item?.href || ''}
       active={location.pathname === `${item.href}`}
       label={sidebarCollapsed ? '' : item.label} // Show label only when the sidebar is expanded
-      rightSection={sidebarCollapsed ? item.rightSection : null}
+      // rightSection={sidebarCollapsed && item.rightSection}
       icon={
         <ActionIcon
           variant="light"
@@ -212,7 +218,18 @@ export default function Navbar({
   ));
 
   return (
-    <Box>
+    <Box
+      px="md"
+      sx={{
+        height: '100vh',
+        overflowY: 'hidden',
+        position: 'relative',
+        '&::-webkit-scrollbar': {
+          width: '60px',
+        },
+      }}
+      w={sidebarCollapsed ? 85 : 300} // Set the width based on the sidebar state
+    >
       <ScrollArea
         h="90vh"
         offsetScrollbars
@@ -223,8 +240,6 @@ export default function Navbar({
         })}
       >
         <Box
-          w={sidebarCollapsed ? 85 : 300} // Set the width based on the sidebar state
-          px="md"
           py="lg"
           sx={{
             display: 'flex',
@@ -250,41 +265,7 @@ export default function Navbar({
                   mr="md"
                 />
               </MediaQuery>
-              {/* <Link to="/" className={`${sidebarCollapsed ? classes.logo : null}`}>
-            {dark ? <NexGLogoLightCRM /> : <NexGLogoDarkCRM />}
-          </Link> */}
-              {/* <Group
-            sx={{
-              position: 'absolute',
-              left: '260px',
-              top: '13px',
-              zIndex: 100,
-            }}
-          >
-            <div
-              style={{
-                marginLeft: `${sidebarCollapsed ? '12px' : '0px'}`,
-              }}
-            >
-              <LayoutSidebarIcon
-                collapsed={sidebarCollapsed}
-                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              />
-            </div>
-          </Group> */}
             </Group>
-            {/* Search field */}
-            {/* <TextInput
-          placeholder="Search"
-          size="xs"
-          icon={<IconSearch size="0.8rem" stroke={1.5} />}
-          rightSectionWidth={70}
-          styles={{ rightSection: { pointerEvents: 'none' } }}
-          mb="sm"
-          sx={{
-            display: `${sidebarCollapsed ? 'none' : 'block'}`,
-          }}
-        /> */}
             <Group>{items}</Group>
           </Box>
           <Box

@@ -45,6 +45,33 @@ const data: ManageHistoryProps[] = [
     status: 'Approved',
     transactionDate: '19-01-10',
   },
+  {
+    applicationDate: '19 Jan 2023',
+    leaveType: 'Earned',
+    fromDate: '19-01-10',
+    toDate: '19-01-10',
+    days: 4,
+    status: 'Approved',
+    transactionDate: '19-01-10',
+  },
+  {
+    applicationDate: '19 Jan 2023',
+    leaveType: 'Earned',
+    fromDate: '19-01-10',
+    toDate: '19-01-10',
+    days: 4,
+    status: 'Approved',
+    transactionDate: '19-01-10',
+  },
+  {
+    applicationDate: '19 Jan 2023',
+    leaveType: 'Earned',
+    fromDate: '19-01-10',
+    toDate: '19-01-10',
+    days: 4,
+    status: 'Approved',
+    transactionDate: '19-01-10',
+  },
 ];
 
 export default data;
