@@ -49,7 +49,7 @@ function DashboardLayout() {
           style={{
             flex: 1,
             maxWidth: `${
-              sidebarCollapsed ? 'calc(100vw - 130px)' : 'calc(100vw - 350px)}'
+              sidebarCollapsed ? 'calc(100vw - 130px)' : 'calc(100vw - 350px)'
             }`,
           }}
         >

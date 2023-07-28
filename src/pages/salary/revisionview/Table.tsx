@@ -5,14 +5,14 @@ const useStyles = createStyles((theme) => ({
   headerStyle: {
     textTransform: 'uppercase',
     fontWeight: 'bold',
-    height: '70px',
+    height: '50px',
     backgroundColor: `${
       theme.colorScheme === 'dark' ? `${theme.colors.gray[8]}` : `#ffffff`
     }`,
   },
   endStyle: {
     textTransform: 'uppercase',
-    height: '80px',
+    height: '60px',
     backgroundColor: `${
       theme.colorScheme === 'dark'
         ? `${theme.colors.blue[9]}`
@@ -165,7 +165,7 @@ export default function SalaryTable({
           <td
             style={{
               fontWeight: 'bold',
-              fontSize: '23px',
+              fontSize: '18px',
               color: 'white',
             }}
           >
@@ -174,7 +174,7 @@ export default function SalaryTable({
           <th
             style={{
               color: 'white',
-              fontSize: '23px',
+              fontSize: '18px',
             }}
           >
             {grossDeductions.grossSalaryCurrentMonth}
@@ -182,7 +182,7 @@ export default function SalaryTable({
           <th
             style={{
               color: 'white',
-              fontSize: '23px',
+              fontSize: '18px',
             }}
           >
             {grossDeductions.grossSalaryCurrentYear}
@@ -190,7 +190,7 @@ export default function SalaryTable({
           <th
             style={{
               color: 'white',
-              fontSize: '23px',
+              fontSize: '18px',
             }}
           >
             {grossDeductions.grossSalaryRevisedMonth}
@@ -198,7 +198,7 @@ export default function SalaryTable({
           <th
             style={{
               color: 'white',
-              fontSize: '23px',
+              fontSize: '18px',
             }}
           >
             {grossDeductions.grossSalaryRevisedYear}
