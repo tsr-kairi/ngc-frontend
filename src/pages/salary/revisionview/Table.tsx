@@ -4,27 +4,27 @@ import { Table, createStyles } from '@mantine/core';
 const useStyles = createStyles((theme) => ({
   headerStyle: {
     textTransform: 'uppercase',
-    fontSize: '40px',
+    fontWeight: 'bold',
     height: '70px',
     backgroundColor: `${
-      theme.colorScheme === 'dark'
-        ? `${theme.colors.gray[8]}`
-        : `${theme.colors.gray[0]}`
+      theme.colorScheme === 'dark' ? `${theme.colors.gray[8]}` : `#ffffff`
     }`,
   },
   endStyle: {
     textTransform: 'uppercase',
-    fontSize: '40px',
-    height: '70px',
-    color: `${
-      theme.colorScheme === 'dark'
-        ? `${theme.colors.white}`
-        : `${theme.colors.gray[9]}`
-    }`,
+    height: '80px',
     backgroundColor: `${
       theme.colorScheme === 'dark'
-        ? `${theme.colors.blue[8]}`
-        : `${theme.colors.blue[4]}`
+        ? `${theme.colors.blue[9]}`
+        : `${theme.colors.blue[6]}`
+    }`,
+  },
+  cellStyle: {
+    fontSize: '16px !important',
+    color: `${
+      theme.colorScheme === 'dark'
+        ? `${theme.colors.gray[0]}`
+        : `${theme.colors.gray[8]}}`
     }`,
   },
 }));
@@ -88,12 +88,28 @@ export default function SalaryTable({
   );
 
   return (
-    <Table highlightOnHover withBorder withColumnBorders>
+    <Table withBorder withColumnBorders>
       <thead>
         <tr className={classes.headerStyle}>
           <th />
-          <th colSpan={2}>Current Amount (INR)</th>
-          <th colSpan={2}>Revised Amount (INR)</th>
+          <th
+            style={{
+              fontSize: '18px',
+            }}
+            className={classes.headerStyle}
+            colSpan={2}
+          >
+            Current Amount (INR)
+          </th>
+          <th
+            style={{
+              fontSize: '18px',
+            }}
+            className={classes.headerStyle}
+            colSpan={2}
+          >
+            Revised Amount (INR)
+          </th>
         </tr>
         <tr
           style={{
@@ -110,44 +126,83 @@ export default function SalaryTable({
       <tbody>
         {salaryRows}
         <tr className={classes.headerStyle}>
+          <td className={classes.cellStyle}>Gross Salary</td>
           <td
             style={{
-              fontWeight: 'normal',
+              fontSize: '20px',
             }}
+            className={classes.cellStyle}
           >
-            Gross Salary
+            {grossSalary.grossSalaryCurrentMonth}
           </td>
-          <td>{grossSalary.grossSalaryCurrentMonth}</td>
-          <td>{grossSalary.grossSalaryCurrentYear}</td>
-          <td>{grossSalary.grossSalaryRevisedMonth}</td>
-          <td>{grossSalary.grossSalaryRevisedYear}</td>
+          <td className={classes.cellStyle}>
+            {grossSalary.grossSalaryCurrentYear}
+          </td>
+          <td className={classes.cellStyle}>
+            {grossSalary.grossSalaryRevisedMonth}
+          </td>
+          <td className={classes.cellStyle}>
+            {grossSalary.grossSalaryRevisedYear}
+          </td>
         </tr>
         {deductionRows}
         <tr className={classes.headerStyle}>
-          <td
-            style={{
-              fontWeight: 'normal',
-            }}
-          >
-            Deductions
+          <td className={classes.cellStyle}>Deductions</td>
+          <td className={classes.cellStyle}>
+            {grossDeductions.grossSalaryCurrentMonth}
           </td>
-          <td>{grossDeductions.grossSalaryCurrentMonth}</td>
-          <td>{grossDeductions.grossSalaryCurrentYear}</td>
-          <td>{grossDeductions.grossSalaryRevisedMonth}</td>
-          <td>{grossDeductions.grossSalaryRevisedYear}</td>
+          <td className={classes.cellStyle}>
+            {grossDeductions.grossSalaryCurrentYear}
+          </td>
+          <td className={classes.cellStyle}>
+            {grossDeductions.grossSalaryRevisedMonth}
+          </td>
+          <td className={classes.cellStyle}>
+            {grossDeductions.grossSalaryRevisedYear}
+          </td>
         </tr>
         <tr className={classes.endStyle}>
           <td
             style={{
-              fontWeight: 'normal',
+              fontWeight: 'bold',
+              fontSize: '23px',
+              color: 'white',
             }}
           >
             Net In-Hand Salary
           </td>
-          <th>{grossDeductions.grossSalaryCurrentMonth}</th>
-          <th>{grossDeductions.grossSalaryCurrentYear}</th>
-          <th>{grossDeductions.grossSalaryRevisedMonth}</th>
-          <th>{grossDeductions.grossSalaryRevisedYear}</th>
+          <th
+            style={{
+              color: 'white',
+              fontSize: '23px',
+            }}
+          >
+            {grossDeductions.grossSalaryCurrentMonth}
+          </th>
+          <th
+            style={{
+              color: 'white',
+              fontSize: '23px',
+            }}
+          >
+            {grossDeductions.grossSalaryCurrentYear}
+          </th>
+          <th
+            style={{
+              color: 'white',
+              fontSize: '23px',
+            }}
+          >
+            {grossDeductions.grossSalaryRevisedMonth}
+          </th>
+          <th
+            style={{
+              color: 'white',
+              fontSize: '23px',
+            }}
+          >
+            {grossDeductions.grossSalaryRevisedYear}
+          </th>
         </tr>
       </tbody>
     </Table>

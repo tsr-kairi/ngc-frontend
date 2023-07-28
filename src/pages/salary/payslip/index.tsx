@@ -69,6 +69,7 @@ function SalaryPayslip() {
               border: '1px solid #939393',
               marginTop: '20px',
               padding: '25px 10px',
+              textTransform: 'uppercase',
             }}
           >
             <Text weight={500} size={17}>
@@ -84,6 +85,7 @@ function SalaryPayslip() {
               border: '1px solid #939393',
               padding: '25px 10px',
               borderTop: 'none',
+              textTransform: 'uppercase',
             }}
           >
             <Text weight={500} size={17}>
@@ -99,6 +101,7 @@ function SalaryPayslip() {
               marginTop: '20px',
               borderBottom: '1px solid #939393',
               padding: '25px 10px',
+              textTransform: 'uppercase',
             }}
           >
             <Box>
@@ -112,11 +115,14 @@ function SalaryPayslip() {
             <Text
               weight={600}
               size={27}
-              sx={{
-                backgroundColor: '#C9FCCB',
+              sx={(theme) => ({
+                backgroundColor: `${
+                  theme.colorScheme === 'dark' ? 'green' : '#C9FCCB'
+                }`,
+                color: `${theme.colorScheme === 'dark' ? '#ffffff' : `black`}`,
                 padding: '10px 25px',
                 borderRadius: '5px',
-              }}
+              })}
             >
               ₹ 98,800
             </Text>
@@ -125,6 +131,7 @@ function SalaryPayslip() {
             align="right"
             sx={{
               paddingTop: '10px',
+              textTransform: 'uppercase',
             }}
           >
             Amount In Words : ninety Eight thousand eight hundred only
