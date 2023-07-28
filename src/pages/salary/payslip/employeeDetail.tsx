@@ -20,8 +20,6 @@ function EmployeeDetail() {
       item2: 'Department',
       desc2: 'Sr. Software Engineer',
     },
-
-    // Add more objects as needed
   ];
 
   return (
@@ -34,10 +32,9 @@ function EmployeeDetail() {
       {employmentData.map((item) => (
         <Flex
           key={item.item1}
-          justify="space-between"
+          justify="flex-start"
           sx={{
             padding: '10px 0px',
-            marginBottom: '10px',
             whiteSpace: 'nowrap',
           }}
         >
@@ -53,7 +50,6 @@ function EmployeeDetail() {
           </Box>
           <Box
             sx={{
-              marginRight: '50px',
               textAlign: 'left',
             }}
           >

@@ -180,7 +180,9 @@ function Timecard() {
     ),
     renderRowActionMenuItems: () => (
       <>
-        <Menu.Item icon={<IconEdit />}>Edit Timecard</Menu.Item>
+        <Menu.Item onClick={() => setOpenedEvent(true)} icon={<IconEdit />}>
+          Edit Timecard
+        </Menu.Item>
         <Menu.Item icon={<IconTrash />}>Delete Timecard</Menu.Item>
       </>
     ),
