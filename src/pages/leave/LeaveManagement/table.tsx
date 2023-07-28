@@ -8,15 +8,16 @@ import {
   Badge,
   Box,
   rem,
+  ScrollArea,
   Tabs,
   TabsProps,
   Text,
 } from '@mantine/core';
 import { IconArrowRight } from '@tabler/icons-react';
 import {
-  MRT_Table,
   useMantineReactTable,
   type MRT_ColumnDef,
+  MantineReactTable,
 } from 'mantine-react-table';
 import { useMemo } from 'react';
 import data, { ManageHistoryProps } from './manageHist';
@@ -193,35 +194,46 @@ function Table() {
     enableColumnFilters: false,
     enablePagination: false,
     enableSorting: false,
+    enableFullScreenToggle: false,
     mantineTableProps: {
       highlightOnHover: false,
       withColumnBorders: false,
     },
   });
   return (
-    <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
-      <StyledTabs defaultValue="Timecard">
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: '20px',
-          }}
-        >
-          <Text fz="lg" weight={700}>
-            Leave History
-          </Text>
-          <Tabs.List>
-            <Tabs.Tab value="Timeline">All</Tabs.Tab>
-            <Tabs.Tab value="Timecard">Pending</Tabs.Tab>
-            <Tabs.Tab value="Approved">Approved</Tabs.Tab>
-            <Tabs.Tab value="Rejected">Rejected</Tabs.Tab>
-          </Tabs.List>
-        </Box>
-      </StyledTabs>
-      <MRT_Table table={table} />
-    </Box>
+    <ScrollArea
+      h="56vh"
+      offsetScrollbars
+      styles={() => ({
+        scrollbar: {
+          height: '300px',
+        },
+      })}
+    >
+      <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
+        <StyledTabs defaultValue="Timecard">
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              padding: '20px',
+            }}
+          >
+            <Text fz="lg" weight={700}>
+              Leave History
+            </Text>
+            <Tabs.List>
+              <Tabs.Tab value="Timeline">All</Tabs.Tab>
+              <Tabs.Tab value="Timecard">Pending</Tabs.Tab>
+              <Tabs.Tab value="Approved">Approved</Tabs.Tab>
+              <Tabs.Tab value="Rejected">Rejected</Tabs.Tab>
+            </Tabs.List>
+          </Box>
+        </StyledTabs>
+        <MantineReactTable table={table} />
+      </Box>
+    </ScrollArea>
   );
 }
 

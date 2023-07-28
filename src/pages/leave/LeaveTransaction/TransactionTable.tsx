@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-pascal-case */
 /* eslint-disable react/prop-types */
-import { Badge, Box, Text } from '@mantine/core';
+import { Badge, Box, ScrollArea, Text } from '@mantine/core';
 import {
   MRT_Table,
   useMantineReactTable,
@@ -100,12 +100,22 @@ function TransactionTable() {
     },
   });
   return (
-    <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
-      <Text fz="lg" weight={700} mb="md">
-        Leave Transaction History
-      </Text>
-      <MRT_Table table={table} />
-    </Box>
+    <ScrollArea
+      h="56vh"
+      offsetScrollbars
+      styles={() => ({
+        scrollbar: {
+          height: '300px',
+        },
+      })}
+    >
+      <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
+        <Text fz="lg" weight={700} mb="md">
+          Leave Transaction History
+        </Text>
+        <MRT_Table table={table} />
+      </Box>
+    </ScrollArea>
   );
 }
 

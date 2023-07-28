@@ -80,6 +80,7 @@ function DashboardHeader({
               sidebarCollapsed ? 'flex-start' : 'space-between'
             }`,
             gap: `${!IsMobileScreen() ? '32px' : '0px'}`,
+            paddingLeft: `${sidebarCollapsed ? '8px' : ''}`,
           }}
         >
           <MediaQuery largerThan="sm" styles={{ display: 'none' }}>

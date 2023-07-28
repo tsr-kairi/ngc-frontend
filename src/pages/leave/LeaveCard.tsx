@@ -1,4 +1,11 @@
-import { ActionIcon, Box, Flex, Progress, Text } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Progress,
+  Text,
+  useMantineTheme,
+} from '@mantine/core';
 import { IconExternalLink } from '@tabler/icons-react';
 
 export default function LeaveCard({
@@ -7,10 +14,11 @@ export default function LeaveCard({
   details,
   granted,
 }: LeaveCardType) {
+  const theme = useMantineTheme();
   const getColorDark = (): string => {
-    if (type === 'Casual') return '#b20000';
-    if (type === 'Sick') return '#d28b03';
-    if (type === 'Earned') return '#039922';
+    if (type === 'Casual') return `${theme.colors.error[3]}`;
+    if (type === 'Sick') return `${theme.colors.warning[8]}`;
+    if (type === 'Earned') return `${theme.colors.success[4]}`;
     return 'unknown';
   };
 
@@ -28,7 +36,7 @@ export default function LeaveCard({
   return (
     <Flex
       gap="lg"
-      sx={(theme) => ({
+      sx={() => ({
         backgroundColor:
           theme.colorScheme === 'dark' ? `${theme.colors.dark[6]}` : `#fffff`,
         boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
