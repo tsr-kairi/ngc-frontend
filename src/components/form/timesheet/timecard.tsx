@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Badge, Box, Group, Menu, Text } from '@mantine/core';
+import { Badge, Box, Group, Menu } from '@mantine/core';
 import {
   IconCheck,
   IconEdit,
@@ -11,14 +11,12 @@ import {
   useMantineReactTable,
   type MRT_ColumnDef,
 } from 'mantine-react-table';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import data, { ApprovalType, TimesheetProps } from './makeData';
 
 function Timecard() {
   // const [approvalBtn, setApprovalBtn] = useState<ApprovalType>(null);
   const [approvalData, setApprovalData] = useState([...data]); // Replace `[...]` with your actual data array
-  const dividers = Array.from({ length: 9 }, (_, index) => index);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleApproval = (rowIndex: number, approval: ApprovalType) => {
     const newData = [...approvalData];
@@ -135,23 +133,6 @@ function Timecard() {
     enableExpanding: true,
     enableExpandAll: true,
     enableFullScreenToggle: false,
-    getSubRows: (originalRow) => originalRow.subRows,
-    renderDetailPanel: () => (
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '130px',
-          width: '100%',
-          marginLeft: '100px',
-        }}
-      >
-        {dividers.map((hour) => (
-          <React.Fragment key={hour}>
-            <Text>Address</Text>
-          </React.Fragment>
-        ))}
-      </Box>
-    ),
     renderRowActionMenuItems: () => (
       <>
         <Menu.Item icon={<IconEdit />}>Edit Timecard</Menu.Item>
@@ -160,7 +141,7 @@ function Timecard() {
     ),
   });
   return (
-    <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
+    <Box mt="40px" sx={{ width: 'calc(100vw - 300px)' }}>
       <MantineReactTable table={table} />
     </Box>
   );
