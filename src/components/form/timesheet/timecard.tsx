@@ -22,7 +22,7 @@ import {
   useMantineReactTable,
   type MRT_ColumnDef,
 } from 'mantine-react-table';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import CalendarForm from './form/calendarForm';
 import data, { ApprovalType, TimesheetProps } from './makeData';
 
@@ -37,7 +37,7 @@ const useStyles = createStyles(() => ({
 function Timecard() {
   // const [approvalBtn, setApprovalBtn] = useState<ApprovalType>(null);
   const [approvalData, setApprovalData] = useState([...data]); // Replace `[...]` with your actual data array
-  const dividers = Array.from({ length: 9 }, (_, index) => index);
+  // const dividers = Array.from({ length: 9 }, (_, index) => index);
   const [openedEvent, setOpenedEvent] = useState(false);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
