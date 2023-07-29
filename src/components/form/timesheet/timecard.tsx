@@ -161,23 +161,6 @@ function Timecard() {
     enableExpanding: true,
     enableExpandAll: true,
     enableFullScreenToggle: false,
-    getSubRows: (originalRow) => originalRow.subRows,
-    renderDetailPanel: () => (
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '130px',
-          width: '100%',
-          marginLeft: '100px',
-        }}
-      >
-        {dividers.map((hour) => (
-          <React.Fragment key={hour}>
-            <Text>Address</Text>
-          </React.Fragment>
-        ))}
-      </Box>
-    ),
     renderRowActionMenuItems: () => (
       <>
         <Menu.Item onClick={() => setOpenedEvent(true)} icon={<IconEdit />}>
@@ -189,7 +172,7 @@ function Timecard() {
   });
   const { classes } = useStyles();
   return (
-    <Box mt="40px" sx={{ overflow: 'auto', width: '100%' }}>
+    <Box mt="40px" sx={{ width: 'calc(100vw - 300px)' }}>
       <MantineReactTable table={table} />
       <Drawer
         opened={openedEvent}

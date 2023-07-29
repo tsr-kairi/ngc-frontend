@@ -1,4 +1,4 @@
-import { AppShell } from '@mantine/core';
+import { AppShell, ScrollArea } from '@mantine/core';
 import { useNetwork } from '@mantine/hooks';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -24,14 +24,14 @@ function DashboardLayout() {
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={
-        <div hidden={opened}>
-          <Navbar
-            opened={opened}
-            setOpened={setOpened}
-            setSidebarCollapsed={setSidebarCollapsed}
-            sidebarCollapsed={sidebarCollapsed}
-          />
-        </div>
+        // <div hidden={opened}>
+        <Navbar
+          opened={opened}
+          setOpened={setOpened}
+          setSidebarCollapsed={setSidebarCollapsed}
+          sidebarCollapsed={sidebarCollapsed}
+        />
+        // </div>
       }
       header={
         <div hidden={opened}>
@@ -45,16 +45,16 @@ function DashboardLayout() {
       }
     >
       {online ? (
-        <div
+        <ScrollArea
+          type="never"
           style={{
-            flex: 1,
-            maxWidth: `${
-              sidebarCollapsed ? 'calc(100vw - 130px)' : 'calc(100vw - 350px)'
-            }`,
+            width: `${!sidebarCollapsed ? 'calc(100vw - 300px)' : '94vw'}`,
+            maxWidth: 'calc(100vw - 10vh)',
+            height: 'calc(100vh - 95px)',
           }}
         >
           <Outlet />
-        </div>
+        </ScrollArea>
       ) : (
         <div
           style={{

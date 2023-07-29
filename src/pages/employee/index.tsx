@@ -168,7 +168,7 @@ function Employee() {
   return (
     <div
       style={{
-        width: '100%',
+        width: 'calc(100vw - 300px)',
       }}
     >
       <MantineReactTable

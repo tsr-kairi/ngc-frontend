@@ -1,4 +1,4 @@
-import { Tabs, TabsProps } from '@mantine/core';
+import { Tabs, TabsProps, createStyles } from '@mantine/core';
 import {
   IconMessageCircle,
   IconPhoto,
@@ -14,6 +14,14 @@ import ProfileExperience from './experience';
 import ProfileInfo from './personal';
 import ProfileSkills from './skills';
 import ProfileTopBar from './topBar';
+
+const useStyles = createStyles(() => ({
+  tabList: {
+    position: 'sticky',
+    top: 0,
+    height: '90vh',
+  },
+}));
 
 function StyledTabs(props: TabsProps) {
   return (
@@ -64,6 +72,11 @@ function StyledTabs(props: TabsProps) {
             color: theme.white,
           },
         },
+        position: 'fixed',
+        top: -300,
+        zIndex: 100,
+        height: '10vh',
+        overflowY: 'auto',
 
         tabsList: {
           marginRight: theme.spacing.lg,
@@ -83,10 +96,11 @@ function StyledTabs(props: TabsProps) {
 }
 
 export default function ProfileTabs() {
+  const { classes } = useStyles();
   const [Progress] = useState(80);
   return (
     <StyledTabs defaultValue="personal" orientation="vertical">
-      <Tabs.List>
+      <Tabs.List className={classes.tabList}>
         <AvatarBox />
         <Tabs.Tab value="personal" icon={<IconSettings size="1rem" />}>
           Personal Details

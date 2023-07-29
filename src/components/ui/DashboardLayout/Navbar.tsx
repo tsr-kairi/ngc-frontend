@@ -161,6 +161,7 @@ export default function Navbar({
       to={item?.href || ''}
       active={location.pathname === `${item.href}`}
       label={sidebarCollapsed ? '' : item.label} // Show label only when the sidebar is expanded
+      onClick={() => setSidebarCollapsed(false)}
       // rightSection={sidebarCollapsed && item.rightSection}
       icon={
         <ActionIcon
@@ -181,7 +182,6 @@ export default function Navbar({
           label={sidebarCollapsed ? '' : subItem.label} // Show label only when the sidebar is expanded
           component={Link}
           to={subItem?.href || ''}
-          onClick={() => setSidebarCollapsed(false)}
           icon={
             <ActionIcon variant="light">
               <subItem.icon
@@ -203,6 +203,7 @@ export default function Navbar({
       label={sidebarCollapsed ? '' : item.label} // Show label only when the sidebar is expanded
       component={Link}
       to={item?.href || ''}
+      onClick={() => setSidebarCollapsed(false)}
       icon={
         <ActionIcon
           variant="light"
@@ -231,13 +232,10 @@ export default function Navbar({
       w={sidebarCollapsed ? 85 : 300} // Set the width based on the sidebar state
     >
       <ScrollArea
-        h="90vh"
-        offsetScrollbars
-        styles={() => ({
-          scrollbar: {
-            height: '0px',
-          },
-        })}
+        type="never"
+        style={{
+          height: 'calc(100vh - 10vh)',
+        }}
       >
         <Box
           py="lg"
