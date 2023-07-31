@@ -13,20 +13,20 @@ import {
 
 import {
   IconActivity,
-  IconTransferOut,
+  IconBrandBlogger,
+  IconBuildingBank,
   IconCalendarTime,
+  IconCoins,
   IconDoorExit,
   IconGauge,
-  IconUser,
-  IconUserCircle,
-  IconSubtask,
-  IconWallet,
   IconReceipt,
   IconReceiptTax,
-  IconBuildingBank,
-  IconCoins,
+  IconSubtask,
+  IconTransferOut,
+  IconUser,
+  IconUserCircle,
   IconUserPlus,
-  IconBrandBlogger,
+  IconWallet,
 } from '@tabler/icons-react';
 
 import { Link, useLocation } from 'react-router-dom';
@@ -86,6 +86,7 @@ const data = [
     // rightSection: <IconUser size="1rem" stroke={1.5} />,
   },
   { icon: IconCalendarTime, label: 'Timesheet', href: '/timesheet' },
+  { icon: IconCalendarTime, label: 'Timesheet', href: '/timetable' },
   {
     icon: IconDoorExit,
     label: 'Leave',

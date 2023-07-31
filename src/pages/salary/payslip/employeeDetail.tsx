@@ -26,16 +26,17 @@ function EmployeeDetail() {
     <Box
       sx={{
         padding: '25px 50px',
+        width: '25vw',
+        whiteSpace: 'nowrap',
+        marginTop: '20px',
       }}
     >
       <Text>Employment</Text>
       {employmentData.map((item) => (
         <Flex
           key={item.item1}
-          justify="flex-start"
           sx={{
-            padding: '10px 0px',
-            whiteSpace: 'nowrap',
+            marginBottom: '20px',
           }}
         >
           <Box
@@ -48,11 +49,7 @@ function EmployeeDetail() {
             </Text>
             <Text fw={500}>{item.desc1}</Text>
           </Box>
-          <Box
-            sx={{
-              textAlign: 'left',
-            }}
-          >
+          <Box>
             <Text color="grey">{item.item2}</Text>
             <Text fw={500}>{item.desc2}</Text>
           </Box>

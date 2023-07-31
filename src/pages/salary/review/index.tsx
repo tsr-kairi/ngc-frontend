@@ -1,10 +1,11 @@
 import { Box, Divider, Stack, Text } from '@mantine/core';
+import { currencyFormat } from '../loan';
 import TableReview from './tableReview';
 
 function SalaryReview() {
   return (
     <Box>
-      <Text fz="xl" weight={700} mb="md">
+      <Text size={30} weight={700} mb="md">
         Salary Revsision
       </Text>
       <Box
@@ -48,7 +49,7 @@ function SalaryReview() {
             CTC AFTER LAST REVISION
           </Text>
           <Text fz="25px" weight={600}>
-            $98,000
+            {currencyFormat(98000)}
           </Text>
         </Stack>
       </Box>

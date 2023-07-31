@@ -56,6 +56,9 @@ export default function SalaryTable({
       <td>{salary.revisedAnnual}</td>
     </tr>
   ));
+  function roundToNearest10(number: number) {
+    return Math.ceil(number / 10) * 10;
+  }
   const grossSalary = salarys.reduce(
     (acc, curr) => {
       acc.grossSalaryCurrentMonth += curr.currentMonthly;
@@ -165,7 +168,7 @@ export default function SalaryTable({
           <td
             style={{
               fontWeight: 'bold',
-              fontSize: '18px',
+              fontSize: '16px',
               color: 'white',
             }}
           >
@@ -174,10 +177,13 @@ export default function SalaryTable({
           <th
             style={{
               color: 'white',
-              fontSize: '18px',
+              fontSize: '16px',
             }}
           >
-            {grossDeductions.grossSalaryCurrentMonth}
+            {roundToNearest10(
+              grossSalary.grossSalaryCurrentMonth -
+                grossDeductions.grossSalaryCurrentMonth
+            )}
           </th>
           <th
             style={{
@@ -185,7 +191,10 @@ export default function SalaryTable({
               fontSize: '18px',
             }}
           >
-            {grossDeductions.grossSalaryCurrentYear}
+            {roundToNearest10(
+              grossSalary.grossSalaryCurrentYear -
+                grossDeductions.grossSalaryCurrentYear
+            )}
           </th>
           <th
             style={{
@@ -193,7 +202,10 @@ export default function SalaryTable({
               fontSize: '18px',
             }}
           >
-            {grossDeductions.grossSalaryRevisedMonth}
+            {roundToNearest10(
+              grossSalary.grossSalaryRevisedMonth -
+                grossDeductions.grossSalaryRevisedMonth
+            )}
           </th>
           <th
             style={{
@@ -201,7 +213,10 @@ export default function SalaryTable({
               fontSize: '18px',
             }}
           >
-            {grossDeductions.grossSalaryRevisedYear}
+            {roundToNearest10(
+              grossSalary.grossSalaryRevisedYear -
+                grossDeductions.grossSalaryRevisedYear
+            )}
           </th>
         </tr>
       </tbody>

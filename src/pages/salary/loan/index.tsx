@@ -21,6 +21,13 @@ import { useState } from 'react';
 import LoanAppTable from './loanAppTable';
 import LoanHistTable from './loanHistTable';
 
+export function currencyFormat(numberValue: number): string {
+  return numberValue.toLocaleString('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+  });
+}
+
 function StyledTabs(props: TabsProps) {
   return (
     <Tabs
@@ -171,7 +178,7 @@ function SalaryLoan() {
         </Flex>
       </Drawer>
       <Group position="apart" mb="md" mr="lg">
-        <Text fz="xl" weight={700}>
+        <Text size={30} weight={700}>
           Loan
         </Text>
         <Button onClick={open}>Apply Leave</Button>
@@ -191,7 +198,7 @@ function SalaryLoan() {
                 Current Salary
               </Text>
               <Text fz="lg" weight={700} mr="md">
-                $10000
+                {currencyFormat(10000)}
               </Text>
             </Group>
             <Divider />
@@ -200,7 +207,7 @@ function SalaryLoan() {
                 Last Loan Amount
               </Text>
               <Text fz="lg" weight={700} mr="md">
-                $10000
+                {currencyFormat(10000)}
               </Text>
             </Group>
             <Divider />
@@ -227,7 +234,7 @@ function SalaryLoan() {
                 Last Loan Amount
               </Text>
               <Text fz="lg" weight={800} mr="md">
-                $10000
+                {currencyFormat(10000)}
               </Text>
             </Group>
           </Stack>
@@ -237,20 +244,20 @@ function SalaryLoan() {
             <Text fz="25px" weight={200} ml="20px">
               Total Credit Limit
               <Text fz="40px" weight={600} color="blue" ml="20px">
-                $35,0000
+                {currencyFormat(350000)}
               </Text>
             </Text>
             <Box>
               <Text fz="25px" weight={200} mr="40px">
                 Total Credit Limit
                 <Text fz="40px" weight={600} color="red" ml="20px">
-                  $35,0000
+                  {currencyFormat(350000)}
                 </Text>
               </Text>
               <Text fz="25px" weight={200} mt="lg">
                 Total Credit Limit
                 <Text fz="40px" weight={600} color="red" ml="20px">
-                  $35,0000
+                  {currencyFormat(350000)}
                 </Text>
               </Text>
             </Box>
