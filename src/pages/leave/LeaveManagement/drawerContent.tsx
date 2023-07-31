@@ -5,16 +5,16 @@ import {
   Center,
   Flex,
   Group,
-  Modal,
+  Menu,
   Select,
   Tabs,
   Text,
   Textarea,
 } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
-import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import StyledTabs from './styledTabs';
+import { useDisclosure } from '@mantine/hooks';
 
 function formatDateToDisplay(date: Date | null): string {
   if (date) {
@@ -38,11 +38,14 @@ function calculateDateDifference(
   }
   return 0;
 }
+// Define the type for onClose prop
+type DrawerContentProps = {
+  onClose: () => void;
+};
 
-function DrawerContent() {
-  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
+function DrawerContent({ onClose }: DrawerContentProps) {
   const [opened, { open, close }] = useDisclosure(false);
-
+  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
   const startDate = formatDateToDisplay(value[0]);
   const endDate = formatDateToDisplay(value[1]);
   const dateDifference = calculateDateDifference(value[0], value[1]);
@@ -63,84 +66,118 @@ function DrawerContent() {
           width: '100%',
         }}
       >
-        <Modal
-          size="auto"
-          opened={opened}
-          onClose={close}
-          title="pick the dates"
-        >
-          <Center>
-            <DatePicker type="range" value={value} onChange={setValue} />
-          </Center>
-        </Modal>
-        <Flex
-          sx={{
-            border: '1px solid #D4D4D4',
-            paddingLeft: '10px',
-            paddingRight: '10px',
-            position: 'relative',
-            borderRadius: '2px',
-            height: '100px',
-            margin: '10px 0px',
-          }}
-        >
-          <Box
-            sx={{
-              paddingTop: '10px',
-              paddingBottom: '10px',
-              cursor: 'pointer',
-              width: '50%',
-              zIndex: 10,
-              borderRight: '1px solid #D4D4D4',
-            }}
-            onClick={open}
-          >
-            <Text>From Date</Text>
-            <Text size={30} weight={500}>
-              {startDate}
-            </Text>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex', // Use Flexbox
-              alignItems: 'center', // Center vertically
-              position: 'absolute',
-              top: '0',
-              bottom: '0',
-              left: '0',
-              right: '0',
-              justifyContent: 'center', // Center horizontally
-            }}
-          >
-            <Box
-              sx={{
-                padding: '10px 40px',
-                backgroundColor: '#F1F1F1',
-                borderRadius: '5px',
-                zIndex: 20,
-              }}
+        <Menu width="95%" opened={opened}>
+          <Menu.Dropdown>
+            <Menu.Label>Pick the dates</Menu.Label>
+            {/* <Menu.Item> */}
+            <Center>
+              <DatePicker
+                styles={{
+                  month: { width: '100%' },
+                  calendarHeader: { maxWidth: '100%' },
+                }}
+                onClick={close}
+                size="xl"
+                maw="100%"
+                type="range"
+                value={value}
+                onChange={setValue}
+              />
+            </Center>
+            {/* </Menu.Item> */}
+          </Menu.Dropdown>
+          <Menu.Target>
+            <Flex
+              onClick={open}
+              sx={(theme) => ({
+                border: `0.11rem solid 
+                      ${
+                        theme.colorScheme === 'dark'
+                          ? theme.colors.gray[7]
+                          : theme.colors.dark[1]
+                      }
+                        `,
+                paddingLeft: '10px',
+                paddingRight: '10px',
+                position: 'relative',
+                borderRadius: '2px',
+                height: '100px',
+                margin: '10px 0px',
+              })}
             >
-              <Text size={25} weight={500}>{`${dateDifference} DAYS`}</Text>
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              paddingTop: '10px',
-              paddingBottom: '10px',
-              cursor: 'pointer',
-              width: '50%',
-              paddingLeft: '10px',
-              textAlign: 'right',
-              zIndex: 10,
-            }}
-            onClick={open}
-          >
-            <Text>To Date</Text>
-            <Text size={30} weight={500}>
-              {endDate}
-            </Text>
-          </Box>
-        </Flex>
+              <Box
+                sx={(theme) => ({
+                  paddingTop: '10px',
+                  paddingBottom: '10px',
+                  cursor: 'pointer',
+                  width: '50%',
+                  zIndex: 10,
+                  borderRight: `0.11rem solid 
+                      ${
+                        theme.colorScheme === 'dark'
+                          ? theme.colors.gray[7]
+                          : theme.colors.dark[1]
+                      }
+                        `,
+                })}
+              >
+                <Text>From Date</Text>
+                <Text size={25} weight={500}>
+                  {startDate}
+                </Text>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex', // Use Flexbox
+                  alignItems: 'center', // Center vertically
+                  position: 'absolute',
+                  top: '0',
+                  bottom: '0',
+                  left: '0',
+                  right: '0',
+                  justifyContent: 'center', // Center horizontally
+                }}
+              >
+                <Box
+                  sx={(theme) => ({
+                    padding: '10px 40px',
+                    backgroundColor:
+                      theme.colorScheme === 'dark'
+                        ? theme.colors.dark[6]
+                        : theme.colors.gray[1],
+                    border: `0.11rem solid 
+                      ${
+                        theme.colorScheme === 'dark'
+                          ? theme.colors.gray[9]
+                          : theme.colors.dark[1]
+                      }
+                        `,
+                    borderRadius: '5px',
+                    zIndex: 20,
+                  })}
+                >
+                  <Text size={25} weight={500}>{`${dateDifference} DAYS`}</Text>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  paddingTop: '10px',
+                  paddingBottom: '10px',
+                  cursor: 'pointer',
+                  width: '50%',
+                  paddingLeft: '10px',
+                  textAlign: 'right',
+                  zIndex: 10,
+                }}
+              >
+                <Text>To Date</Text>
+                <Text size={25} weight={500}>
+                  {endDate}
+                </Text>
+              </Box>
+            </Flex>
+          </Menu.Target>
+        </Menu>
         <Flex justify="space-between">
           <StyledTabs>
             <Tabs.List defaultValue="first">
@@ -156,10 +193,10 @@ function DrawerContent() {
           </StyledTabs>
         </Flex>
         <Group
-          grow
-          sx={{
-            width: '80%',
-          }}
+          position="apart"
+          // sx={{
+          //   width: '80%',
+          // }}
         >
           <Select
             label="Select Leave Type"
@@ -179,60 +216,104 @@ function DrawerContent() {
             5 Leaves Available
           </Text>
         </Group>
-        <Flex gap={20}>
+        <Group grow>
           <Box
-            sx={{
-              backgroundColor: '#F4F4F4',
+            sx={(theme) => ({
+              backgroundColor:
+                theme.colorScheme === 'dark'
+                  ? theme.colors.dark[6]
+                  : theme.colors.gray[1],
+              border: `0.11rem solid 
+                      ${
+                        theme.colorScheme === 'dark'
+                          ? theme.colors.gray[9]
+                          : theme.colors.dark[1]
+                      }
+                        `,
               padding: '10px 30px',
               borderRadius: '5px',
-            }}
+            })}
           >
             <Text
-              sx={{
-                marginBottom: '5px',
-              }}
+              sx={(theme) => ({
+                color: theme.colors.brand[4],
+              })}
             >
               Client Approver
             </Text>
-            <Flex gap={20}>
-              <Avatar size="lg" radius="xl" color="grey" />
+            <Flex gap={20} mt="md">
+              <Avatar
+                radius="xl"
+                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+              />
               <Box>
                 <Text size="md">Akash Varma</Text>
-                <Text size="sm">CEO, Info Tech Ltd. </Text>
+                <Text
+                  size="xs"
+                  weight="lighter"
+                  sx={(theme) => ({
+                    color: theme.colors.gray[6],
+                  })}
+                >
+                  CEO, Info Tech Ltd.{' '}
+                </Text>
               </Box>
             </Flex>
           </Box>
           <Box
-            sx={{
-              backgroundColor: '#F4F4F4',
+            sx={(theme) => ({
+              backgroundColor:
+                theme.colorScheme === 'dark'
+                  ? theme.colors.dark[6]
+                  : theme.colors.gray[1],
+              border: `0.11rem solid 
+                      ${
+                        theme.colorScheme === 'dark'
+                          ? theme.colors.gray[9]
+                          : theme.colors.dark[1]
+                      }
+                        `,
               padding: '10px 30px',
               borderRadius: '5px',
-            }}
+            })}
           >
             <Text
-              sx={{
-                marginBottom: '5px',
-              }}
+              sx={(theme) => ({
+                color: theme.colors.brand[4],
+              })}
             >
               Company Approver
             </Text>
-            <Flex gap={20}>
-              <Avatar size="lg" radius="xl" color="grey" />
+            <Flex gap={20} mt="md">
+              <Avatar
+                radius="xl"
+                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+              />
               <Box>
                 <Text size="md">Akash Varma</Text>
-                <Text size="sm">CEO, Info Tech Ltd. </Text>
+                <Text
+                  size="xs"
+                  weight="lighter"
+                  sx={(theme) => ({
+                    color: theme.colors.gray[6],
+                  })}
+                >
+                  CEO, Info Tech Ltd.{' '}
+                </Text>
               </Box>
             </Flex>
           </Box>
-        </Flex>
+        </Group>
         <Textarea
-          placeholder="Please mention the leave reason in details"
+          placeholder="Please mention the leave reason in details..."
           minRows={5}
         />
       </Flex>
       <Flex gap={10}>
-        <Button variant="outline">cancel</Button>
-        <Button>submit</Button>
+        <Button variant="outline" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button>Submit</Button>
       </Flex>
     </Flex>
   );
