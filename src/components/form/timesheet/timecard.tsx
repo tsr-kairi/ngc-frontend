@@ -26,6 +26,21 @@ import { useMemo, useState } from 'react';
 import CalendarForm from './form/calendarForm';
 import data, { ApprovalType, TimesheetProps } from './makeData';
 
+function formatDateToCustomFormat(dateString: string): string {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const year = date.getFullYear().toString().slice(-2);
+  const month = date.toLocaleString('default', { month: 'short' });
+
+  return `${day} ${month} ${year}`;
+}
+
+function getDayOfWeek(dateString: string): string {
+  const date = new Date(dateString);
+  const dayOfWeek = date.toLocaleString('default', { weekday: 'long' });
+  return dayOfWeek;
+}
+
 const useStyles = createStyles(() => ({
   drawer: {
     overflowY: 'scroll',
@@ -107,18 +122,17 @@ function Timecard() {
         accessorFn: (row) => new Date(row.date),
         id: 'date',
         header: 'Date',
-        filterFn: 'lessThanOrEqualTo',
         sortingFn: 'datetime',
 
-        Cell: ({ cell }) => cell.getValue<Date>()?.toLocaleDateString(),
-      },
-      {
-        accessorKey: 'checkin',
-        header: 'Checkin',
-      },
-      {
-        accessorKey: 'checkout',
-        header: 'Checkout',
+        // eslint-disable-next-line react/no-unstable-nested-components
+        Cell: ({ cell }) => {
+          return (
+            <Group>
+              <Text>{formatDateToCustomFormat(cell.getValue() as string)}</Text>
+              <Badge>{getDayOfWeek(cell.getValue() as string)}</Badge>
+            </Group>
+          );
+        },
       },
       {
         accessorKey: 'workHours',
@@ -143,24 +157,14 @@ function Timecard() {
   const table = useMantineReactTable({
     columns,
     data: approvalData,
+    enableColumnActions: false,
+    enableColumnFilters: false,
     enablePagination: true,
-    positionToolbarAlertBanner: 'bottom',
+    enableSorting: false,
     mantineTableProps: {
       highlightOnHover: false,
       withColumnBorders: false,
     },
-    enableColumnFilterModes: true,
-    enableBottomToolbar: true,
-    enableColumnOrdering: true,
-    paginateExpandedRows: true,
-    enableGrouping: true,
-    enablePinning: true,
-    enableRowVirtualization: true,
-    enableRowActions: true,
-    enableStickyHeader: true,
-    enableExpanding: true,
-    enableExpandAll: true,
-    enableFullScreenToggle: false,
     renderRowActionMenuItems: () => (
       <>
         <Menu.Item onClick={() => setOpenedEvent(true)} icon={<IconEdit />}>
