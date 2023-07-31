@@ -28,6 +28,7 @@ function StyledTabs(props: TabsProps) {
           fontSize: theme.fontSizes.sm,
           display: 'flex',
           alignItems: 'center',
+          height: '40px',
 
           '&:disabled': {
             opacity: 0.5,

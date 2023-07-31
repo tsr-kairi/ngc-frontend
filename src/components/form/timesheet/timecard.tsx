@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
 import IsMobileScreen from '@/hooks/useIsMobileScreen';
 import {
@@ -61,6 +62,22 @@ function Timecard() {
     newData[rowIndex].approval = approval;
     setApprovalData(newData);
   };
+  const pendingHoursSum = data.reduce((acc, curr) => {
+    const pendingHours = parseInt(curr.pendingHours, 10);
+    return acc + pendingHours;
+  }, 0);
+  const workHourSum = data.reduce((acc, curr) => {
+    const workHours = parseInt(curr.workHours, 10);
+    return acc + workHours;
+  }, 0);
+  const rejectedHoursSum = data.reduce((acc, curr) => {
+    const rejectedHours = parseInt(curr.rejectedHours, 10);
+    return acc + rejectedHours;
+  }, 0);
+  const approvedHoursSum = data.reduce((acc, curr) => {
+    const approvedHours = parseInt(curr.approvedHours, 10);
+    return acc + approvedHours;
+  }, 0);
 
   const columns = useMemo<MRT_ColumnDef<TimesheetProps>[]>(
     () => [
@@ -137,21 +154,47 @@ function Timecard() {
       {
         accessorKey: 'workHours',
         header: 'Work Hours',
+        Footer: () => (
+          <Text fz="lg" weight={600}>
+            {workHourSum}:00
+          </Text>
+        ),
       },
       {
         accessorKey: 'approvedHours',
         header: 'Approved Hours',
+        Footer: () => (
+          <Text fz="lg" weight={600}>
+            {approvedHoursSum}:00
+          </Text>
+        ),
       },
       {
         accessorKey: 'pendingHours',
         header: 'Pending Hours',
+        Footer: () => (
+          <Text fz="lg" weight={600}>
+            {pendingHoursSum}:00
+          </Text>
+        ),
       },
       {
         accessorKey: 'rejectedHours',
         header: 'Rejected Hours',
+        Footer: () => (
+          <Text fz="lg" weight={600}>
+            {rejectedHoursSum}:00
+          </Text>
+        ),
       },
     ],
-    [handleApproval]
+    [
+      handleApproval,
+      pendingHoursSum,
+      workHourSum,
+      rejectedHoursSum,
+      approvedHoursSum,
+    ]
   );
 
   const table = useMantineReactTable({
@@ -159,8 +202,9 @@ function Timecard() {
     data: approvalData,
     enableColumnActions: false,
     enableColumnFilters: false,
-    enablePagination: true,
+    enablePagination: false,
     enableSorting: false,
+    enableTopToolbar: false,
     mantineTableProps: {
       highlightOnHover: false,
       withColumnBorders: false,

@@ -1,5 +1,9 @@
 import { ActionIcon, Group } from '@mantine/core';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import {
+  IconCalendar,
+  IconChevronLeft,
+  IconChevronRight,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
 function WeekSwitcher() {
@@ -83,6 +87,7 @@ function WeekSwitcher() {
       >
         <IconChevronRight />
       </ActionIcon>
+      <IconCalendar />
     </Group>
   );
 }
