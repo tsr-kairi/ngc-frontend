@@ -3,7 +3,6 @@ import { MonthPickerInput } from '@mantine/dates';
 import { IconDownload } from '@tabler/icons-react';
 import { useState } from 'react';
 import EmployeeDetail from './employeeDetail';
-import PaymentDetail from './paymentDetail';
 import SalaryTable from './salaryTable';
 
 function SalaryPayslip() {
@@ -25,7 +24,9 @@ function SalaryPayslip() {
         }}
       >
         <Flex>
-          <Text size={30}>Payslip for the Month of</Text>
+          <Text size={30} weight={700}>
+            Payslip for the Month of
+          </Text>
           <Text
             size={30}
             weight={600}
@@ -145,7 +146,7 @@ function SalaryPayslip() {
           }}
         >
           <EmployeeDetail />
-          <PaymentDetail />
+          <EmployeeDetail />
         </Box>
       </Flex>
     </Flex>

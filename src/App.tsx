@@ -8,11 +8,12 @@ import LeaveManagement from './pages/leave/LeaveManagement';
 import TransactionPage from './pages/leave/LeaveTransaction';
 import Onboarding from './pages/onboarding';
 import ProfileTabs from './pages/profile/profile';
+import SalaryLoan from './pages/salary/loan';
 import SalaryPaylisp from './pages/salary/payslip';
 import SalaryReview from './pages/salary/review';
 import SalaryRevisionView from './pages/salary/revisionview';
 import Timesheet1 from './pages/timesheet';
-import SalaryLoan from './pages/salary/loan';
+import TimeTable from './pages/timetable';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -129,7 +130,6 @@ function App() {
                 </WrapSuspense>
               }
             />
-
             <Route
               path="/profile"
               element={
@@ -138,7 +138,6 @@ function App() {
                 </WrapSuspense>
               }
             />
-
             <Route
               path="/leave-transaction"
               element={
@@ -184,6 +183,14 @@ function App() {
               element={
                 <WrapSuspense>
                   <SalaryLoan />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/timetable"
+              element={
+                <WrapSuspense>
+                  <TimeTable />
                 </WrapSuspense>
               }
             />

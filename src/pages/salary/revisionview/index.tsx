@@ -77,24 +77,24 @@ const deductions = [
   },
   {
     SalaryComponent: 'Professional Tax',
-    currentMonthly: 12.011,
-    currentAnnual: 144.132,
-    revisedMonthly: 12.011,
-    revisedAnnual: 144.132,
+    currentMonthly: 12,
+    currentAnnual: 144,
+    revisedMonthly: 12,
+    revisedAnnual: 144,
   },
   {
     SalaryComponent: 'TDS',
-    currentMonthly: 12.011,
-    currentAnnual: 144.132,
-    revisedMonthly: 12.011,
-    revisedAnnual: 144.132,
+    currentMonthly: 12,
+    currentAnnual: 144,
+    revisedMonthly: 12,
+    revisedAnnual: 144,
   },
 ];
 
 export default function SalaryRevisionView() {
   return (
     <Box>
-      <Text fw={400} size={30}>
+      <Text size={30} weight={700}>
         Salary Revision View
       </Text>
       <SalaryTable salarys={salary} deductions={deductions} />
