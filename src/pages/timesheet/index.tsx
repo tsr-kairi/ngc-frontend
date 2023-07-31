@@ -2,19 +2,8 @@
 
 import Timecard from '@/components/form/timesheet/timecard';
 import Timeline from '@/components/form/timesheet/timeline';
-import {
-  Box,
-  Divider,
-  Group,
-  Pagination,
-  rem,
-  Tabs,
-  TabsProps,
-  Text,
-} from '@mantine/core';
-import { DatePickerInput } from '@mantine/dates';
-import { IconCalendar } from '@tabler/icons-react';
-import { useState } from 'react';
+import { Box, Pagination, rem, Tabs, TabsProps, Text } from '@mantine/core';
+import WeekSwitcher from './weekSwitch';
 
 function StyledTabs(props: TabsProps) {
   return (
@@ -82,8 +71,8 @@ function StyledTabs(props: TabsProps) {
 }
 
 function Timesheet1() {
-  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
-  const [date, setDate] = useState<Date | null>(null);
+  // const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
+  // const [date, setDate] = useState<Date | null>(null);
 
   return (
     <>
@@ -100,36 +89,7 @@ function Timesheet1() {
           }}
           pt="20px"
         >
-          <Group>
-            <DatePickerInput
-              icon={<IconCalendar size="1.1rem" stroke={1.5} />}
-              clearable
-              type="range"
-              placeholder="Pick dates range"
-              value={value}
-              onChange={setValue}
-              mx="auto"
-              maw={400}
-              disabled={date !== null}
-              onClick={() => {
-                setDate(null);
-              }}
-            />
-            <Divider orientation="vertical" my="5px" />
-            <DatePickerInput
-              clearable
-              icon={<IconCalendar size="1.1rem" stroke={1.5} />}
-              placeholder="Pick date range"
-              mx="auto"
-              maw={400}
-              value={date}
-              onChange={setDate}
-              disabled={value[0] !== null}
-              onClick={() => {
-                setValue([null, null]);
-              }}
-            />
-          </Group>
+          <WeekSwitcher />
           <Tabs.List>
             <Tabs.Tab value="Timecard">Timecard</Tabs.Tab>
             <Tabs.Tab value="TimeLine">Timeline</Tabs.Tab>
