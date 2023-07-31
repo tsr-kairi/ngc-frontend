@@ -24,10 +24,14 @@ function LeaveManagement() {
         opened={opened}
         onClose={close}
         position="right"
-        size="50%"
-        title="Leave Application for Arvind Kumar"
+        size="35%"
+        title={`${(
+          <>
+            Leave Application for <Text color="lightblue">Arvind Kumar</Text>
+          </>
+        )}`}
       >
-        <DrawerContent />
+        <DrawerContent onClose={close} />
       </Drawer>
 
       <Flex justify="space-between" my="lg">
