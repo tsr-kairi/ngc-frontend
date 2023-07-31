@@ -16,13 +16,13 @@ function SalaryReview() {
         p="md"
       >
         <Stack p="md">
-          <Text fz="20px" weight={400}>
+          <Text fz="25px" weight={700}>
             DURATION SINCE LAST REVISION
           </Text>
           <Text fz="25px" weight={500}>
             2 Months
           </Text>
-          <Text fz="20px" weight={400} mt="lg">
+          <Text fz="25px" weight={700} mt="lg">
             LAST REVISION PERCENTAGE
           </Text>
           <Text fz="25px" weight={500}>
@@ -38,13 +38,13 @@ function SalaryReview() {
           mr="30px"
         />
         <Stack pr="lg" pt="md">
-          <Text fz="20px" weight={400}>
+          <Text fz="25px" weight={700}>
             LAST REVISION DATE
           </Text>
           <Text fz="25px" weight={500}>
             1 MAY 2021
           </Text>
-          <Text fz="20px" weight={400} mt="lg">
+          <Text fz="25px" weight={700} mt="lg">
             CTC AFTER LAST REVISION
           </Text>
           <Text fz="25px" weight={600}>
