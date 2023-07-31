@@ -1,7 +1,8 @@
 import IsMobileScreen from '@/hooks/useIsMobileScreen';
-import { Box, Button, Drawer, Flex, Text, createStyles } from '@mantine/core';
+import { Box, Button, Flex, Modal, Text, createStyles } from '@mantine/core';
 import { useState } from 'react';
 import TimeTableBox from './timetable';
+import TimetableForm from './timetableForm';
 
 const useStyles = createStyles(() => ({
   drawer: {
@@ -17,19 +18,22 @@ function TimeTable() {
   return (
     <Box>
       <Flex align="center" justify="space-between">
-        <Text>Time Table</Text>
-        <Button onClick={() => setOpenedEvent(true)}>Add</Button>
+        <Text size={30} weight={700}>
+          Time Table
+        </Text>
+        <Button onClick={() => setOpenedEvent(true)}>Edit TimeTable</Button>
       </Flex>
       <TimeTableBox />
-      <Drawer
+      <Modal
         opened={openedEvent}
         onClose={() => setOpenedEvent(false)}
-        title="Event board"
+        title="set time table"
         padding="md"
-        size={IsMobileScreen() ? 'xl' : 'xl'}
-        position="right"
+        size={IsMobileScreen() ? 'xl' : 'lg'}
         className={classes.drawer}
-      />
+      >
+        <TimetableForm />
+      </Modal>
     </Box>
   );
 }
