@@ -5,5 +5,11 @@ interface LeaveCardType {
   type: LeaveType;
   granted: number;
   availed: number;
-  details: string;
+  // Drawer propsType
+  drawerTitle: string;
+  drawerChildren: React.ReactNode;
+  isDrawerModalOpen?: boolean;
+  drawerSize: string | number;
+
+  onClick?: () => void;
 }
