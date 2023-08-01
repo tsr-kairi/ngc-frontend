@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   Box,
   Drawer,
   Flex,
@@ -88,21 +87,25 @@ export default function LeaveCard({
         <Text size={25} weight={600} color={colorDark}>
           {`${type} leave`}
         </Text>
-        <Text display="flex" color="brand.9" size={13} weight={700}>
+        <Text
+          sx={{
+            cursor: 'pointer',
+            width: '100px',
+          }}
+          display="flex"
+          color="brand.4"
+          size={13}
+          weight={700}
+          onClick={() => {
+            if (onClick) {
+              onClick();
+            } else {
+              setDrawerOpen(true);
+            }
+          }}
+        >
           View Details
-          <ActionIcon
-            color="brand.9"
-            size={18}
-            onClick={() => {
-              if (onClick) {
-                onClick();
-              } else {
-                setDrawerOpen(true);
-              }
-            }}
-          >
-            <IconExternalLink />
-          </ActionIcon>
+          <IconExternalLink size={18} />
         </Text>
         <Box>
           <Flex
