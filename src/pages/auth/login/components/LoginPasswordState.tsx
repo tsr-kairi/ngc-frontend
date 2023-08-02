@@ -144,7 +144,7 @@ function LoginPasswordState({
             autoFocus
             icon={<IconLock size={20} stroke={1} />}
             variant="unstyled"
-            onChange={(e) => {
+            onChange={() => {
               setPasswordError(false);
               // setPassword(e.currentTarget.value);
             }}
