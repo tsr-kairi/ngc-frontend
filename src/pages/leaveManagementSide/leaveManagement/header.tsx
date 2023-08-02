@@ -1,6 +1,6 @@
 import { Box, Button, Drawer, Progress, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import LeaveAppDrawer from './LeaveAppDrawer';
+import LeaveAppDrawer from './leaveAppDrawer';
 
 // This way you can Use the custom title component for styling purpose in mantine...
 function CustomTitle() {

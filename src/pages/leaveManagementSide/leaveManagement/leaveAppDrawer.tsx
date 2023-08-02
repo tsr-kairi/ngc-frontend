@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/display-name */
 import StyledTabs from '@/pages/leave/LeaveManagement/styledTabs';
 import {
   Avatar,
@@ -15,7 +17,7 @@ import {
 } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { useDisclosure } from '@mantine/hooks';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 
 function formatDateToDisplay(date: Date | null): string {
   if (date) {
@@ -44,12 +46,66 @@ type DrawerContentProps = {
   onClose: () => void;
 };
 
+const data = [
+  {
+    image: 'https://img.icons8.com/clouds/256/000000/futurama-bender.png',
+    label: 'Bender Bending Rodríguez',
+    value: 'Bender Bending Rodríguez',
+    description: 'Fascinated with cooking',
+  },
+
+  {
+    image: 'https://img.icons8.com/clouds/256/000000/futurama-mom.png',
+    label: 'Carol Miller',
+    value: 'Carol Miller',
+    description: 'One of the richest people on Earth',
+  },
+  {
+    image: 'https://img.icons8.com/clouds/256/000000/homer-simpson.png',
+    label: 'Homer Simpson',
+    value: 'Homer Simpson',
+    description: 'Overweight, lazy, and often ignorant',
+  },
+  {
+    image: 'https://img.icons8.com/clouds/256/000000/spongebob-squarepants.png',
+    label: 'Spongebob Squarepants',
+    value: 'Spongebob Squarepants',
+    description: 'Not just a sponge',
+  },
+];
+
+interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+  image: string;
+  label: string;
+  description: string;
+}
+
+const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+  ({ image, label, description, ...others }: ItemProps, ref) => (
+    <div ref={ref} {...others}>
+      <Group noWrap>
+        <Avatar src={image} />
+
+        <div>
+          <Text size="sm">{label}</Text>
+          <Text size="xs" opacity={0.65}>
+            {description}
+          </Text>
+        </div>
+      </Group>
+    </div>
+  )
+);
+
 function LeaveAppDrawer({ onClose }: DrawerContentProps) {
   const [opened, { open, close }] = useDisclosure(false);
-  const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
-  const startDate = formatDateToDisplay(value[0]);
-  const endDate = formatDateToDisplay(value[1]);
-  const dateDifference = calculateDateDifference(value[0], value[1]);
+  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
+    null,
+    null,
+  ]);
+  const startDate = formatDateToDisplay(dateRange[0]);
+  const endDate = formatDateToDisplay(dateRange[1]);
+  const dateDifference = calculateDateDifference(dateRange[0], dateRange[1]);
 
   return (
     <Flex
@@ -60,6 +116,21 @@ function LeaveAppDrawer({ onClose }: DrawerContentProps) {
       justify="space-between"
       align="end"
     >
+      <Select
+        label="Choose employee of the month"
+        placeholder="Pick one"
+        itemComponent={SelectItem}
+        data={data}
+        searchable
+        maxDropdownHeight={400}
+        size="lg"
+        nothingFound="Nobody here"
+
+        // filter={(value, item) =>
+        //   item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
+        //   item.description.toLowerCase().includes(value.toLowerCase().trim())
+        // }
+      />
       <Flex
         direction="column"
         gap={30}
@@ -82,8 +153,8 @@ function LeaveAppDrawer({ onClose }: DrawerContentProps) {
                 size="xl"
                 maw="100%"
                 type="range"
-                value={value}
-                onChange={setValue}
+                value={dateRange}
+                onChange={setDateRange}
               />
             </Center>
             {/* </Menu.Item> */}
