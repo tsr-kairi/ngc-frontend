@@ -1,16 +1,30 @@
-import { Box, Button, Flex, Progress, SimpleGrid, Text } from '@mantine/core';
+import {
+  Box,
+  Button,
+  Flex,
+  Loader,
+  Progress,
+  SimpleGrid,
+  Text,
+} from '@mantine/core';
 import LeaveCard from '../LeaveCard';
-import TransactionTable from './TransactionTable';
+import useGetAllLeaveTransaction from '../hooks/useGetAllLeaveTransaction';
+import CasualLeave from '../leaveCategory/casualLeave';
+import LeaveTransactionList from './LeaveTransaction-list';
 
-export default function TransactionPage() {
+export default function LeaveTransactionUpperHeader() {
   const total = 10;
   const availed = 2;
   const availedPercentage = (availed / total) * 100;
   return (
-    <Box>
+    <Box
+      style={{
+        marginBottom: '20px',
+      }}
+    >
       <Flex justify="space-between" my="lg">
         <Text size={30} weight={700}>
-          Leave Transaction
+          Leave
         </Text>
         <Button>Apply leave</Button>
       </Flex>
@@ -43,11 +57,50 @@ export default function TransactionPage() {
           { maxWidth: 'sm', cols: 1, spacing: 'sm' },
         ]}
       >
-        <LeaveCard type="Casual" granted={5} availed={1} details="link" />
-        <LeaveCard type="Sick" granted={5} availed={1} details="link" />
-        <LeaveCard type="Earned" granted={5} availed={1} details="link" />
+        <LeaveCard
+          type="Casual"
+          granted={5}
+          availed={1}
+          drawerTitle="Casual Leave Details"
+          drawerChildren={<CasualLeave />}
+          drawerSize="50%"
+        />
+        <LeaveCard
+          type="Sick"
+          granted={5}
+          availed={1}
+          drawerTitle="Sick Leave Details"
+          drawerChildren={<CasualLeave />}
+          drawerSize="50%"
+        />
+        <LeaveCard
+          type="Earned"
+          granted={5}
+          availed={1}
+          drawerTitle="Earned Leave Details"
+          drawerChildren={<CasualLeave />}
+          drawerSize="50%"
+        />
       </SimpleGrid>
-      <TransactionTable />
     </Box>
   );
+}
+
+//  main LeaveTransaction component
+export function LeaveTransaction() {
+  const { data, isError, isLoading } = useGetAllLeaveTransaction();
+
+  if (isError) {
+    return <h1>An Error Occurred</h1>;
+  }
+
+  if (!isLoading) {
+    return (
+      <>
+        <LeaveTransactionUpperHeader />
+        <LeaveTransactionList data={data?.data ?? []} />
+      </>
+    );
+  }
+  return <Loader variant="dots" />;
 }

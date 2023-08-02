@@ -4,8 +4,8 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
 import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
 import { Login } from './pages/auth/login/login';
-import LeaveManagement from './pages/leave/LeaveManagement';
-import TransactionPage from './pages/leave/LeaveTransaction';
+import { LeaveManagement } from './pages/leave/LeaveManagement';
+import { LeaveTransaction } from './pages/leave/LeaveTransaction';
 import Onboarding from './pages/onboarding';
 import ProfileTabs from './pages/profile/profile';
 import SalaryLoan from './pages/salary/loan';
@@ -142,7 +142,7 @@ function App() {
               path="/leave-transaction"
               element={
                 <WrapSuspense>
-                  <TransactionPage />
+                  <LeaveTransaction />
                 </WrapSuspense>
               }
             />

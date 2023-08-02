@@ -49,7 +49,7 @@ function DashboardLayout() {
           type="never"
           style={{
             width: `${!sidebarCollapsed ? 'calc(100vw - 300px)' : '94vw'}`,
-            maxWidth: 'calc(100vw - 10vh)',
+            maxWidth: 'calc(100vw - 10vw)',
             height: 'calc(100vh - 95px)',
           }}
         >
