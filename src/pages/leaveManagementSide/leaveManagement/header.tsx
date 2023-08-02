@@ -81,12 +81,10 @@ function Header() {
           {
             value: 25,
             color: '#EFD5FF',
-            label: 'Apps',
           },
           {
             value: 39,
             color: '#C6FFD3',
-            label: 'Other',
           },
         ]}
       />
