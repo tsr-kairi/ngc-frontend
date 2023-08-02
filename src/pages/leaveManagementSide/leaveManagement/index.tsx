@@ -1,6 +1,6 @@
 import { Loader } from '@mantine/core';
 import useGetAllLeaveManagement from '../hooks/leaveManagement';
-import { ManagerTabs } from './date&tabs';
+import { ManagerTabs } from './dateTabs';
 import Header from './header';
 import LeaveTable from './table';
 
@@ -16,7 +16,7 @@ function LeaveManagementManager() {
       <>
         <Header />
         <ManagerTabs />
-        <LeaveTable data={data?.data ?? []} />
+        <LeaveTable data={data.data} />
       </>
     );
   }
