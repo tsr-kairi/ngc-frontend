@@ -1,9 +1,7 @@
+/* eslint-disable no-bitwise */
 import { Loader } from '@mantine/core';
 import React, { ReactNode, Suspense } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import { ConfirmPassword } from './pages/auth/confirm-password/confirm';
-import { ForgotPassword } from './pages/auth/forgotPassword/forgot';
-import { Login } from './pages/auth/login/login';
 import { LeaveManagement } from './pages/leave/LeaveManagement';
 import { LeaveTransaction } from './pages/leave/LeaveTransaction';
 import Onboarding from './pages/onboarding';
@@ -14,6 +12,9 @@ import SalaryReview from './pages/salary/review';
 import SalaryRevisionView from './pages/salary/revisionview';
 import Timesheet1 from './pages/timesheet';
 import TimeTable from './pages/timetable';
+import ResetPassword from './pages/auth/resetPassword';
+import Login from './pages/auth/login';
+import ForgotPassword from './pages/auth/forgotPassword';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -48,6 +49,7 @@ function App() {
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0',
+              height: '100vh',
             }}
           >
             <Loader variant="oval" />
@@ -73,6 +75,14 @@ function App() {
             }
           />
           <Route
+            path="/reset-password"
+            element={
+              <WrapSuspense>
+                <ResetPassword />
+              </WrapSuspense>
+            }
+          />
+          <Route
             path="/forgot-password"
             element={
               <WrapSuspense>
@@ -80,15 +90,8 @@ function App() {
               </WrapSuspense>
             }
           />
-          <Route
-            path="/confirm-password"
-            element={
-              <WrapSuspense>
-                <ConfirmPassword />
-              </WrapSuspense>
-            }
-          />
           {/* Protected Routes */}
+
           <Route element={<DashboardLayout />}>
             <Route
               path="/"

@@ -1,0 +1,94 @@
+{
+  "data": [
+    {
+      "uuid": "dd3439e3-52b7-4b3a-94a1-cd11ad2e5be0",
+      "transactionDate": "2023-07-20",
+      "leaveType": "Earned",
+      "fromDate": "2023-08-01",
+      "toDate": "2023-08-05",
+      "days": 5,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "e06e6f8c-bd88-4e27-a0c3-36e1a70a5a0c",
+      "transactionDate": "2023-07-21",
+      "leaveType": "Sick",
+      "fromDate": "2023-08-10",
+      "toDate": "2023-08-12",
+      "days": 3,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "fa50be81-6a78-416d-aaba-8ef18a4a1021",
+      "transactionDate": "2023-07-22",
+      "leaveType": "Casual",
+      "fromDate": "2023-08-15",
+      "toDate": "2023-08-15",
+      "days": 1,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "6e9c8c78-1c46-4ca5-8a4f-ba5e7ca77a58",
+      "transactionDate": "2023-07-23",
+      "leaveType": "Earned",
+      "fromDate": "2023-08-20",
+      "toDate": "2023-08-24",
+      "days": 5,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "5d63b9e5-51a6-478a-8541-75c1fbda11e9",
+      "transactionDate": "2023-07-24",
+      "leaveType": "Sick",
+      "fromDate": "2023-09-01",
+      "toDate": "2023-09-02",
+      "days": 2,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "1f8cc734-99a3-418f-9c67-e7d66d0e30ad",
+      "transactionDate": "2023-07-25",
+      "leaveType": "Casual",
+      "fromDate": "2023-09-10",
+      "toDate": "2023-09-15",
+      "days": 6,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "75b9c97e-b3e0-4812-9cf3-680ef224a789",
+      "transactionDate": "2023-07-26",
+      "leaveType": "Earned",
+      "fromDate": "2023-09-20",
+      "toDate": "2023-09-25",
+      "days": 6,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "8c288db7-6a04-46e9-bf44-5cbb982e6a34",
+      "transactionDate": "2023-07-27",
+      "leaveType": "Sick",
+      "fromDate": "2023-10-01",
+      "toDate": "2023-10-05",
+      "days": 5,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "0d825ad7-990b-4001-8560-bf87242f3f85",
+      "transactionDate": "2023-07-28",
+      "leaveType": "Casual",
+      "fromDate": "2023-10-10",
+      "toDate": "2023-10-12",
+      "days": 3,
+      "expiryDate": "2023-12-31"
+    },
+    {
+      "uuid": "f100b9b7-1fb3-4fe6-a6d1-7e1c954e3132",
+      "transactionDate": "2023-07-29",
+      "leaveType": "Earned",
+      "fromDate": "2023-10-15",
+      "toDate": "2023-10-20",
+      "days": 6,
+      "expiryDate": "2023-12-31"
+    }
+  ]
+}

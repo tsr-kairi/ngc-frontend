@@ -1,0 +1,94 @@
+{
+  "data": [
+    {
+      "uuid": "f3563b5a-302b-11ee-be56-0242ac120001",
+      "applicationDate": "2023-07-20",
+      "leaveType": "Earned",
+      "fromDate": "2023-08-01",
+      "toDate": "2023-08-05",
+      "days": 5,
+      "status": "Approved"
+    },
+    {
+      "uuid": "f3563b5b-302b-11ee-be56-0242ac120002",
+      "applicationDate": "2023-07-21",
+      "leaveType": "Sick",
+      "fromDate": "2023-08-10",
+      "toDate": "2023-08-12",
+      "days": 3,
+      "status": "Pending"
+    },
+    {
+      "uuid": "f3563b5c-302b-11ee-be56-0242ac120003",
+      "applicationDate": "2023-07-22",
+      "leaveType": "Casual",
+      "fromDate": "2023-08-15",
+      "toDate": "2023-08-15",
+      "days": 1,
+      "status": "Rejected"
+    },
+    {
+      "uuid": "f3563b5d-302b-11ee-be56-0242ac120004",
+      "applicationDate": "2023-07-23",
+      "leaveType": "Earned",
+      "fromDate": "2023-08-20",
+      "toDate": "2023-08-24",
+      "days": 5,
+      "status": "Approved"
+    },
+    {
+      "uuid": "f3563b5e-302b-11ee-be56-0242ac120005",
+      "applicationDate": "2023-07-24",
+      "leaveType": "Sick",
+      "fromDate": "2023-09-01",
+      "toDate": "2023-09-02",
+      "days": 2,
+      "status": "Pending"
+    },
+    {
+      "uuid": "f3563b5f-302b-11ee-be56-0242ac120006",
+      "applicationDate": "2023-07-25",
+      "leaveType": "Casual",
+      "fromDate": "2023-09-10",
+      "toDate": "2023-09-15",
+      "days": 6,
+      "status": "Pending"
+    },
+    {
+      "uuid": "f3563dfg-302b-11ee-be56-0242ac120007",
+      "applicationDate": "2023-07-26",
+      "leaveType": "Earned",
+      "fromDate": "2023-09-20",
+      "toDate": "2023-09-25",
+      "days": 6,
+      "status": "Approved"
+    },
+    {
+      "uuid": "f3563b5h-302b-11ee-be56-0242ac120008",
+      "applicationDate": "2023-07-27",
+      "leaveType": "Sick",
+      "fromDate": "2023-10-01",
+      "toDate": "2023-10-05",
+      "days": 5,
+      "status": "Rejected"
+    },
+    {
+      "uuid": "f3563b5i-302b-11ee-be56-0242ac120009",
+      "applicationDate": "2023-07-28",
+      "leaveType": "Casual",
+      "fromDate": "2023-10-10",
+      "toDate": "2023-10-12",
+      "days": 3,
+      "status": "Pending"
+    },
+    {
+      "uuid": "f3563b5j-302b-11ee-be56-0242ac120010",
+      "applicationDate": "2023-07-29",
+      "leaveType": "Earned",
+      "fromDate": "2023-10-15",
+      "toDate": "2023-10-20",
+      "days": 6,
+      "status": "Approved"
+    }
+  ]
+}
