@@ -14,6 +14,7 @@ import SalaryReview from './pages/salary/review';
 import SalaryRevisionView from './pages/salary/revisionview';
 import Timesheet1 from './pages/timesheet';
 import TimeTable from './pages/timetable';
+import LeaveManagementManager from './pages/leaveManagementSide/leaveManagement';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -191,6 +192,14 @@ function App() {
               element={
                 <WrapSuspense>
                   <TimeTable />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/manager/leave-management"
+              element={
+                <WrapSuspense>
+                  <LeaveManagementManager />
                 </WrapSuspense>
               }
             />
