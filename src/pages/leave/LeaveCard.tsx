@@ -1,19 +1,33 @@
 import {
-  ActionIcon,
   Box,
+  Drawer,
   Flex,
+  Paper,
   Progress,
   Text,
   useMantineTheme,
 } from '@mantine/core';
 import { IconExternalLink } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 
 export default function LeaveCard({
   type,
   availed,
-  details,
   granted,
+  drawerChildren,
+  isDrawerModalOpen = false,
+  drawerSize,
+  drawerTitle,
+  onClick,
 }: LeaveCardType) {
+  // state prop dealing management
+  const [drawerOpen, setDrawerOpen] = useState(isDrawerModalOpen);
+
+  // useEffect dealing management
+  useEffect(() => {
+    setDrawerOpen(isDrawerModalOpen);
+  }, [isDrawerModalOpen]);
+
   const theme = useMantineTheme();
   const getColorDark = (): string => {
     if (type === 'Casual') return `${theme.colors.error[3]}`;
@@ -73,11 +87,25 @@ export default function LeaveCard({
         <Text size={25} weight={600} color={colorDark}>
           {`${type} leave`}
         </Text>
-        <Text display="flex" color="brand.9" size={13} weight={700}>
+        <Text
+          sx={{
+            cursor: 'pointer',
+            width: '100px',
+          }}
+          display="flex"
+          color="brand.4"
+          size={13}
+          weight={700}
+          onClick={() => {
+            if (onClick) {
+              onClick();
+            } else {
+              setDrawerOpen(true);
+            }
+          }}
+        >
           View Details
-          <ActionIcon component="a" href={details} color="brand.9" size={18}>
-            <IconExternalLink />
-          </ActionIcon>
+          <IconExternalLink size={18} />
         </Text>
         <Box>
           <Flex
@@ -102,6 +130,17 @@ export default function LeaveCard({
           />
         </Box>
       </Box>
+      {/* Normal Drawer */}
+      <Drawer
+        opened={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        title={drawerTitle}
+        padding="xl"
+        size={drawerSize || 'xl'}
+        position="right"
+      >
+        <Paper>{drawerChildren}</Paper>
+      </Drawer>
     </Flex>
   );
 }

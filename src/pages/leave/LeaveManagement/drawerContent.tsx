@@ -10,6 +10,7 @@ import {
   Tabs,
   Text,
   Textarea,
+  Divider,
 } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { useState } from 'react';
@@ -65,6 +66,7 @@ function DrawerContent({ onClose }: DrawerContentProps) {
         sx={{
           width: '100%',
         }}
+        mt="xl"
       >
         <Menu width="95%" opened={opened}>
           <Menu.Dropdown>
@@ -178,19 +180,23 @@ function DrawerContent({ onClose }: DrawerContentProps) {
             </Flex>
           </Menu.Target>
         </Menu>
-        <Flex justify="space-between">
-          <StyledTabs>
-            <Tabs.List defaultValue="first">
-              <Tabs.Tab value="first">First Half</Tabs.Tab>
-              <Tabs.Tab value="second">Second Half</Tabs.Tab>
-            </Tabs.List>
-          </StyledTabs>
-          <StyledTabs defaultValue="second">
-            <Tabs.List>
-              <Tabs.Tab value="first">First Half</Tabs.Tab>
-              <Tabs.Tab value="second">Second Half</Tabs.Tab>
-            </Tabs.List>
-          </StyledTabs>
+        <Flex direction="column" mt="md" display="flex">
+          <Group position="apart">
+            <StyledTabs defaultValue="first">
+              <Tabs.List>
+                <Tabs.Tab value="first">First Half</Tabs.Tab>
+                <Tabs.Tab value="second">Second Half</Tabs.Tab>
+              </Tabs.List>
+            </StyledTabs>
+            <Text>- TO -</Text>
+            <StyledTabs defaultValue="second">
+              <Tabs.List>
+                <Tabs.Tab value="first">First Half</Tabs.Tab>
+                <Tabs.Tab value="second">Second Half</Tabs.Tab>
+              </Tabs.List>
+            </StyledTabs>
+          </Group>
+          <Divider />
         </Flex>
         <Group
           position="apart"
@@ -306,7 +312,7 @@ function DrawerContent({ onClose }: DrawerContentProps) {
         </Group>
         <Textarea
           placeholder="Please mention the leave reason in details..."
-          minRows={5}
+          minRows={10}
         />
       </Flex>
       <Flex gap={10}>

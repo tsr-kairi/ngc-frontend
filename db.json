@@ -1,127 +1,190 @@
 {
-  "data": [
-    {
-      "isActive": true,
-      "name": {
-        "firstName": "John",
-        "lastName": "Doe"
+  "leaveManagement": {
+    "data": [
+      {
+        "uuid": "f3563b5a-302b-11ee-be56-0242ac120001",
+        "applicationDate": "2023-07-20",
+        "leaveType": "Earned",
+        "fromDate": "2023-08-01",
+        "toDate": "2023-08-05",
+        "days": 5,
+        "status": "Approved"
       },
-      "hireDate": "2021-01-15",
-      "age": 32,
-      "salary": 50000,
-      "city": "New York",
-      "state": "NY"
-    },
-    {
-      "isActive": true,
-      "name": {
-        "firstName": "Jane",
-        "lastName": "Smith"
+      {
+        "uuid": "f3563b5b-302b-11ee-be56-0242ac120002",
+        "applicationDate": "2023-07-21",
+        "leaveType": "Sick",
+        "fromDate": "2023-08-10",
+        "toDate": "2023-08-12",
+        "days": 3,
+        "status": "Pending"
       },
-      "hireDate": "2020-05-10",
-      "age": 28,
-      "salary": 60000,
-      "city": "Los Angeles",
-      "state": "CA"
-    },
-    {
-      "isActive": false,
-      "name": {
-        "firstName": "Michael",
-        "lastName": "Johnson"
+      {
+        "uuid": "f3563b5c-302b-11ee-be56-0242ac120003",
+        "applicationDate": "2023-07-22",
+        "leaveType": "Casual",
+        "fromDate": "2023-08-15",
+        "toDate": "2023-08-15",
+        "days": 1,
+        "status": "Rejected"
       },
-      "hireDate": "2022-03-20",
-      "age": 40,
-      "salary": 75000,
-      "city": "Chicago",
-      "state": "IL"
-    },
-    {
-      "isActive": true,
-      "name": {
-        "firstName": "Sarah",
-        "lastName": "Davis"
+      {
+        "uuid": "f3563b5d-302b-11ee-be56-0242ac120004",
+        "applicationDate": "2023-07-23",
+        "leaveType": "Earned",
+        "fromDate": "2023-08-20",
+        "toDate": "2023-08-24",
+        "days": 5,
+        "status": "Approved"
       },
-      "hireDate": "2023-02-01",
-      "age": 35,
-      "salary": 80000,
-      "city": "Houston",
-      "state": "TX"
-    },
-    {
-      "isActive": true,
-      "name": {
-        "firstName": "Robert",
-        "lastName": "Wilson"
+      {
+        "uuid": "f3563b5e-302b-11ee-be56-0242ac120005",
+        "applicationDate": "2023-07-24",
+        "leaveType": "Sick",
+        "fromDate": "2023-09-01",
+        "toDate": "2023-09-02",
+        "days": 2,
+        "status": "Pending"
       },
-      "hireDate": "2019-09-05",
-      "age": 45,
-      "salary": 90000,
-      "city": "San Francisco",
-      "state": "CA"
-    },
-    {
-      "isActive": true,
-      "name": {
-        "firstName": "Emily",
-        "lastName": "Lee"
+      {
+        "uuid": "f3563b5f-302b-11ee-be56-0242ac120006",
+        "applicationDate": "2023-07-25",
+        "leaveType": "Casual",
+        "fromDate": "2023-09-10",
+        "toDate": "2023-09-15",
+        "days": 6,
+        "status": "Pending"
       },
-      "hireDate": "2022-11-18",
-      "age": 30,
-      "salary": 55000,
-      "city": "Seattle",
-      "state": "WA"
-    },
-    {
-      "isActive": false,
-      "name": {
-        "firstName": "David",
-        "lastName": "Taylor"
+      {
+        "uuid": "f3563dfg-302b-11ee-be56-0242ac120007",
+        "applicationDate": "2023-07-26",
+        "leaveType": "Earned",
+        "fromDate": "2023-09-20",
+        "toDate": "2023-09-25",
+        "days": 6,
+        "status": "Approved"
       },
-      "hireDate": "2021-07-10",
-      "age": 38,
-      "salary": 70000,
-      "city": "Boston",
-      "state": "MA"
-    },
-    {
-      "isActive": true,
-      "name": {
-        "firstName": "Olivia",
-        "lastName": "Anderson"
+      {
+        "uuid": "f3563b5h-302b-11ee-be56-0242ac120008",
+        "applicationDate": "2023-07-27",
+        "leaveType": "Sick",
+        "fromDate": "2023-10-01",
+        "toDate": "2023-10-05",
+        "days": 5,
+        "status": "Rejected"
       },
-      "hireDate": "2020-04-02",
-      "age": 29,
-      "salary": 65000,
-      "city": "Miami",
-      "state": "FL"
-    },
-    {
-      "isActive": true,
-      "name": {
-        "firstName": "Daniel",
-        "lastName": "Garcia"
+      {
+        "uuid": "f3563b5i-302b-11ee-be56-0242ac120009",
+        "applicationDate": "2023-07-28",
+        "leaveType": "Casual",
+        "fromDate": "2023-10-10",
+        "toDate": "2023-10-12",
+        "days": 3,
+        "status": "Pending"
       },
-      "hireDate": "2023-06-07",
-      "age": 27,
-      "salary": 55000,
-      "city": "Dallas",
-      "state": "TX"
-    },
-    {
-      "isActive": true,
-      "name": {
-        "firstName": "Sophia",
-        "lastName": "Moore"
+      {
+        "uuid": "f3563b5j-302b-11ee-be56-0242ac120010",
+        "applicationDate": "2023-07-29",
+        "leaveType": "Earned",
+        "fromDate": "2023-10-15",
+        "toDate": "2023-10-20",
+        "days": 6,
+        "status": "Approved"
+      }
+    ]
+  },
+  "leaveTransaction": {
+    "data": [
+      {
+        "uuid": "dd3439e3-52b7-4b3a-94a1-cd11ad2e5be0",
+        "transactionDate": "2023-07-20",
+        "leaveType": "Earned",
+        "fromDate": "2023-08-01",
+        "toDate": "2023-08-05",
+        "days": 5,
+        "expiryDate": "2023-12-31"
       },
-      "hireDate": "2022-09-14",
-      "age": 33,
-      "salary": 75000,
-      "city": "Atlanta",
-      "state": "GA"
-    }
-  ],
-  "meta": {
-    "totalRowCount": 10
+      {
+        "uuid": "e06e6f8c-bd88-4e27-a0c3-36e1a70a5a0c",
+        "transactionDate": "2023-07-21",
+        "leaveType": "Sick",
+        "fromDate": "2023-08-10",
+        "toDate": "2023-08-12",
+        "days": 3,
+        "expiryDate": "2023-12-31"
+      },
+      {
+        "uuid": "fa50be81-6a78-416d-aaba-8ef18a4a1021",
+        "transactionDate": "2023-07-22",
+        "leaveType": "Casual",
+        "fromDate": "2023-08-15",
+        "toDate": "2023-08-15",
+        "days": 1,
+        "expiryDate": "2023-12-31"
+      },
+      {
+        "uuid": "6e9c8c78-1c46-4ca5-8a4f-ba5e7ca77a58",
+        "transactionDate": "2023-07-23",
+        "leaveType": "Earned",
+        "fromDate": "2023-08-20",
+        "toDate": "2023-08-24",
+        "days": 5,
+        "expiryDate": "2023-12-31"
+      },
+      {
+        "uuid": "5d63b9e5-51a6-478a-8541-75c1fbda11e9",
+        "transactionDate": "2023-07-24",
+        "leaveType": "Sick",
+        "fromDate": "2023-09-01",
+        "toDate": "2023-09-02",
+        "days": 2,
+        "expiryDate": "2023-12-31"
+      },
+      {
+        "uuid": "1f8cc734-99a3-418f-9c67-e7d66d0e30ad",
+        "transactionDate": "2023-07-25",
+        "leaveType": "Casual",
+        "fromDate": "2023-09-10",
+        "toDate": "2023-09-15",
+        "days": 6,
+        "expiryDate": "2023-12-31"
+      },
+      {
+        "uuid": "75b9c97e-b3e0-4812-9cf3-680ef224a789",
+        "transactionDate": "2023-07-26",
+        "leaveType": "Earned",
+        "fromDate": "2023-09-20",
+        "toDate": "2023-09-25",
+        "days": 6,
+        "expiryDate": "2023-12-31"
+      },
+      {
+        "uuid": "8c288db7-6a04-46e9-bf44-5cbb982e6a34",
+        "transactionDate": "2023-07-27",
+        "leaveType": "Sick",
+        "fromDate": "2023-10-01",
+        "toDate": "2023-10-05",
+        "days": 5,
+        "expiryDate": "2023-12-31"
+      },
+      {
+        "uuid": "0d825ad7-990b-4001-8560-bf87242f3f85",
+        "transactionDate": "2023-07-28",
+        "leaveType": "Casual",
+        "fromDate": "2023-10-10",
+        "toDate": "2023-10-12",
+        "days": 3,
+        "expiryDate": "2023-12-31"
+      },
+      {
+        "uuid": "f100b9b7-1fb3-4fe6-a6d1-7e1c954e3132",
+        "transactionDate": "2023-07-29",
+        "leaveType": "Earned",
+        "fromDate": "2023-10-15",
+        "toDate": "2023-10-20",
+        "days": 6,
+        "expiryDate": "2023-12-31"
+      }
+    ]
   }
 }
