@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, Progress, Text } from '@mantine/core';
+import { Box, Button, Drawer, Flex, Progress, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import LeaveAppDrawer from './leaveAppDrawer';
 
@@ -44,27 +44,49 @@ function Header() {
         </Text>
         <Button onClick={open}>Apply Leave</Button>
       </Box>
+      <Flex
+        sx={{
+          position: 'relative',
+          marginTop: '10px',
+          marginBottom: '3px',
+          fontSize: '12px',
+          fontWeight: 'lighter',
+        }}
+      >
+        <Text>
+          Pending Approval: <b>3</b>
+        </Text>
+        <Text
+          sx={{
+            position: 'absolute',
+            left: '33%',
+          }}
+        >
+          Rejected: <b>3</b>
+        </Text>
+        <Text
+          sx={{
+            position: 'absolute',
+            left: `${33 + 28}%`,
+          }}
+        >
+          Approved: <b>3</b>
+        </Text>
+      </Flex>
       <Progress
-        mt="md"
         size={24}
         sections={[
           {
             value: 33,
             color: '#FFD5D5',
-            label: 'Documents',
-            tooltip: 'Document – 33 Gb',
           },
           {
             value: 28,
             color: '#EFD5FF',
-            label: 'Apps',
-            tooltip: 'Apps – 28 Gb',
           },
           {
             value: 39,
             color: '#C6FFD3',
-            label: 'Other',
-            tooltip: 'Other – 25 Gb',
           },
         ]}
       />

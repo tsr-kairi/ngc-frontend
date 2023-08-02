@@ -116,21 +116,25 @@ function LeaveAppDrawer({ onClose }: DrawerContentProps) {
       justify="space-between"
       align="end"
     >
-      <Select
-        label="Choose employee of the month"
-        placeholder="Pick one"
-        itemComponent={SelectItem}
-        data={data}
-        searchable
-        maxDropdownHeight={400}
-        size="lg"
-        nothingFound="Nobody here"
-
-        // filter={(value, item) =>
-        //   item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
-        //   item.description.toLowerCase().includes(value.toLowerCase().trim())
-        // }
-      />
+      <Flex justify="start" sx={{ width: '100%' }}>
+        <Select
+          label="Choose employee of the month"
+          placeholder="Pick one"
+          itemComponent={SelectItem}
+          data={data}
+          searchable
+          maxDropdownHeight={400}
+          size="md"
+          nothingFound="Nobody here"
+          sx={{
+            width: '50%',
+          }}
+          // filter={(value, item) =>
+          //   item.label.toLowerCase().includes(value.toLowerCase().trim()) ||
+          //   item.description.toLowerCase().includes(value.toLowerCase().trim())
+          // }
+        />
+      </Flex>
       <Flex
         direction="column"
         gap={30}
