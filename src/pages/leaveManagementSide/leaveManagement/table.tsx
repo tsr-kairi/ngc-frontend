@@ -1,9 +1,18 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/require-default-props */
 import { ListViewLayout } from '@/components/layout/listView.layout';
-import { ActionIcon, Badge, Flex, Text, createStyles } from '@mantine/core';
+import {
+  ActionIcon,
+  Badge,
+  Drawer,
+  Flex,
+  Text,
+  createStyles,
+} from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { IconArrowNarrowRight } from '@tabler/icons-react';
 import EmployeeCard from './employeeCard';
+import LeaveReason from './leaveReason';
 
 // Style for the entire ListViewLayoutPage Page
 const useStyles = createStyles((theme) => ({
@@ -88,6 +97,8 @@ function SimpleCard({ session, date }: { session: string; date: string }) {
 function LeaveTable({ data }: TLeaveManagementManager) {
   const { classes } = useStyles();
 
+  const [opened, { open, close }] = useDisclosure(false);
+
   // Table Rows getElement component management
   const rows = data?.map((row) => (
     <tr key={row?.uuid} className={classes.LeaveManagementRowData}>
@@ -143,7 +154,7 @@ function LeaveTable({ data }: TLeaveManagementManager) {
         ) : null}
       </td>
       <td>
-        <ActionIcon>
+        <ActionIcon onClick={open}>
           <IconArrowNarrowRight />
         </ActionIcon>
       </td>
@@ -153,6 +164,16 @@ function LeaveTable({ data }: TLeaveManagementManager) {
   // Returning the Scroll Area as ListViewLayout of Table
   return (
     <ListViewLayout isError={false} isLoading={false} hidePlusButton>
+      <Drawer
+        opened={opened}
+        onClose={close}
+        position="right"
+        size="lg"
+        title="Leave Approval" // Use the custom title component here
+      >
+        <LeaveReason />
+      </Drawer>
+
       <thead>
         <tr>
           <th>
