@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/require-default-props */
 import { ListViewLayout } from '@/components/layout/listView.layout';
@@ -11,6 +12,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconArrowNarrowRight } from '@tabler/icons-react';
+import { useState } from 'react';
 import EmployeeCard from './employeeCard';
 import LeaveReason from './leaveReason';
 
@@ -98,6 +100,7 @@ function LeaveTable({ data }: TLeaveManagementManager) {
   const { classes } = useStyles();
 
   const [opened, { open, close }] = useDisclosure(false);
+  const [currentRow, setCurrentRow] = useState<LeaveManagementManager>();
 
   // Table Rows getElement component management
   const rows = data?.map((row) => (
@@ -154,7 +157,12 @@ function LeaveTable({ data }: TLeaveManagementManager) {
         ) : null}
       </td>
       <td>
-        <ActionIcon onClick={open}>
+        <ActionIcon
+          onClick={() => {
+            open();
+            setCurrentRow(row);
+          }}
+        >
           <IconArrowNarrowRight />
         </ActionIcon>
       </td>
@@ -171,7 +179,7 @@ function LeaveTable({ data }: TLeaveManagementManager) {
         size="lg"
         title="Leave Approval" // Use the custom title component here
       >
-        <LeaveReason />
+        {currentRow && <LeaveReason {...currentRow} />}
       </Drawer>
 
       <thead>

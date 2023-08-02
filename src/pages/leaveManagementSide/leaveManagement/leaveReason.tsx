@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import {
   Avatar,
   Box,
@@ -38,12 +39,12 @@ function calculateDateDifference(
   return 0;
 }
 
-function LeaveReason() {
+function LeaveReason(props: LeaveManagementManager) {
   const [opened, { open, close }] = useDisclosure(false);
   const [modalOpened, setModalOpened] = useState(false);
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
-    null,
-    null,
+    new Date(props.fromDate),
+    new Date(props.toDate),
   ]);
   const startDate = formatDateToDisplay(dateRange[0]);
   const endDate = formatDateToDisplay(dateRange[1]);
@@ -58,13 +59,9 @@ function LeaveReason() {
           marginLeft: '10px',
         }}
       >
-        <Avatar
-          radius="xl"
-          size="60px"
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
-        />
+        <Avatar radius="xl" size="60px" src={props.employee.image} />
         <Text fz="xl" weight={700}>
-          RAMANANDA KAIRI
+          {`${props.employee.firstName} ${props.employee.lastName}`}
           <Text fz="md" weight={300}>
             Senior Developer
           </Text>
@@ -124,20 +121,22 @@ function LeaveReason() {
                 <Text>From Date</Text>
                 <Flex
                   align="center"
-                  sx={{
+                  sx={(theme) => ({
                     position: 'absolute',
                     left: '8px',
                     width: '50%',
-                    backgroundColor: '#F5F5F5',
+                    backgroundColor: `${
+                      theme.colorScheme === 'dark' ? '#1E1E1E' : '#F5F5F5'
+                    }`,
                     padding: '10px',
-                  }}
+                  })}
                 >
                   <IconCalendar />
                   <Text ml="sm" size={15} weight={500}>
                     {startDate}
                   </Text>
                 </Flex>
-                <Text mt="50px">First Half</Text>
+                <Text mt="50px">{props.startDatesection}</Text>
               </Box>
               <Box
                 sx={{
@@ -165,23 +164,25 @@ function LeaveReason() {
                   zIndex: 10,
                 }}
               >
-                <Text mr="30px">To Date</Text>
+                <Text>To Date</Text>
                 <Flex
                   align="center"
-                  sx={{
+                  sx={(theme) => ({
                     position: 'absolute',
                     right: '0',
                     width: '70%',
-                    backgroundColor: '#F5F5F5',
+                    backgroundColor: `${
+                      theme.colorScheme === 'dark' ? '#1E1E1E' : '#F5F5F5'
+                    }`,
                     padding: '10px',
-                  }}
+                  })}
                 >
                   <IconCalendar />
                   <Text ml="sm" size={15} weight={500}>
                     {endDate}
                   </Text>
                 </Flex>
-                <Text mt="50px">First Half</Text>
+                <Text mt="50px">{props.endDateSection}</Text>
               </Box>
             </Flex>
           </Menu.Target>
@@ -189,6 +190,7 @@ function LeaveReason() {
       </Box>
       <Textarea
         mt="40px"
+        mx="lg"
         minRows={10}
         placeholder=""
         label="Leave Reason"
