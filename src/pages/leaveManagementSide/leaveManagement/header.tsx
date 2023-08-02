@@ -67,7 +67,7 @@ function Header() {
         <Text
           sx={{
             position: 'absolute',
-            left: `${33 + 25}%`,
+            left: `${33 + 28}%`,
           }}
         >
           Approved: <b>3</b>
@@ -81,7 +81,7 @@ function Header() {
             color: '#FFD5D5',
           },
           {
-            value: 25,
+            value: 28,
             color: '#EFD5FF',
           },
           {
