@@ -15,6 +15,7 @@ import TimeTable from './pages/timetable';
 import ResetPassword from './pages/auth/resetPassword';
 import Login from './pages/auth/login';
 import ForgotPassword from './pages/auth/forgotPassword';
+import LeaveManagementManager from './pages/leaveManagementSide/leaveManagement';
 
 const DashboardLayout = React.lazy(
   () => import('./components/layout/DashboardLayout')
@@ -194,6 +195,14 @@ function App() {
               element={
                 <WrapSuspense>
                   <TimeTable />
+                </WrapSuspense>
+              }
+            />
+            <Route
+              path="/manager/leave-management"
+              element={
+                <WrapSuspense>
+                  <LeaveManagementManager />
                 </WrapSuspense>
               }
             />

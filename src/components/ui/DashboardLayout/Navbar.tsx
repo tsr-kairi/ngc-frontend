@@ -86,7 +86,7 @@ const data = [
     // rightSection: <IconUser size="1rem" stroke={1.5} />,
   },
   { icon: IconCalendarTime, label: 'Timesheet', href: '/timesheet' },
-  { icon: IconCalendarTime, label: 'Timesheet', href: '/timetable' },
+  { icon: IconCalendarTime, label: 'Timetable', href: '/timetable' },
   {
     icon: IconDoorExit,
     label: 'Leave',
