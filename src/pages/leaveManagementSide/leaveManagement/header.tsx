@@ -49,6 +49,8 @@ function Header() {
           position: 'relative',
           marginTop: '10px',
           marginBottom: '3px',
+          fontSize: '12px',
+          fontWeight: 'lighter',
         }}
       >
         <Text>
