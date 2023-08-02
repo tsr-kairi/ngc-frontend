@@ -7,7 +7,7 @@ import LoginPasswordState from './components/LoginPasswordState';
 function Login() {
   const [toggleLoginState, setToggleLoginState] = useState('email');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('');
 
   return (
     <Box
@@ -51,7 +51,7 @@ function Login() {
           <LoginPasswordState
             setToggleLoginState={setToggleLoginState}
             email={email}
-            setPassword={setPassword}
+            // setPassword={setPassword}
           />
         )}
         {toggleLoginState === '2fa' && (

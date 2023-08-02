@@ -21,13 +21,12 @@ import { Link } from 'react-router-dom';
 interface ToggleLoginStateProps {
   setToggleLoginState: (val: string) => void;
   email: string;
-  setPassword: (val: string) => void;
+  // setPassword: (val: any) => void;
 }
 
 function LoginPasswordState({
   setToggleLoginState,
-  email,
-  setPassword,
+  email, // setPassword,
 }: ToggleLoginStateProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState(false);
@@ -147,7 +146,7 @@ function LoginPasswordState({
             variant="unstyled"
             onChange={(e) => {
               setPasswordError(false);
-              setPassword(e.currentTarget.value);
+              // setPassword(e.currentTarget.value);
             }}
             sx={(theme) => ({
               border: `1px solid ${
